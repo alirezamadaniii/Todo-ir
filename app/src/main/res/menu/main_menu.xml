@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/home" android:icon="@mipmap/ic_launcher" android:title="@string/home"/>
+<item android:id="@+id/calender" android:icon="@mipmap/ic_launcher" android:title="@string/calender"/>
+<item android:id="@+id/add" android:title=""/>
+<item android:id="@+id/focus" android:icon="@mipmap/ic_launcher" android:title="@string/focus"/>
+<item android:id="@+id/profile" android:icon="@mipmap/ic_launcher" android:title="@string/profile"/>
+</menu>
