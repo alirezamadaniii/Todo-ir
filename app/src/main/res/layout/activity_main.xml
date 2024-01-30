@@ -11,11 +11,11 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         style="@style/Widget.MaterialComponents.BottomAppBar"
         android:layout_gravity="bottom"
         android:backgroundTint="@color/gray_light"
-        app:fabCradleMargin="0dp"
+        app:fabCradleMargin="5dp"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabCradleVerticalOffset="10dp">
 
@@ -41,7 +41,9 @@
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:contentDescription="@string/app_name"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/baseline_add_24"
+        app:fabCustomSize="68dp"
+        app:maxImageSize="28dp"
         android:backgroundTint="@color/purple"
         app:layout_anchor="@id/bottomAppBar"
          />
