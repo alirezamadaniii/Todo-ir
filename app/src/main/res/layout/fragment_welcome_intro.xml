@@ -29,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -51,6 +52,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/vazir_medium"
         app:backgroundTint="@color/purple"
         app:cornerRadius="4dp"
         app:layout_constraintStart_toStartOf="parent"

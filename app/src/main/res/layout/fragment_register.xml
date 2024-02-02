@@ -31,28 +31,29 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_back_register" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView2"
+        android:id="@+id/im_profile_register"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/def_profile"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView4"
         app:shapeAppearanceOverlay="@style/circleImageView" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView5"
+        android:id="@+id/im_choose_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/vazir_bold"
-        android:text="Chose Image"
+        android:text="@string/chose_image"
         android:textSize="12sp"
         android:textColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView2"
-        app:layout_constraintStart_toStartOf="@+id/shapeableImageView2"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView2" />
+        app:layout_constraintEnd_toEndOf="@+id/im_profile_register"
+        app:layout_constraintStart_toStartOf="@+id/im_profile_register"
+        app:layout_constraintTop_toBottomOf="@+id/im_profile_register" />
 
 
     <com.google.android.material.textview.MaterialTextView
@@ -61,10 +62,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/vazir_medium"
-        android:text="Name"
+        android:text="@string/name_login"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/materialTextView4"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView5" />
+        app:layout_constraintTop_toBottomOf="@+id/im_choose_image" />
 
 
 
@@ -77,11 +78,11 @@
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:boxStrokeColor="@color/purple"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView6">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_name_register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/vazir_medium"

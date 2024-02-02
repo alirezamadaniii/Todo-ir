@@ -13,4 +13,10 @@
     <string name="next">NEXT</string>
     <string name="hi">Hi</string>
     <string name="go_home">Go Home</string>
+    <string name="please_select_the_language_of_the_app">Please select the language of the app</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Egestas purus viverra accumsan in nisl nisi Arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque In egestas erat imperdiet sed euismod nisi porta lorem mollis Morbi tristique senectus et netus Mattis pellentesque id nibh tortor id aliquet lectus proin</string>
+    <string name="chose_image">Chose Image</string>
+    <string name="name_login">Name</string>
+    <string name="what_do_you_want_to_do_today">What do you want to do today?</string>
+    <string name="tap_to_add_your_tasks">Tap + to add your tasks</string>
 </resources>

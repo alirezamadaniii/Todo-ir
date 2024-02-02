@@ -26,14 +26,20 @@
 
 
 
+    <!--Splash Screen -->
     <style name="Theme.Todoir.Starting" parent="Theme.SplashScreen">
-        <!-- Set the splash screen background to black -->
         <item name="windowSplashScreenBackground">@android:color/black</item>
-        <!-- Use windowSplashScreenAnimatedIcon to add a drawable or an animated
-             drawable. -->
         <item name="windowSplashScreenAnimatedIcon">@drawable/animated_logo</item>
-        <!-- Set the theme of the Activity that follows your splash screen. -->
         <item name="postSplashScreenTheme">@style/Theme.Todoir</item>
+    </style>
+
+
+    <!--Bottom Sheet -->
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
 
 </resources>

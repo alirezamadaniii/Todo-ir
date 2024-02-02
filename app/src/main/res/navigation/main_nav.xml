@@ -33,7 +33,11 @@
             android:id="@+id/welcomeIntroFragment"
             android:name="com.example.todoir.peresentaion.ui.intro.WelcomeIntroFragment"
             android:label="fragment_welcome_intro"
-            tools:layout="@layout/fragment_welcome_intro" />
+            tools:layout="@layout/fragment_welcome_intro" >
+            <action
+                android:id="@+id/action_welcomeIntroFragment_to_homeFragment"
+                app:destination="@id/homeFragment" />
+        </fragment>
         <fragment
             android:id="@+id/registerFragment"
             android:name="com.example.todoir.peresentaion.ui.intro.RegisterFragment"
@@ -45,4 +49,8 @@
                 app:enterAnim="@anim/anim_right_to_left"
                 app:popEnterAnim="@anim/anim_left_to_right" />
         </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.todoir.peresentaion.ui.home.HomeFragment"
+        android:label="HomeFragment" />
 </navigation>
