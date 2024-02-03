@@ -1,21 +1,20 @@
 package com.example.todoir
 
-import android.app.Activity
+import android.app.Dialog
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.LinearLayout
-import android.window.SplashScreen
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
-import androidx.core.view.ViewCompat.LAYOUT_DIRECTION_RTL
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -44,19 +43,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var  navController:NavController
     private lateinit var navGraph: NavGraph
     private lateinit var bottomSheetDialog: BottomSheetDialog
+    private lateinit var bottomSheetDialog2: BottomSheetDialog
     private val itemAdapterBottomSheet = LanguageBottomSheet()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Thread.sleep(2000)
         installSplashScreen()
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+
+        binding= DataBindingUtil.setContentView(this,R.layout.activity_main)
+
 
         createCustomBottomNavigation()
         initNavigation()
         initBottomNavigation()
         hideBottomNavigation()
 
+        binding.fab.setOnClickListener {
+            showBottomSheet2()
+        }
 
     }
 
@@ -103,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         val lang = sp.fetch("username").toString()
         val destination :Int= if (lang.isNullOrEmpty()) {
             showBottomSheet()
-            R.id.firstIntroFragment
+            R.id.intro_navigation
         }else{
             R.id.homeFragment
 
@@ -127,7 +132,6 @@ class MainActivity : AppCompatActivity() {
         bottomSheetDialog.setContentView(dialogView)
         bottomSheetDialog.setCancelable(false)
         val recyclerView = dialogView.findViewById<RecyclerView>(R.id.recyyy)
-
         recyclerView.adapter = itemAdapterBottomSheet
         bottomSheetDialog.show()
 
@@ -162,11 +166,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun refreshCurrentFragment(){
-        val id = navController.currentDestination?.id
+        val id = R.id.intro_navigation
         navController.popBackStack(id!!,true)
         navController.navigate(id)
     }
 
+
+    private fun showBottomSheet2() {
+        val dialogView =
+            layoutInflater.inflate(R.layout.add_task_bottom_sheet, LinearLayout(this))
+        bottomSheetDialog2 =
+            BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+        bottomSheetDialog2.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        bottomSheetDialog2.setContentView(dialogView)
+        bottomSheetDialog2.setCancelable(true)
+        bottomSheetDialog2.show()
+
+    }
 
 
 }

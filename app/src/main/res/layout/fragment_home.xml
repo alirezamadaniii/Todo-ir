@@ -15,12 +15,12 @@
         android:layout_height="35dp"
         android:layout_margin="24dp"
         android:background="@drawable/sort"
-        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView2"
+        app:layout_constraintBottom_toBottomOf="@+id/im_profile_home"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/shapeableImageView2" />
+        app:layout_constraintTop_toTopOf="@+id/im_profile_home" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView2"
+        android:id="@+id/im_profile_home"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_margin="24dp"
@@ -37,10 +37,10 @@
         android:text="@string/home"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView2"
+        app:layout_constraintBottom_toBottomOf="@+id/im_profile_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/shapeableImageView2" />
+        app:layout_constraintTop_toTopOf="@+id/im_profile_home" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/shapeableImageView3"
