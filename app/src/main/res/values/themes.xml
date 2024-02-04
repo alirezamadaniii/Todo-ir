@@ -4,6 +4,7 @@
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/gray_dark</item>
         <item name="android:navigationBarColor">@color/gray_dark</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
 
 
 <!--        &lt;!&ndash;Typography&ndash;&gt;-->
@@ -48,5 +49,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
+
+
 
 </resources>

@@ -1,15 +1,13 @@
 package com.example.todoir
 
-import android.app.Dialog
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
+import android.text.format.DateFormat.is24HourFormat
 import android.util.SparseIntArray
 import android.view.View
 import android.view.WindowManager
-import android.widget.ArrayAdapter
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -18,7 +16,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -33,9 +30,11 @@ import com.example.todoir.data.utils.Sp
 import com.example.todoir.data.utils.dialog
 import com.example.todoir.databinding.ActivityMainBinding
 import com.example.todoir.peresentaion.adapter.LanguageBottomSheet
-import com.example.todoir.peresentaion.adapter.NumberAdapter
+import com.example.todoir.peresentaion.adapter.HourseAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -78,14 +77,22 @@ class MainActivity : AppCompatActivity() {
 //            addTaskshowBottomSheet()
 //            persianCalender()
 //            englishCalender()
+            val picker =
+                MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .setHour(12)
+                    .setMinute(10)
 
-            val dialog = dialog(R.layout.dialog_time,binding.root,false)
-            val recyclerView = dialog.findViewById<RecyclerView>(R.id.numberlist)
-            val adapter = NumberAdapter()
-             val mList: MutableList<Int>  = arrayListOf(1,2,3,4,56,7,8,8,9,9,4)
-            adapter.differ.submitList(mList)
-            recyclerView.adapter = adapter
+                    .setTitleText("Select Appointment time")
+                    .build()
+
+            val isSystem24Hour = is24HourFormat(this)
+            val clockFormat = if (isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
+
+            picker.show(this.supportFragmentManager, "tag");
+//            dialog(R.layout.dialog_time,binding.root,false)
         }
+
 
     }
 

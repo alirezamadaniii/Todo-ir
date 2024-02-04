@@ -5,12 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoir.R
-import com.example.todoir.data.model.Language
 import com.example.todoir.databinding.ItemNumberBinding
-import java.text.DecimalFormat
 
-class NumberAdapter : RecyclerView.Adapter<NumberAdapter.MyViewHolder>() {
+class HourseAdapter : RecyclerView.Adapter<HourseAdapter.MyViewHolder>() {
 
 
     private val callback = object : DiffUtil.ItemCallback<Int>(){
