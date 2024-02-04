@@ -4,9 +4,13 @@ import android.app.Dialog
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.SparseIntArray
 import android.view.View
 import android.view.WindowManager
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
@@ -18,15 +22,26 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.persian.PersianCalendar
+import com.aminography.primedatepicker.common.BackgroundShapeType
+import com.aminography.primedatepicker.common.LabelFormatter
+import com.aminography.primedatepicker.picker.PrimeDatePicker
+import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
+import com.aminography.primedatepicker.picker.theme.LightThemeFactory
 import com.example.todoir.data.utils.Sp
+import com.example.todoir.data.utils.dialog
 import com.example.todoir.databinding.ActivityMainBinding
 import com.example.todoir.peresentaion.adapter.LanguageBottomSheet
+import com.example.todoir.peresentaion.adapter.NumberAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 import javax.inject.Inject
 
 
@@ -60,9 +75,52 @@ class MainActivity : AppCompatActivity() {
         hideBottomNavigation()
 
         binding.fab.setOnClickListener {
-            showBottomSheet2()
+//            addTaskshowBottomSheet()
+//            persianCalender()
+//            englishCalender()
+
+            val dialog = dialog(R.layout.dialog_time,binding.root,false)
+            val recyclerView = dialog.findViewById<RecyclerView>(R.id.numberlist)
+            val adapter = NumberAdapter()
+             val mList: MutableList<Int>  = arrayListOf(1,2,3,4,56,7,8,8,9,9,4)
+            adapter.differ.submitList(mList)
+            recyclerView.adapter = adapter
         }
 
+    }
+
+    private fun englishCalender() {
+        val callback = SingleDayPickCallback { day ->
+
+        }
+
+        val today = CivilCalendar()
+
+        val datePicker = PrimeDatePicker.bottomSheetWith(today)
+            .pickSingleDay(callback)
+            .initiallyPickedSingleDay(today)
+            .applyTheme(themeFactory)
+            .build()
+
+        datePicker.show(supportFragmentManager, "SOME_TAG")
+    }
+
+    private fun persianCalender() {
+        val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
+
+        val callback = SingleDayPickCallback { day ->
+            Toast.makeText(this,day.date.toString(),Toast.LENGTH_LONG).show()
+        }
+
+        val today = CivilCalendar(TimeZone.getTimeZone("GMT+4:30"))
+
+        val datePicker = PrimeDatePicker.bottomSheetWith(calendar)
+            .pickSingleDay(callback)
+            .initiallyPickedSingleDay(calendar)
+            .applyTheme(themeFactory)
+            .build()
+
+        datePicker.show(supportFragmentManager, "SOME_TAG")
     }
 
     private fun createCustomBottomNavigation(){
@@ -172,7 +230,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun showBottomSheet2() {
+    private fun addTaskshowBottomSheet() {
         val dialogView =
             layoutInflater.inflate(R.layout.add_task_bottom_sheet, LinearLayout(this))
         bottomSheetDialog2 =
@@ -183,6 +241,63 @@ class MainActivity : AppCompatActivity() {
         bottomSheetDialog2.show()
 
     }
+    private val themeFactory = object : LightThemeFactory() {
 
+        override val typefacePath: String?
+            get() = "fonts/vazir_bold.ttf"
+
+        override val dialogBackgroundColor: Int
+            get() = getColor(R.color.gray_light)
+
+        override val calendarViewBackgroundColor: Int
+            get() = getColor(R.color.gray_light)
+
+
+        override val calendarViewPickedDayBackgroundColor: Int
+            get() = getColor(R.color.purple)
+
+
+
+        override val calendarViewDayLabelTextColor: Int
+            get() = getColor(R.color.white)
+
+        override val calendarViewTodayLabelTextColor: Int
+            get() = getColor(R.color.purple)
+
+        override val calendarViewWeekLabelFormatter: LabelFormatter
+            get() = { primeCalendar ->
+                when (primeCalendar[Calendar.DAY_OF_WEEK]) {
+                    Calendar.THURSDAY,
+                    Calendar.FRIDAY -> String.format("%s", primeCalendar.weekDayNameShort)
+                    else -> String.format("%s", primeCalendar.weekDayNameShort)
+                }
+            }
+
+        override val calendarViewWeekLabelTextColors: SparseIntArray
+            get() = SparseIntArray(7).apply {
+                val red = getColor(com.aminography.primedatepicker.R.color.red500)
+                val indigo = getColor(com.aminography.primedatepicker.R.color.blue400)
+                put(Calendar.SATURDAY, indigo)
+                put(Calendar.SUNDAY, indigo)
+                put(Calendar.MONDAY, indigo)
+                put(Calendar.TUESDAY, indigo)
+                put(Calendar.WEDNESDAY, indigo)
+                put(Calendar.THURSDAY, red)
+                put(Calendar.FRIDAY, red)
+            }
+
+        override val calendarViewShowAdjacentMonthDays: Boolean
+            get() = true
+
+        override val selectionBarBackgroundColor: Int
+            get() = getColor(R.color.purple)
+
+        override val actionBarTodayTextColor: Int
+            get() = getColor(R.color.purple)
+
+
+        override val pickedDayBackgroundShapeType: BackgroundShapeType
+            get() = BackgroundShapeType.ROUND_SQUARE
+    }
 
 }
