@@ -26,14 +26,15 @@ import com.aminography.primedatepicker.common.LabelFormatter
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.aminography.primedatepicker.picker.theme.LightThemeFactory
+import com.example.todoir.data.utils.CustomCalender
 import com.example.todoir.data.utils.Sp
-import com.example.todoir.data.utils.dialog
 import com.example.todoir.databinding.ActivityMainBinding
 import com.example.todoir.peresentaion.adapter.LanguageBottomSheet
-import com.example.todoir.peresentaion.adapter.HourseAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var bottomSheetDialog2: BottomSheetDialog
     private val itemAdapterBottomSheet = LanguageBottomSheet()
+    private val customCalender =CustomCalender()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +84,6 @@ class MainActivity : AppCompatActivity() {
                     .setTimeFormat(TimeFormat.CLOCK_12H)
                     .setHour(12)
                     .setMinute(10)
-
                     .setTitleText("Select Appointment time")
                     .build()
 
@@ -90,8 +91,7 @@ class MainActivity : AppCompatActivity() {
             val clockFormat = if (isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
 
             picker.show(this.supportFragmentManager, "tag");
-//            dialog(R.layout.dialog_time,binding.root,false)
-        }
+          }
 
 
     }
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         val datePicker = PrimeDatePicker.bottomSheetWith(today)
             .pickSingleDay(callback)
             .initiallyPickedSingleDay(today)
-            .applyTheme(themeFactory)
+            .applyTheme(customCalender)
             .build()
 
         datePicker.show(supportFragmentManager, "SOME_TAG")
@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         val datePicker = PrimeDatePicker.bottomSheetWith(calendar)
             .pickSingleDay(callback)
             .initiallyPickedSingleDay(calendar)
-            .applyTheme(themeFactory)
+            .applyTheme(customCalender)
             .build()
 
         datePicker.show(supportFragmentManager, "SOME_TAG")
@@ -248,63 +248,6 @@ class MainActivity : AppCompatActivity() {
         bottomSheetDialog2.show()
 
     }
-    private val themeFactory = object : LightThemeFactory() {
 
-        override val typefacePath: String?
-            get() = "fonts/vazir_bold.ttf"
-
-        override val dialogBackgroundColor: Int
-            get() = getColor(R.color.gray_light)
-
-        override val calendarViewBackgroundColor: Int
-            get() = getColor(R.color.gray_light)
-
-
-        override val calendarViewPickedDayBackgroundColor: Int
-            get() = getColor(R.color.purple)
-
-
-
-        override val calendarViewDayLabelTextColor: Int
-            get() = getColor(R.color.white)
-
-        override val calendarViewTodayLabelTextColor: Int
-            get() = getColor(R.color.purple)
-
-        override val calendarViewWeekLabelFormatter: LabelFormatter
-            get() = { primeCalendar ->
-                when (primeCalendar[Calendar.DAY_OF_WEEK]) {
-                    Calendar.THURSDAY,
-                    Calendar.FRIDAY -> String.format("%s", primeCalendar.weekDayNameShort)
-                    else -> String.format("%s", primeCalendar.weekDayNameShort)
-                }
-            }
-
-        override val calendarViewWeekLabelTextColors: SparseIntArray
-            get() = SparseIntArray(7).apply {
-                val red = getColor(com.aminography.primedatepicker.R.color.red500)
-                val indigo = getColor(com.aminography.primedatepicker.R.color.blue400)
-                put(Calendar.SATURDAY, indigo)
-                put(Calendar.SUNDAY, indigo)
-                put(Calendar.MONDAY, indigo)
-                put(Calendar.TUESDAY, indigo)
-                put(Calendar.WEDNESDAY, indigo)
-                put(Calendar.THURSDAY, red)
-                put(Calendar.FRIDAY, red)
-            }
-
-        override val calendarViewShowAdjacentMonthDays: Boolean
-            get() = true
-
-        override val selectionBarBackgroundColor: Int
-            get() = getColor(R.color.purple)
-
-        override val actionBarTodayTextColor: Int
-            get() = getColor(R.color.purple)
-
-
-        override val pickedDayBackgroundShapeType: BackgroundShapeType
-            get() = BackgroundShapeType.ROUND_SQUARE
-    }
 
 }
