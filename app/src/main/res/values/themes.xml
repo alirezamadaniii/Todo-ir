@@ -4,13 +4,13 @@
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/gray_dark</item>
         <item name="android:navigationBarColor">@color/gray_dark</item>
-        <item name="colorPrimaryContainer">@color/gray_dark</item>
-        <item name="colorSurfaceContainerHighest">@color/white</item>
-        <item name="colorSurfaceContainerHigh">@color/gray_light</item>
-        <item name="colorOnSurface">@color/white</item>
-        <item name="colorOnPrimaryContainer">@color/white</item>
-        <item name="colorOnSurfaceVariant">@color/white</item>
-        <item name="colorSurface">@color/blue300</item>
+<!--        <item name="colorPrimaryContainer">@color/gray_dark</item>-->
+<!--        <item name="colorSurfaceContainerHighest">@color/white</item>-->
+<!--        <item name="colorSurfaceContainerHigh">@color/gray_light</item>-->
+<!--        <item name="colorOnSurface">@color/white</item>-->
+<!--        <item name="colorOnPrimaryContainer">@color/white</item>-->
+<!--        <item name="colorOnSurfaceVariant">@color/white</item>-->
+<!--        <item name="colorSurface">@color/blue300</item>-->
 
 
 
@@ -46,8 +46,15 @@
     </style>
 
 
-    <style name="MyMaterialTimePickerTheme" parent="@style/Widget.Material3.MaterialTimePicker">
-
+    <style name="MyMaterialTimePickerTheme" parent="Widget.Material3.MaterialTimePicker">
+<!--        <item name="colorPrimary">@color/gray_dark</item>-->
+<!--                <item name="colorPrimaryContainer">@color/gray_dark</item>-->
+<!--                <item name="colorSurfaceContainerHighest">@color/white</item>-->
+<!--                <item name="colorSurfaceContainerHigh">@color/gray_light</item>-->
+<!--                <item name="colorOnSurface">@color/white</item>-->
+<!--                <item name="colorOnPrimaryContainer">@color/white</item>-->
+<!--                <item name="colorOnSurfaceVariant">@color/white</item>-->
+<!--                <item name="colorSurface">@color/blue300</item>-->
 
     </style>
 

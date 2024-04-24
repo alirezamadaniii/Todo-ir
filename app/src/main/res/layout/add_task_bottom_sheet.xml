@@ -23,6 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        app:boxStrokeColor="@color/purple"
+        app:hintTextColor="@color/white"
         android:textColorHint="@color/mtrl_textinput_default_box_stroke_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +44,8 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
+        app:boxStrokeColor="@color/purple"
+        app:hintTextColor="@color/white"
         android:textColorHint="@color/mtrl_textinput_default_box_stroke_color"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
@@ -53,13 +57,16 @@
             android:fontFamily="@font/vazir_light"
             android:gravity="top"
             android:hint="@string/description"
+            android:overScrollMode="always"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
             android:textColor="@color/white"
             android:textColorHint="@color/white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView2"
+        android:id="@+id/img_calender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -69,14 +76,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView4"
+        android:id="@+id/img_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:src="@drawable/tag"
-        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView2"
-        app:layout_constraintStart_toEndOf="@+id/shapeableImageView2"
-        app:layout_constraintTop_toTopOf="@+id/shapeableImageView2" />
+        app:layout_constraintBottom_toBottomOf="@+id/img_calender"
+        app:layout_constraintStart_toEndOf="@+id/img_calender"
+        app:layout_constraintTop_toTopOf="@+id/img_calender" />
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -85,9 +92,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:src="@drawable/flag"
-        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView4"
-        app:layout_constraintStart_toEndOf="@+id/shapeableImageView4"
-        app:layout_constraintTop_toTopOf="@+id/shapeableImageView4" />
+        app:layout_constraintBottom_toBottomOf="@+id/img_category"
+        app:layout_constraintStart_toEndOf="@+id/img_category"
+        app:layout_constraintTop_toTopOf="@+id/img_category" />
 
 
     <com.google.android.material.imageview.ShapeableImageView
