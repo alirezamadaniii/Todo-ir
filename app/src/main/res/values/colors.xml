@@ -8,5 +8,17 @@
     <color name="mtrl_textinput_default_box_stroke_color">#A19E9E</color>
 
 
+    <color name="color_1">#CCFF80</color>
+    <color name="color_2">#FF9680</color>
+    <color name="color_3">#80FFFF</color>
+    <color name="color_4">#80FFD9</color>
+    <color name="color_5">#809CFF</color>
+    <color name="color_6">#FF80EB</color>
+    <color name="color_7">#FC80FF</color>
+    <color name="color_8">#80FFA3</color>
+    <color name="color_9">#FFCC80</color>
+    <color name="color_10">#80D1FF</color>
+    <color name="color_11">#80FFD1</color>
+
 
 </resources>

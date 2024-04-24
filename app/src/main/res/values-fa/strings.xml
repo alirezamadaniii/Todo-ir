@@ -25,4 +25,17 @@
     <string name="choose_time">انتخاب تایم</string>
     <string name="save">ذخیره</string>
     <string name="cancel">لغو</string>
+
+    <string name="choose_category">انتخاب دسته بندی</string>
+    <string name="Grocery">خوراک</string>
+    <string name="Work">کار</string>
+    <string name="Sport">ورزش</string>
+    <string name="Design">Design</string>
+    <string name="University">دانشگاه</string>
+    <string name="Social">سوشال مدیا</string>
+    <string name="Music">موزیک</string>
+    <string name="Health">سلامتی</string>
+    <string name="Movie">فیلم</string>
+    <string name="Home">خانه</string>
+
 </resources>

@@ -87,7 +87,7 @@
 
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView5"
+        android:id="@+id/img_priority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/send"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView5"
+        app:layout_constraintBottom_toBottomOf="@+id/img_priority"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/shapeableImageView5" />
+        app:layout_constraintTop_toTopOf="@+id/img_priority" />
 </androidx.constraintlayout.widget.ConstraintLayout>

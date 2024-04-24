@@ -1,24 +1,24 @@
 package com.example.todoir.peresentaion.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoir.R
 import com.example.todoir.data.model.Category
+import com.example.todoir.data.model.Priority
 import com.example.todoir.databinding.ItemCategoryBinding
+import com.example.todoir.databinding.ItemPriorityBinding
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
+class PriorityAdapter: RecyclerView.Adapter<PriorityAdapter.MyViewHolder>() {
 
-    private val callback = object : DiffUtil.ItemCallback<Category>(){
-        override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+    private val callback = object : DiffUtil.ItemCallback<Priority>(){
+        override fun areItemsTheSame(oldItem: Priority, newItem: Priority): Boolean {
             return oldItem.id == newItem.id
         }
 
 
-        override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+        override fun areContentsTheSame(oldItem: Priority, newItem: Priority): Boolean {
             return oldItem == newItem
         }
     }
@@ -27,7 +27,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemCategoryBinding
+        val binding = ItemPriorityBinding
             .inflate(LayoutInflater.from(parent.context),parent,false)
         return MyViewHolder(binding)
     }
@@ -44,27 +44,21 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
 
 
 
-    inner class  MyViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Category){
+    inner class  MyViewHolder(val binding: ItemPriorityBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Priority){
             binding.tvCategoryName.text = item.name
-            binding.imgCategoryIcon.setImageResource(item.image)
-            binding.cvGrocery.setCardBackgroundColor(Color.parseColor(item.color))
             binding.root.setOnClickListener {
                 onItemClick?.let {
                     it(item)
                 }
             }
-
         }
-
-
     }
 
-    private var onItemClick :((Category)->Unit)?=null
+    private var onItemClick :((Priority)->Unit)?=null
 
-    fun setOnItemClick(listener:(Category)->Unit){
+    fun setOnItemClick(listener:(Priority)->Unit){
         onItemClick = listener
     }
-
 
 }

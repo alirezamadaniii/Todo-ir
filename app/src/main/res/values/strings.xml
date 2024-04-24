@@ -26,4 +26,16 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="choose_category">Choose Category</string>
+    <string name="Grocery">Grocery</string>
+    <string name="Work">Work</string>
+    <string name="Sport">Sport</string>
+    <string name="Design">Design</string>
+    <string name="University">University</string>
+    <string name="Social">Social</string>
+    <string name="Music">Music</string>
+    <string name="Health">Health</string>
+    <string name="Movie">Movie</string>
+    <string name="Home">Home</string>
+
+
 </resources>

@@ -25,12 +25,14 @@ import com.aminography.primecalendar.persian.PersianCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.example.todoir.data.model.Category
+import com.example.todoir.data.model.Priority
 import com.example.todoir.data.utils.CustomCalender
 import com.example.todoir.data.utils.Sp
 import com.example.todoir.data.utils.dialog
 import com.example.todoir.databinding.ActivityMainBinding
 import com.example.todoir.peresentaion.adapter.CategoryAdapter
 import com.example.todoir.peresentaion.adapter.LanguageBottomSheet
+import com.example.todoir.peresentaion.adapter.PriorityAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -75,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         hideBottomNavigation()
 
         binding.fab.setOnClickListener {
-            addTaskshowBottomSheet()
+            addTaskShowBottomSheet()
 
 
         }
@@ -245,12 +247,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun refreshCurrentFragment() {
         val id = R.id.intro_navigation
-        navController.popBackStack(id!!, true)
+        navController.popBackStack(id, true)
         navController.navigate(id)
     }
 
 
-    private fun addTaskshowBottomSheet() {
+    private fun addTaskShowBottomSheet() {
         val dialogView =
             layoutInflater.inflate(R.layout.add_task_bottom_sheet, LinearLayout(this))
         bottomSheetDialog2 =
@@ -270,24 +272,65 @@ class MainActivity : AppCompatActivity() {
 
 
         dialogView.findViewById<ImageView>(R.id.img_category).setOnClickListener {
-            val category = Category(1,"Sport",R.drawable.sport_1)
-            val category1 = Category(2,"Sport",R.drawable.sport_1)
-            val category2 = Category(3,"Sport",R.drawable.sport_1)
-            val category3 = Category(4,"Sport",R.drawable.sport_1)
+            val category1 = Category(1,getString(R.string.add),R.drawable.add_1,"#80FFD1")
+            val category2 = Category(2,getString(R.string.Grocery),R.drawable.bread_1,"#CCFF80")
+            val category3 = Category(3,getString(R.string.Work),R.drawable.briefcase_1,"#FF9680")
+            val category4 = Category(4,getString(R.string.Sport),R.drawable.sport_1,"#80FFFF")
+            val category5 = Category(5,getString(R.string.Design),R.drawable.design__1__1,"#80FFD9")
+            val category6 = Category(6,getString(R.string.University),R.drawable.mortarboard_1,"#809CFF")
+            val category7 = Category(7,getString(R.string.Social),R.drawable.megaphone_1,"#FF80EB")
+            val category8 = Category(8,getString(R.string.Music),R.drawable.music__1__1,"#FC80FF")
+            val category9 = Category(9,getString(R.string.Health),R.drawable.heartbeat_1,"#80FFA3")
+            val category10 = Category(10,getString(R.string.Movie),R.drawable.video_camera_1,"#FFCC80")
+            val category11 = Category(11,getString(R.string.Home),R.drawable.home__2__1,"#80D1FF")
 
-            val category4 = Category(5,"Sport",R.drawable.sport_1)
-            val category5 = Category(6,"Sport",R.drawable.sport_1)
-            val category6 = Category(7,"Sport",R.drawable.sport_1)
-            val category7 = Category(8,"Sport",R.drawable.sport_1)
-
-            val categoryList = arrayListOf<Category>(category,category1,category2,category3,category4,category5,category6,category7)
-            val categoryDialog = dialog(R.layout.dialog_category,binding.root,false)
+            val categoryList = arrayListOf(
+                category1,category2,category3,
+                category4,category5,category6,category7,
+                category8,category9,category10,category11)
+            val categoryDialog = dialog(R.layout.dialog_category,binding.root,true)
             val recycler =categoryDialog.findViewById<RecyclerView>(R.id.recy_category)
             val adapter =CategoryAdapter()
             adapter.differ.submitList(categoryList)
             recycler.adapter =adapter
+
+            adapter.setOnItemClick {
+                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+                categoryDialog.dismiss()
+            }
+        }
+
+
+        dialogView.findViewById<ImageView>(R.id.img_priority).setOnClickListener {
+            val priority = Priority(1,"1")
+            val priority2 = Priority(2,"2")
+            val priority3 = Priority(3,"3")
+            val priority4 = Priority(4,"4")
+            val priority5 = Priority(5,"5")
+            val priority6 = Priority(6,"6")
+            val priority7 = Priority(7,"7")
+            val priority8 = Priority(8,"8")
+            val priority9 = Priority(9,"9")
+            val priority10 = Priority(10,"10")
+
+            val priorityList = arrayListOf(
+                priority,
+                priority2,priority3,priority4,priority5,
+                priority6,priority7,priority8,priority9,priority10)
+            val priorityDialog = dialog(R.layout.dialog_priority,binding.root,true)
+            val recycler =priorityDialog.findViewById<RecyclerView>(R.id.recy_priority)
+            val adapter =PriorityAdapter()
+            adapter.differ.submitList(priorityList)
+            recycler.adapter =adapter
+            adapter.setOnItemClick {
+                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+                priorityDialog.dismiss()
+            }
         }
     }
+
+
+
 
 
 }
