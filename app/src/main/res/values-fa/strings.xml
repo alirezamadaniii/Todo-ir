@@ -37,5 +37,8 @@
     <string name="Health">سلامتی</string>
     <string name="Movie">فیلم</string>
     <string name="Home">خانه</string>
+    <string name="Please_enter_title">لطفا عنوان را وارد کنید</string>
+    <string name="Please_enter_Description">لطفا توضیحات را وارد کنید</string>
+
 
 </resources>

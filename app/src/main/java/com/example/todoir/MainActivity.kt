@@ -7,9 +7,11 @@ import android.text.format.DateFormat.is24HourFormat
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
@@ -26,6 +28,7 @@ import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.example.todoir.data.model.Category
 import com.example.todoir.data.model.Priority
+import com.example.todoir.data.model.Task
 import com.example.todoir.data.utils.CustomCalender
 import com.example.todoir.data.utils.Sp
 import com.example.todoir.data.utils.dialog
@@ -33,9 +36,12 @@ import com.example.todoir.databinding.ActivityMainBinding
 import com.example.todoir.peresentaion.adapter.CategoryAdapter
 import com.example.todoir.peresentaion.adapter.LanguageBottomSheet
 import com.example.todoir.peresentaion.adapter.PriorityAdapter
+import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
+import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,6 +57,14 @@ class MainActivity : AppCompatActivity() {
 
     private val _isLoading = MutableStateFlow(true)
     val isLoading = _isLoading.asStateFlow()
+
+    private  val viewModel: MainActivityViewModel by viewModels()
+
+    private var date:String? = null
+    private var time:String? = null
+    private var category:String? =null
+    private var flag:String? = null
+
 
     @Inject
     lateinit var sp: Sp
@@ -91,6 +105,7 @@ class MainActivity : AppCompatActivity() {
             MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(12)
+                .setInputMode(INPUT_MODE_KEYBOARD)
                 .setMinute(10)
                 .setTitleText("Select Appointment time")
                 .build()
@@ -101,13 +116,16 @@ class MainActivity : AppCompatActivity() {
         picker.show(this.supportFragmentManager, "tag")
 
         picker.addOnPositiveButtonClickListener {
+            time = picker.hour.toString()+":"+picker.minute.toString()
             Toast.makeText(this,picker.hour.toString()+":"+picker.minute.toString(),Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun englishCalender() {
         val callback = SingleDayPickCallback { day ->
-            Log.i("TAG", "persianCalender: " + day.year + "/" + day.month + "/" + day.date)
+            val month = (day.month+1)
+            date = "${day.year} / $month /  ${day.date}"
+            Log.i("TAG", "persianCalender: " + day.year + "/" + month + "/" + day.date)
             timePiker()
         }
 
@@ -126,7 +144,9 @@ class MainActivity : AppCompatActivity() {
         val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
 
         val callback = SingleDayPickCallback { day ->
-            Log.i("TAG", "persianCalender: " + day.year + "/" + day.month + "/" + day.date)
+            val month = (day.month+1)
+            date = "${day.year} / $month /  ${day.date}"
+            Log.i("TAG", "persianCalender: " + day.year + "/" + month + "/" + day.date)
             timePiker()
 
         }
@@ -157,6 +177,7 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomAppBar.visibility = View.VISIBLE
                     binding.fab.visibility = View.VISIBLE
                 }
+
 //                R.id.secondIntroFragment -> {
 //                    binding.bottomAppBar.visibility = View.GONE
 //                    binding.fab.visibility =View.GONE
@@ -295,6 +316,7 @@ class MainActivity : AppCompatActivity() {
             recycler.adapter =adapter
 
             adapter.setOnItemClick {
+                category= it.name
                 Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
                 categoryDialog.dismiss()
             }
@@ -323,9 +345,30 @@ class MainActivity : AppCompatActivity() {
             adapter.differ.submitList(priorityList)
             recycler.adapter =adapter
             adapter.setOnItemClick {
+                flag = it.name
                 Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
                 priorityDialog.dismiss()
             }
+        }
+
+        dialogView.findViewById<ImageView>(R.id.img_add_task).setOnClickListener {
+
+            val title = dialogView.findViewById<EditText>(R.id.edt_task_title).text.toString()
+            val description = dialogView.findViewById<EditText>(R.id.edt_task_description).text.toString()
+
+            if(title.isNullOrEmpty()){
+                Toast.makeText(this, getString(R.string.Please_enter_title), Toast.LENGTH_SHORT).show()
+            }else if (description.isNullOrEmpty()){
+                Toast.makeText(this, getString(R.string.Please_enter_Description), Toast.LENGTH_SHORT).show()
+
+            }else{
+                val task =Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
+                    flag?.toInt()!!,"12.23")
+                viewModel.addTask(task)
+                bottomSheetDialog2.dismiss()
+            }
+
+
         }
     }
 

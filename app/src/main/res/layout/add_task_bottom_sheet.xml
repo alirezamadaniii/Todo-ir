@@ -31,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/materialTextView">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_task_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/vazir_light"
@@ -52,6 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_task_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/vazir_light"
@@ -98,6 +100,7 @@
 
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_add_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/send"

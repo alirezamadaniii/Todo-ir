@@ -36,6 +36,8 @@
     <string name="Health">Health</string>
     <string name="Movie">Movie</string>
     <string name="Home">Home</string>
+    <string name="Please_enter_title">Please enter title</string>
+    <string name="Please_enter_Description">Please enter description</string>
 
 
 </resources>
