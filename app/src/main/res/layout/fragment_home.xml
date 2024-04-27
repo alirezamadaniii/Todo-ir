@@ -9,6 +9,12 @@
     android:background="@color/gray_dark"
     tools:context=".peresentaion.ui.home.HomeFragment">
 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/item_home"
+        android:layout_marginTop="50dp"/>
+
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/appCompatImageButton"
         android:layout_width="35dp"

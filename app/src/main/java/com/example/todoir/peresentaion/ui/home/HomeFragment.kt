@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val imageUrl = sp.fetch("img_profile")
         Glide.with(requireContext()).load(imageUrl).into(binding.imProfileHome)
+
     }
 
 
