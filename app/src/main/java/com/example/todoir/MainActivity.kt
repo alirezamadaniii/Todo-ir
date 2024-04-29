@@ -62,8 +62,9 @@ class MainActivity : AppCompatActivity() {
 
     private var date:String? = null
     private var time:String? = null
-    private var category:String? =null
-    private var flag:String? = null
+    private var category:String? ="All"
+    private var flag:String? = "0"
+    private var today:CivilCalendar? = null
 
 
     @Inject
@@ -92,8 +93,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener {
             addTaskShowBottomSheet()
-
-
         }
 
 
@@ -129,11 +128,12 @@ class MainActivity : AppCompatActivity() {
             timePiker()
         }
 
-        val today = CivilCalendar()
+        today = CivilCalendar()
 
-        val datePicker = PrimeDatePicker.bottomSheetWith(today)
+
+        val datePicker = PrimeDatePicker.bottomSheetWith(today!!)
             .pickSingleDay(callback)
-            .initiallyPickedSingleDay(today)
+            .initiallyPickedSingleDay(today!!)
             .applyTheme(customCalender)
             .build()
 
@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        val today = CivilCalendar(TimeZone.getTimeZone("GMT+4:30"))
+        today = CivilCalendar(TimeZone.getTimeZone("GMT+4:30"))
 
         val datePicker = PrimeDatePicker.bottomSheetWith(calendar)
             .pickSingleDay(callback)
@@ -355,6 +355,8 @@ class MainActivity : AppCompatActivity() {
 
             val title = dialogView.findViewById<EditText>(R.id.edt_task_title).text.toString()
             val description = dialogView.findViewById<EditText>(R.id.edt_task_description).text.toString()
+            val confirmDate = "${today?.hour}  ${today?.minute}"
+            Log.i("TAG", "addTaskShowBottomSheet: "+confirmDate)
 
             if(title.isNullOrEmpty()){
                 Toast.makeText(this, getString(R.string.Please_enter_title), Toast.LENGTH_SHORT).show()

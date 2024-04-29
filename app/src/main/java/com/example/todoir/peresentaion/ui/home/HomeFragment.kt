@@ -29,7 +29,6 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_home, container, false)
-//        showBottomSheet()
         return binding.root
     }
 
@@ -37,6 +36,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val imageUrl = sp.fetch("img_profile")
         Glide.with(requireContext()).load(imageUrl).into(binding.imProfileHome)
+
     }
 
 
