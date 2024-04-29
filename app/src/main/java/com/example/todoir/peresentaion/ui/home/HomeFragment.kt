@@ -29,7 +29,6 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(layoutInflater,R.layout.fragment_home, container, false)
-//        showBottomSheet()
         return binding.root
     }
 
