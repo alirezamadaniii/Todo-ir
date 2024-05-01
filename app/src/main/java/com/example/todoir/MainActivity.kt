@@ -36,6 +36,7 @@ import com.example.todoir.databinding.ActivityMainBinding
 import com.example.todoir.peresentaion.adapter.CategoryAdapter
 import com.example.todoir.peresentaion.adapter.LanguageBottomSheet
 import com.example.todoir.peresentaion.adapter.PriorityAdapter
+import com.example.todoir.peresentaion.adapter.TaskAdapter
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -60,9 +61,13 @@ class MainActivity : AppCompatActivity() {
 
     private  val viewModel: MainActivityViewModel by viewModels()
 
+
+
     private var date:String? = null
     private var time:String? = null
     private var category:String? ="All"
+    private var categoryColor:String? ="All"
+    private var categoryIcon:Int? =0
     private var flag:String? = "0"
     private var today:CivilCalendar? = null
 
@@ -90,12 +95,15 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
         initBottomNavigation()
         hideBottomNavigation()
+        onClick()
 
+
+    }
+
+    private fun onClick() {
         binding.fab.setOnClickListener {
             addTaskShowBottomSheet()
         }
-
-
     }
 
 
@@ -141,14 +149,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun persianCalender() {
-        val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
+        val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30")).also {
+            it.year = 1401
+        }
 
         val callback = SingleDayPickCallback { day ->
             val month = (day.month+1)
             date = "${day.year} / $month /  ${day.date}"
             Log.i("TAG", "persianCalender: " + day.year + "/" + month + "/" + day.date)
             timePiker()
-
         }
 
         today = CivilCalendar(TimeZone.getTimeZone("GMT+4:30"))
@@ -278,7 +287,7 @@ class MainActivity : AppCompatActivity() {
             layoutInflater.inflate(R.layout.add_task_bottom_sheet, LinearLayout(this))
         bottomSheetDialog2 =
             BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
-        bottomSheetDialog2.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        bottomSheetDialog2.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         bottomSheetDialog2.setContentView(dialogView)
         bottomSheetDialog2.setCancelable(true)
         bottomSheetDialog2.show()
@@ -317,7 +326,8 @@ class MainActivity : AppCompatActivity() {
 
             adapter.setOnItemClick {
                 category= it.name
-                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+                categoryColor = it.color
+                categoryIcon = it.image
                 categoryDialog.dismiss()
             }
         }
@@ -355,8 +365,8 @@ class MainActivity : AppCompatActivity() {
 
             val title = dialogView.findViewById<EditText>(R.id.edt_task_title).text.toString()
             val description = dialogView.findViewById<EditText>(R.id.edt_task_description).text.toString()
-            val confirmDate = "${today?.hour}  ${today?.minute}"
-            Log.i("TAG", "addTaskShowBottomSheet: "+confirmDate)
+            val confirmTime = "${today?.hour}:${today?.minute}"
+            val confirmDate = "${today?.year}/${today?.month}/${today?.dayOfMonth}"
 
             if(title.isNullOrEmpty()){
                 Toast.makeText(this, getString(R.string.Please_enter_title), Toast.LENGTH_SHORT).show()
@@ -365,7 +375,9 @@ class MainActivity : AppCompatActivity() {
 
             }else{
                 val task =Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
-                    flag?.toInt()!!,"12.23")
+                    categoryColor.toString(),
+                    categoryIcon!!,
+                    flag?.toInt()!!,confirmTime,confirmDate)
                 viewModel.addTask(task)
                 bottomSheetDialog2.dismiss()
             }

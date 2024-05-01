@@ -6,7 +6,7 @@ import com.example.todoir.data.model.Task
 
 @Database(
     entities = [Task::class],
-    version = 2,
+    version = 6,
     exportSchema = false)
 abstract class Database: RoomDatabase() {
     abstract fun dao():Dao
