@@ -30,7 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView5"
+                android:id="@+id/tv_title_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -43,17 +43,17 @@
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView7"
+                android:id="@+id/tv_task_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/vazir_light"
                 android:textColor="@color/gray_text"
                 app:layout_constraintStart_toEndOf="@+id/materialCheckBox"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView5"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_task"
                 tools:text="Today At 16:45" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/materialButton"
+                android:id="@+id/btn_task_flag"
                 style="@style/Widget.Material3.Button.IconButton.Outlined"
                 android:layout_width="65dp"
                 android:layout_height="45dp"
@@ -70,21 +70,22 @@
                 tools:text="1" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_task_category"
                 style="@style/Widget.Material3.Button.IconButton.Filled"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/vazir_light"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 app:cornerRadius="4dp"
                 app:icon="@drawable/flag"
                 app:iconTint="@color/white"
                 android:backgroundTint="@color/color_5"
-                app:layout_constraintBottom_toBottomOf="@+id/materialButton"
-                app:layout_constraintEnd_toStartOf="@+id/materialButton"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView7"
-                app:layout_constraintTop_toTopOf="@+id/materialButton"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_task_flag"
+                app:layout_constraintEnd_toStartOf="@+id/btn_task_flag"
+                app:layout_constraintStart_toEndOf="@+id/tv_task_time"
+                app:layout_constraintTop_toTopOf="@+id/btn_task_flag"
                 tools:text="University" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

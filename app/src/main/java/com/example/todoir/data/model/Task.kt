@@ -17,6 +17,9 @@ data class Task(
     val time:String,
     val date:String,
     val categoryName:String,
+    val categoryColor:String,
+    val categoryIcon:Int,
     val flag:Int,
-    val confirmTime:String
+    val confirmTime:String,
+    val confirmDate:String
 ):Parcelable

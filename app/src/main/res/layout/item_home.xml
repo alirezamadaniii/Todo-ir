@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cons_home_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="gone"
     android:background="@color/gray_dark">
 
     <com.google.android.material.card.MaterialCardView
@@ -55,6 +57,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recy_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

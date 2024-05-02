@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.todoir.R
 import com.example.todoir.data.utils.Sp
 import com.example.todoir.databinding.FragmentHomeBinding
+import com.example.todoir.peresentaion.adapter.TaskAdapter
+import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,6 +24,9 @@ import javax.inject.Inject
 class HomeFragment : Fragment() {
 
     private lateinit var binding:FragmentHomeBinding
+    private  val viewModel: MainActivityViewModel by viewModels()
+    @Inject
+    lateinit var adapter :TaskAdapter
 
     @Inject
     lateinit var sp: Sp
@@ -34,11 +41,28 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imageUrl = sp.fetch("img_profile")
-        Glide.with(requireContext()).load(imageUrl).into(binding.imProfileHome)
+        setImageProfile()
+        showTask()
 
     }
 
+    private fun setImageProfile() {
+        val imageUrl = sp.fetch("img_profile")
+        Glide.with(requireContext()).load(imageUrl).into(binding.imProfileHome)
+    }
+
+    private fun showTask() {
+        viewModel.getTask().observe(viewLifecycleOwner){
+            if (it.isNotEmpty()){
+                binding.consEmptyList.visibility = View.GONE
+                binding.inItemHome.consHomeItem.visibility = View.VISIBLE
+                adapter = TaskAdapter()
+                adapter.differ.submitList(it)
+                binding.inItemHome.recyTask.adapter = adapter
+            }
+
+        }
+    }
 
 
 }
