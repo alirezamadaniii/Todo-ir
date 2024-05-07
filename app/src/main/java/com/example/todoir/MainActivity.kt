@@ -19,7 +19,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.aminography.primecalendar.civil.CivilCalendar
@@ -57,8 +60,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val _isLoading = MutableStateFlow(true)
-    val isLoading = _isLoading.asStateFlow()
-
     private  val viewModel: MainActivityViewModel by viewModels()
 
 
@@ -91,87 +92,30 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
+
         createCustomBottomNavigation()
         initNavigation()
         initBottomNavigation()
         hideBottomNavigation()
         onClick()
 
-
     }
 
     private fun onClick() {
         binding.fab.setOnClickListener {
-            addTaskShowBottomSheet()
+            val navHostFragment =
+                supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+            navController = navHostFragment.navController
+
+            //setup nav from home or first intro page
+            val graphInflater = navHostFragment.navController.navInflater
+            navGraph = graphInflater.inflate(R.navigation.main_nav)
+            val destination: Int = R.id.addTaskFragment
+            navGraph.setStartDestination(destination)
+            navController.graph = navGraph
         }
     }
 
-
-    private fun timePiker() {
-        val picker =
-            MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_12H)
-                .setHour(12)
-                .setInputMode(INPUT_MODE_KEYBOARD)
-                .setMinute(10)
-                .setTitleText("Select Appointment time")
-                .build()
-
-        val isSystem24Hour = is24HourFormat(this)
-        val clockFormat = if (isSystem24Hour) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
-
-        picker.show(this.supportFragmentManager, "tag")
-
-        picker.addOnPositiveButtonClickListener {
-            time = picker.hour.toString()+":"+picker.minute.toString()
-            Toast.makeText(this,picker.hour.toString()+":"+picker.minute.toString(),Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun englishCalender() {
-        val callback = SingleDayPickCallback { day ->
-            val month = (day.month+1)
-            date = "${day.year} / $month /  ${day.date}"
-            Log.i("TAG", "persianCalender: " + day.year + "/" + month + "/" + day.date)
-            timePiker()
-        }
-
-        today = CivilCalendar()
-
-
-        val datePicker = PrimeDatePicker.bottomSheetWith(today!!)
-            .pickSingleDay(callback)
-            .initiallyPickedSingleDay(today!!)
-            .applyTheme(customCalender)
-            .build()
-
-        datePicker.show(supportFragmentManager, "SOME_TAG")
-    }
-
-    private fun persianCalender() {
-        val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30")).also {
-            it.year = 1401
-        }
-
-        val callback = SingleDayPickCallback { day ->
-            val month = (day.month+1)
-            date = "${day.year} / $month /  ${day.date}"
-            Log.i("TAG", "persianCalender: " + day.year + "/" + month + "/" + day.date)
-            timePiker()
-        }
-
-        today = CivilCalendar(TimeZone.getTimeZone("GMT+4:30"))
-
-        val datePicker = PrimeDatePicker.bottomSheetWith(calendar)
-            .pickSingleDay(callback)
-            .initiallyPickedSingleDay(calendar)
-            .applyTheme(customCalender)
-            .build()
-
-        datePicker.show(supportFragmentManager, "SOME_TAG")
-
-
-    }
 
     private fun createCustomBottomNavigation() {
         binding.bottomNavigationView.background = null
@@ -187,10 +131,10 @@ class MainActivity : AppCompatActivity() {
                     binding.fab.visibility = View.VISIBLE
                 }
 
-//                R.id.secondIntroFragment -> {
-//                    binding.bottomAppBar.visibility = View.GONE
-//                    binding.fab.visibility =View.GONE
-//                }
+                R.id.addTaskFragment -> {
+                    binding.bottomAppBar.visibility = View.VISIBLE
+                    binding.fab.visibility =View.VISIBLE
+                }
 //                R.id.registerFragment -> {
 //                    binding.bottomAppBar.visibility = View.GONE
 //                    binding.fab.visibility =View.GONE
@@ -220,7 +164,9 @@ class MainActivity : AppCompatActivity() {
             showBottomSheet()
             R.id.intro_navigation
         } else {
+            chooseLang(sp.fetch("language").toString())
             R.id.homeFragment
+
 
         }
         navGraph.setStartDestination(destination)
@@ -229,6 +175,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBottomNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        navController = navHostFragment.navController
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navView.setupWithNavController(navController)
     }
@@ -248,7 +197,9 @@ class MainActivity : AppCompatActivity() {
         bottomSheetItemClicked()
     }
 
-    private fun bottomSheetItemClicked() {
+
+
+        private fun bottomSheetItemClicked() {
         itemAdapterBottomSheet.setOnItemClick {
             chooseLang(it)
             sp.data("language", it)
@@ -256,7 +207,6 @@ class MainActivity : AppCompatActivity() {
             _isLoading.value = false
         }
     }
-
     private fun chooseLang(it: String) {
         if (it == "Persian") {
             setLocal("fa", 1)
@@ -282,109 +232,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun addTaskShowBottomSheet() {
-        val dialogView =
-            layoutInflater.inflate(R.layout.add_task_bottom_sheet, LinearLayout(this))
-        bottomSheetDialog2 =
-            BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
-        bottomSheetDialog2.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        bottomSheetDialog2.setContentView(dialogView)
-        bottomSheetDialog2.setCancelable(true)
-        bottomSheetDialog2.show()
-
-        dialogView.findViewById<ImageView>(R.id.img_calender).setOnClickListener {
-            if (sp.fetch("language") == "Persian") {
-                persianCalender()
-            } else {
-                englishCalender()
-            }
-        }
-
-
-        dialogView.findViewById<ImageView>(R.id.img_category).setOnClickListener {
-            val category1 = Category(1,getString(R.string.add),R.drawable.add_1,"#80FFD1")
-            val category2 = Category(2,getString(R.string.Grocery),R.drawable.bread_1,"#CCFF80")
-            val category3 = Category(3,getString(R.string.Work),R.drawable.briefcase_1,"#FF9680")
-            val category4 = Category(4,getString(R.string.Sport),R.drawable.sport_1,"#80FFFF")
-            val category5 = Category(5,getString(R.string.Design),R.drawable.design__1__1,"#80FFD9")
-            val category6 = Category(6,getString(R.string.University),R.drawable.mortarboard_1,"#809CFF")
-            val category7 = Category(7,getString(R.string.Social),R.drawable.megaphone_1,"#FF80EB")
-            val category8 = Category(8,getString(R.string.Music),R.drawable.music__1__1,"#FC80FF")
-            val category9 = Category(9,getString(R.string.Health),R.drawable.heartbeat_1,"#80FFA3")
-            val category10 = Category(10,getString(R.string.Movie),R.drawable.video_camera_1,"#FFCC80")
-            val category11 = Category(11,getString(R.string.Home),R.drawable.home__2__1,"#80D1FF")
-
-            val categoryList = arrayListOf(
-                category1,category2,category3,
-                category4,category5,category6,category7,
-                category8,category9,category10,category11)
-            val categoryDialog = dialog(R.layout.dialog_category,binding.root,true)
-            val recycler =categoryDialog.findViewById<RecyclerView>(R.id.recy_category)
-            val adapter =CategoryAdapter()
-            adapter.differ.submitList(categoryList)
-            recycler.adapter =adapter
-
-            adapter.setOnItemClick {
-                category= it.name
-                categoryColor = it.color
-                categoryIcon = it.image
-                categoryDialog.dismiss()
-            }
-        }
-
-
-        dialogView.findViewById<ImageView>(R.id.img_priority).setOnClickListener {
-            val priority = Priority(1,"1")
-            val priority2 = Priority(2,"2")
-            val priority3 = Priority(3,"3")
-            val priority4 = Priority(4,"4")
-            val priority5 = Priority(5,"5")
-            val priority6 = Priority(6,"6")
-            val priority7 = Priority(7,"7")
-            val priority8 = Priority(8,"8")
-            val priority9 = Priority(9,"9")
-            val priority10 = Priority(10,"10")
-
-            val priorityList = arrayListOf(
-                priority,
-                priority2,priority3,priority4,priority5,
-                priority6,priority7,priority8,priority9,priority10)
-            val priorityDialog = dialog(R.layout.dialog_priority,binding.root,true)
-            val recycler =priorityDialog.findViewById<RecyclerView>(R.id.recy_priority)
-            val adapter =PriorityAdapter()
-            adapter.differ.submitList(priorityList)
-            recycler.adapter =adapter
-            adapter.setOnItemClick {
-                flag = it.name
-                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
-                priorityDialog.dismiss()
-            }
-        }
-
-        dialogView.findViewById<ImageView>(R.id.img_add_task).setOnClickListener {
-
-            val title = dialogView.findViewById<EditText>(R.id.edt_task_title).text.toString()
-            val description = dialogView.findViewById<EditText>(R.id.edt_task_description).text.toString()
-            val confirmTime = "${today?.hour}:${today?.minute}"
-            val confirmDate = "${today?.year}/${today?.month}/${today?.dayOfMonth}"
-
-            if(title.isNullOrEmpty()){
-                Toast.makeText(this, getString(R.string.Please_enter_title), Toast.LENGTH_SHORT).show()
-            }else if (description.isNullOrEmpty()){
-                Toast.makeText(this, getString(R.string.Please_enter_Description), Toast.LENGTH_SHORT).show()
-
-            }else{
-                val task =Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
-                    categoryColor.toString(),
-                    categoryIcon!!,
-                    flag?.toInt()!!,confirmTime,confirmDate)
-                viewModel.addTask(task)
-                bottomSheetDialog2.dismiss()
-            }
-
-
-        }
-    }
 
 
 

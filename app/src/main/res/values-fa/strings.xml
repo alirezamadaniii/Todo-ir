@@ -39,6 +39,8 @@
     <string name="Home">خانه</string>
     <string name="Please_enter_title">لطفا عنوان را وارد کنید</string>
     <string name="Please_enter_Description">لطفا توضیحات را وارد کنید</string>
+    <string name="search_for_your_task">تسک خود را جستجو کنید...</string>
+    <string name="choose_priority">انتخاب الویت </string>
 
 
 </resources>

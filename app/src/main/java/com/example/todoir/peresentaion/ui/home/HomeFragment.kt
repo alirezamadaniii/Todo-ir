@@ -53,9 +53,9 @@ class HomeFragment : Fragment() {
 
     private fun showTask() {
         viewModel.getTask().observe(viewLifecycleOwner){
-            if (it.isNotEmpty()){
-                binding.consEmptyList.visibility = View.GONE
-                binding.inItemHome.consHomeItem.visibility = View.VISIBLE
+            if (it.isEmpty()){
+                binding.consEmptyList.visibility = View.VISIBLE
+//                binding.inItemHome.consHomeItem.visibility = View.GONE
                 adapter = TaskAdapter()
                 adapter.differ.submitList(it)
                 binding.inItemHome.recyTask.adapter = adapter

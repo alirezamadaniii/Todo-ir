@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/home" android:icon="@drawable/home_2" android:title="@string/home"/>
+<item android:id="@+id/homeFragment" android:icon="@drawable/home_2" android:title="@string/home"/>
 <item android:id="@+id/calender" android:icon="@drawable/calendar" android:title="@string/calender"/>
-<item android:id="@+id/add" android:title=""/>
+<item android:id="@+id/addTaskFragment" android:title=""/>
 <item android:id="@+id/focus" android:icon="@drawable/clock" android:title="@string/focus"/>
 <item android:id="@+id/profile" android:icon="@drawable/user" android:title="@string/profile"/>
 </menu>

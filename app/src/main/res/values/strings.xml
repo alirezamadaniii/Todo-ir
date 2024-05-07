@@ -39,6 +39,7 @@
     <string name="Please_enter_title">Please enter title</string>
     <string name="Please_enter_Description">Please enter description</string>
     <string name="search_for_your_task">Search for your task...</string>
+    <string name="choose_priority">Choose Priority</string>
 
 
 </resources>
