@@ -62,9 +62,17 @@
         android:id="@+id/addTaskFragment"
         android:name="com.example.todoir.peresentaion.ui.addtask.AddTaskFragment"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_add_task" >
+        <action
+            android:id="@+id/action_addTaskFragment_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.todoir.peresentaion.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/createCategoryFragment"
+        android:name="com.example.todoir.peresentaion.ui.CreateCategoryFragment"
+        android:label="CreateCategoryFragment" />
 </navigation>

@@ -40,7 +40,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline"
-            tools:text="Alireza" />
+            android:text="@string/name_login" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton2"
@@ -48,10 +48,11 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/gray_light"
             app:cornerRadius="4dp"
+            android:fontFamily="@font/vazir_light"
             app:layout_constraintBaseline_toBaselineOf="@+id/materialButton"
             app:layout_constraintEnd_toStartOf="@+id/materialButton"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="10 task left" />
+            android:text="@string/_0_task_left" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -61,10 +62,11 @@
             android:backgroundTint="@color/gray_light"
             android:layout_marginTop="18dp"
             app:cornerRadius="4dp"
+            android:fontFamily="@font/vazir_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/materialButton2"
             app:layout_constraintTop_toBottomOf="@+id/materialTextView12"
-            tools:text="10 task left" />
+            android:text="@string/_0_task_done" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/materialTextView13"
@@ -105,7 +107,7 @@
                 android:fontFamily="@font/vazir_light"
                 android:text="@string/change_account_name"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView3"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -147,7 +149,7 @@
                 android:fontFamily="@font/vazir_light"
                 android:text="@string/change_account_image"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView31"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -189,7 +191,7 @@
                 android:fontFamily="@font/vazir_light"
                 android:text="@string/change_app_language"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView32"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -244,7 +246,7 @@
                 android:fontFamily="@font/vazir_light"
                 android:text="@string/about_us"
                 android:textColor="@color/white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView34"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -286,7 +288,7 @@
                 android:fontFamily="@font/vazir_light"
                 android:text="@string/log_out"
                 android:textColor="@color/red"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView35"
                 app:layout_constraintTop_toTopOf="parent" />

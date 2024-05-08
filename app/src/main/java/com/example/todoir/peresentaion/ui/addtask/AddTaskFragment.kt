@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
@@ -115,18 +116,28 @@ class AddTaskFragment : Fragment() {
         }
 
     private fun persianCalender() {
-            val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30")).also {
-                it.year = 1401
-            }
+        today = CivilCalendar(TimeZone.getTimeZone("GMT+3:30"))
+
+            val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
+
 
             val callback = SingleDayPickCallback { day ->
-                val month = (day.month+1)
-                date = "${day.year} / $month /  ${day.date}"
-                Log.i("TAG", "persianCalender: " + day.year + "/" + month + "/" + day.date)
-                timePiker()
+                if (day.year<calendar.year){
+                    Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
+                }else if (day.month<calendar.month){
+                    Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
+
+                }else if (day.dayOfMonth<calendar.dayOfMonth){
+                    Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
+                }else{
+                    val month = (day.month+1)
+                    date = "${day.year} / $month /  ${day.date}"
+                    timePiker()
+                }
+
             }
 
-            today = CivilCalendar(TimeZone.getTimeZone("GMT+4:30"))
+
 
             val datePicker = PrimeDatePicker.bottomSheetWith(calendar)
                 .pickSingleDay(callback)
@@ -180,10 +191,16 @@ class AddTaskFragment : Fragment() {
             recycler.adapter =adapter
 
             adapter.setOnItemClick {
-                category= it.name
-                categoryColor = it.color
-                categoryIcon = it.image
-                categoryDialog.dismiss()
+                if (it.id==1){
+                    categoryDialog.dismiss()
+                    findNavController().navigate(R.id.action_addTaskFragment_to_createCategoryFragment)
+                }else{
+                    category= it.name
+                    categoryColor = it.color
+                    categoryIcon = it.image
+                    categoryDialog.dismiss()
+                }
+
             }
         }
 

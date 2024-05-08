@@ -48,6 +48,15 @@
     <string name="uptodo">Uptodo</string>
     <string name="about_us">About US</string>
     <string name="log_out">Log out</string>
+    <string name="_0_task_left">0 Task Left</string>
+    <string name="_0_task_done">0 Task Done</string>
+    <string name="create_new_category">Create new category</string>
+    <string name="category_name">Category name :</string>
+    <string name="category_name2">Category name</string>
+    <string name="choose_icon_from_library">Choose icon from library</string>
+    <string name="category_icon">Category icon :</string>
+    <string name="category_color">Category color :</string>
+    <string name="create_category">Create Category</string>
 
 
 </resources>
