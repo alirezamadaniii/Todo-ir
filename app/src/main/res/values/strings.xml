@@ -40,6 +40,14 @@
     <string name="Please_enter_Description">Please enter description</string>
     <string name="search_for_your_task">Search for your task...</string>
     <string name="choose_priority">Choose Priority</string>
+    <string name="setting">setting</string>
+    <string name="account">Account</string>
+    <string name="change_account_name">Change account name</string>
+    <string name="change_account_image">Change account Image</string>
+    <string name="change_app_language">Change app language</string>
+    <string name="uptodo">Uptodo</string>
+    <string name="about_us">About US</string>
+    <string name="log_out">Log out</string>
 
 
 </resources>

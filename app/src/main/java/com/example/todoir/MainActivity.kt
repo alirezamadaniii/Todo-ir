@@ -135,10 +135,10 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomAppBar.visibility = View.VISIBLE
                     binding.fab.visibility =View.VISIBLE
                 }
-//                R.id.registerFragment -> {
-//                    binding.bottomAppBar.visibility = View.GONE
-//                    binding.fab.visibility =View.GONE
-//                }
+                R.id.profileFragment -> {
+                    binding.bottomAppBar.visibility = View.VISIBLE
+                    binding.fab.visibility =View.VISIBLE
+                }
 //                R.id.welcomeIntroFragment -> {
 //                    binding.bottomAppBar.visibility = View.GONE
 //                    binding.fab.visibility =View.GONE

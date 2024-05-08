@@ -1,6 +1,8 @@
 package com.example.todoir.peresentaion.ui.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,11 @@ import com.example.todoir.peresentaion.adapter.TaskAdapter
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -44,6 +51,7 @@ class HomeFragment : Fragment() {
         setImageProfile()
         showTask()
 
+
     }
 
     private fun setImageProfile() {
@@ -53,15 +61,17 @@ class HomeFragment : Fragment() {
 
     private fun showTask() {
         viewModel.getTask().observe(viewLifecycleOwner){
-            if (it.isEmpty()){
-                binding.consEmptyList.visibility = View.VISIBLE
-//                binding.inItemHome.consHomeItem.visibility = View.GONE
+            if (it.isNotEmpty()){
+                binding.consEmptyList.visibility = View.GONE
+                binding.inItemHome.consHomeItem.visibility = View.VISIBLE
                 adapter = TaskAdapter()
-                adapter.differ.submitList(it)
                 binding.inItemHome.recyTask.adapter = adapter
-            }
+                adapter.differ.submitList(it)
 
+
+            }
         }
+
     }
 
 
