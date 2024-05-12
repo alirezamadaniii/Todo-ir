@@ -3,14 +3,8 @@ package com.example.todoir
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
-import android.text.format.DateFormat.is24HourFormat
-import android.util.Log
 import android.view.View
-import android.view.WindowManager
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -19,39 +13,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.aminography.primecalendar.civil.CivilCalendar
-import com.aminography.primecalendar.persian.PersianCalendar
-import com.aminography.primedatepicker.picker.PrimeDatePicker
-import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.example.todoir.data.model.Category
-import com.example.todoir.data.model.Priority
-import com.example.todoir.data.model.Task
 import com.example.todoir.data.utils.CustomCalender
 import com.example.todoir.data.utils.Sp
-import com.example.todoir.data.utils.dialog
 import com.example.todoir.databinding.ActivityMainBinding
-import com.example.todoir.peresentaion.adapter.CategoryAdapter
 import com.example.todoir.peresentaion.adapter.LanguageBottomSheet
-import com.example.todoir.peresentaion.adapter.PriorityAdapter
-import com.example.todoir.peresentaion.adapter.TaskAdapter
-import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
+import com.example.todoir.peresentaion.viewmodel.CreateCategoryViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_CLOCK
-import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
-import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import java.util.Locale
-import java.util.TimeZone
 import javax.inject.Inject
 
 
@@ -60,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val _isLoading = MutableStateFlow(true)
-    private  val viewModel: MainActivityViewModel by viewModels()
+    private  val viewModel: CreateCategoryViewModel by viewModels()
 
 
 
@@ -160,8 +136,9 @@ class MainActivity : AppCompatActivity() {
         val graphInflater = navHostFragment.navController.navInflater
         navGraph = graphInflater.inflate(R.navigation.main_nav)
         val lang = sp.fetch("username").toString()
-        val destination: Int = if (lang.isNullOrEmpty()) {
+        val destination: Int = if (lang.isEmpty()) {
             showBottomSheet()
+            addPrimaryCategory()
             R.id.intro_navigation
         } else {
             chooseLang(sp.fetch("language").toString())
@@ -172,6 +149,21 @@ class MainActivity : AppCompatActivity() {
         navGraph.setStartDestination(destination)
         navController.graph = navGraph
 
+    }
+
+    private fun addPrimaryCategory() {
+
+        viewModel.addCategory(Category(1,getString(R.string.add),R.drawable.add_1,"#80FFD1"))
+        viewModel.addCategory(Category(2,getString(R.string.Grocery),R.drawable.bread_1,"#CCFF80"))
+        viewModel.addCategory(Category(3,getString(R.string.Work),R.drawable.briefcase_1,"#FF9680"))
+        viewModel.addCategory(Category(4,getString(R.string.Sport),R.drawable.sport_1,"#80FFFF"))
+        viewModel.addCategory(Category(5,getString(R.string.Design),R.drawable.design__1__1,"#80FFD9"))
+        viewModel.addCategory(Category(6,getString(R.string.University),R.drawable.mortarboard_1,"#809CFF"))
+        viewModel.addCategory(Category(7,getString(R.string.Social),R.drawable.megaphone_1,"#FF80EB"))
+        viewModel.addCategory(Category(8,getString(R.string.Music),R.drawable.music__1__1,"#FC80FF"))
+        viewModel.addCategory(Category(9,getString(R.string.Health),R.drawable.heartbeat_1,"#80FFA3"))
+        viewModel.addCategory(Category(10,getString(R.string.Movie),R.drawable.video_camera_1,"#FFCC80"))
+        viewModel.addCategory(Category(11,getString(R.string.Home),R.drawable.home__2__1,"#80D1FF"))
     }
 
     private fun initBottomNavigation() {

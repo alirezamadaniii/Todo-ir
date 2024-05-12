@@ -73,6 +73,6 @@
         android:label="ProfileFragment" />
     <fragment
         android:id="@+id/createCategoryFragment"
-        android:name="com.example.todoir.peresentaion.ui.CreateCategoryFragment"
+        android:name="com.example.todoir.peresentaion.ui.createcategory.CreateCategoryFragment"
         android:label="CreateCategoryFragment" />
 </navigation>

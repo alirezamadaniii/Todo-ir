@@ -1,5 +1,6 @@
 package com.example.todoir.peresentaion.ui.addtask
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -26,6 +27,7 @@ import com.example.todoir.data.utils.dialog
 import com.example.todoir.databinding.FragmentAddTaskBinding
 import com.example.todoir.peresentaion.adapter.CategoryAdapter
 import com.example.todoir.peresentaion.adapter.PriorityAdapter
+import com.example.todoir.peresentaion.viewmodel.CreateCategoryViewModel
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
@@ -39,6 +41,10 @@ class AddTaskFragment : Fragment() {
 
     private lateinit var binding: FragmentAddTaskBinding
     private val viewModel: MainActivityViewModel by viewModels()
+    private val createCategoryViewModel :CreateCategoryViewModel by viewModels()
+    private lateinit var categoryDialog:Dialog
+    private lateinit var recycler: RecyclerView
+    private lateinit var adapter: CategoryAdapter
 
 
     private var date: String? = null
@@ -67,9 +73,13 @@ class AddTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getCategoryFromDb()
         onClick()
 
+
     }
+
+
 
     private fun onClick() {
         binding.imgCalender.setOnClickListener {
@@ -167,29 +177,21 @@ class AddTaskFragment : Fragment() {
             Toast.makeText(requireContext(),picker.hour.toString()+":"+picker.minute.toString(),Toast.LENGTH_SHORT).show()
         }
     }
+
+
+    private fun getCategoryFromDb() {
+        createCategoryViewModel.getCategory().observe(viewLifecycleOwner){
+            adapter = CategoryAdapter()
+            adapter.differ.submitList(it)
+
+        }
+    }
+
     private fun selectCategory() {
-            val category1 = Category(1,getString(R.string.add),R.drawable.add_1,"#80FFD1")
-            val category2 = Category(2,getString(R.string.Grocery),R.drawable.bread_1,"#CCFF80")
-            val category3 = Category(3,getString(R.string.Work),R.drawable.briefcase_1,"#FF9680")
-            val category4 = Category(4,getString(R.string.Sport),R.drawable.sport_1,"#80FFFF")
-            val category5 = Category(5,getString(R.string.Design),R.drawable.design__1__1,"#80FFD9")
-            val category6 = Category(6,getString(R.string.University),R.drawable.mortarboard_1,"#809CFF")
-            val category7 = Category(7,getString(R.string.Social),R.drawable.megaphone_1,"#FF80EB")
-            val category8 = Category(8,getString(R.string.Music),R.drawable.music__1__1,"#FC80FF")
-            val category9 = Category(9,getString(R.string.Health),R.drawable.heartbeat_1,"#80FFA3")
-            val category10 = Category(10,getString(R.string.Movie),R.drawable.video_camera_1,"#FFCC80")
-            val category11 = Category(11,getString(R.string.Home),R.drawable.home__2__1,"#80D1FF")
-
-            val categoryList = arrayListOf(
-                category1,category2,category3,
-                category4,category5,category6,category7,
-                category8,category9,category10,category11)
-            val categoryDialog = requireActivity().dialog(R.layout.dialog_category,binding.root,true)
-            val recycler =categoryDialog.findViewById<RecyclerView>(R.id.recy_category)
-            val adapter = CategoryAdapter()
-            adapter.differ.submitList(categoryList)
-            recycler.adapter =adapter
-
+        categoryDialog = requireActivity().dialog(R.layout.dialog_category,binding.root,true)
+        recycler =categoryDialog.findViewById<RecyclerView>(R.id.recy_category)
+        recycler.adapter =adapter
+        
             adapter.setOnItemClick {
                 if (it.id==1){
                     categoryDialog.dismiss()
@@ -197,7 +199,7 @@ class AddTaskFragment : Fragment() {
                 }else{
                     category= it.name
                     categoryColor = it.color
-                    categoryIcon = it.image
+                    categoryIcon = it.icon
                     categoryDialog.dismiss()
                 }
 

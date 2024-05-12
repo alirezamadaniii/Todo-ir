@@ -1,5 +1,6 @@
 package com.example.todoir.data.repository
 
+import com.example.todoir.data.model.Category
 import com.example.todoir.data.model.Task
 import com.example.todoir.data.repository.datasource.LocalDataSource
 import com.example.todoir.domain.repository.TodoRepository
@@ -12,5 +13,13 @@ class TodoRepositoryImpl(private val localDataSource: LocalDataSource):TodoRepos
 
     override suspend fun getTask(): Flow<List<Task>> {
         return localDataSource.getTask()
+    }
+
+    override suspend fun addCategory(category: Category) {
+        localDataSource.addCategory(category)
+    }
+
+    override fun getCategory(): Flow<List<Category>> {
+        return localDataSource.getCategory()
     }
 }

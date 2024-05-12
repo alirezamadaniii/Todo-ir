@@ -57,6 +57,7 @@
     <string name="category_icon">Category icon :</string>
     <string name="category_color">Category color :</string>
     <string name="create_category">Create Category</string>
+    <string name="choose_icon">Choose Icon</string>
 
 
 </resources>
