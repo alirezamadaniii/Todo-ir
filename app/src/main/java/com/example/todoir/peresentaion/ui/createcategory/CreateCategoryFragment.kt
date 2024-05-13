@@ -57,8 +57,12 @@ class CreateCategoryFragment : Fragment() {
             val categoryName = binding.edtCategoryName.text.toString()
             val categoryIcon = icon
             val categoryColor = color
-            viewModel.addCategory(Category(0,categoryName,categoryIcon,categoryColor))
-            findNavController().popBackStack()
+            val category = Category(0,categoryName,categoryIcon,categoryColor)
+            viewModel.addCategory(category)
+            val bundle =Bundle().apply {
+                putParcelable("category",category)
+            }
+            findNavController().navigate(R.id.action_createCategoryFragment_to_addTaskFragment, bundle)
         }
     }
 

@@ -66,6 +66,11 @@
         <action
             android:id="@+id/action_addTaskFragment_to_createCategoryFragment"
             app:destination="@id/createCategoryFragment" />
+        <argument
+            android:name="category"
+            app:argType="com.example.todoir.data.model.Category"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -74,5 +79,9 @@
     <fragment
         android:id="@+id/createCategoryFragment"
         android:name="com.example.todoir.peresentaion.ui.createcategory.CreateCategoryFragment"
-        android:label="CreateCategoryFragment" />
+        android:label="CreateCategoryFragment" >
+        <action
+            android:id="@+id/action_createCategoryFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
 </navigation>

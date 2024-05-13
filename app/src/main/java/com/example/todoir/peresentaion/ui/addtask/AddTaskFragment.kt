@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
@@ -45,6 +46,7 @@ class AddTaskFragment : Fragment() {
     private lateinit var categoryDialog:Dialog
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: CategoryAdapter
+    private val args: AddTaskFragmentArgs by navArgs()
 
 
     private var date: String? = null
@@ -75,6 +77,8 @@ class AddTaskFragment : Fragment() {
 
         getCategoryFromDb()
         onClick()
+
+
 
 
     }
@@ -195,12 +199,33 @@ class AddTaskFragment : Fragment() {
             adapter.setOnItemClick {
                 if (it.id==1){
                     categoryDialog.dismiss()
+                    val title = binding.edtTaskTitle.text.toString()
+                    val description = binding.edtTaskDescription.text.toString()
+                    val confirmTime = "${today?.hour}:${today?.minute}"
+                    val confirmDate = "${today?.year}/${today?.month}/${today?.dayOfMonth}"
+
+                    if(title.isEmpty()){
+                        Toast.makeText(requireContext(), getString(R.string.Please_enter_title), Toast.LENGTH_SHORT).show()
+                    }else if (description.isEmpty()){
+                        Toast.makeText(requireContext(), getString(R.string.Please_enter_Description), Toast.LENGTH_SHORT).show()
+
+                    }
+                    val task = Task()
                     findNavController().navigate(R.id.action_addTaskFragment_to_createCategoryFragment)
+
                 }else{
-                    category= it.name
-                    categoryColor = it.color
-                    categoryIcon = it.icon
-                    categoryDialog.dismiss()
+                    if (args.category==null){
+                        category= it.name
+                        categoryColor = it.color
+                        categoryIcon = it.icon
+                        categoryDialog.dismiss()
+                    }else{
+                        category= args.category?.name
+                        categoryColor = args.category?.color
+                        categoryIcon = args.category?.icon
+                        categoryDialog.dismiss()
+                    }
+
                 }
 
             }

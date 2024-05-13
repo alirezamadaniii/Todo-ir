@@ -1,5 +1,6 @@
 package com.example.todoir.peresentaion.adapter
 
+import android.R
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todoir.data.model.CategoryColor
 import com.example.todoir.databinding.ItemColorBinding
 
+
 class ColorAdapter : RecyclerView.Adapter<ColorAdapter.MyViewHolder>() {
 
-    private var isEnabled = false
+    private var mExpandedPosition = -1
     private val callback = object : DiffUtil.ItemCallback<CategoryColor>(){
         override fun areItemsTheSame(oldItem: CategoryColor, newItem: CategoryColor): Boolean {
             return oldItem.id == newItem.id
@@ -35,7 +37,7 @@ class ColorAdapter : RecyclerView.Adapter<ColorAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = differ.currentList[position]
-        holder.bind(item)
+        holder.bind(item,position)
     }
 
 
@@ -46,16 +48,14 @@ class ColorAdapter : RecyclerView.Adapter<ColorAdapter.MyViewHolder>() {
 
 
     inner class  MyViewHolder(val binding: ItemColorBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: CategoryColor){
+        fun bind(item: CategoryColor,position: Int){
                 binding.cvColorCategory.setCardBackgroundColor(Color.parseColor(item.color))
+
+            val isExpanded = position == mExpandedPosition
+            binding.imgDone.visibility = (if (isExpanded) View.VISIBLE else View.GONE)
             binding.root.setOnClickListener {
-                if (isEnabled == false){
-                    binding.imgDone.visibility = View.VISIBLE
-                    isEnabled = true
-                }else{
-                    binding.imgDone.visibility = View.GONE
-                    isEnabled = false
-                }
+                mExpandedPosition = if (isExpanded) -1 else position
+                notifyDataSetChanged()
                 onItemClick?.let {
                     it(item)
                 }

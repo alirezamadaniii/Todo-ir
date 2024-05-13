@@ -119,8 +119,8 @@
             android:text="@string/cancel"
             android:textSize="18sp"
             android:textColor="@color/purple"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_second_first_page"
-            app:layout_constraintEnd_toStartOf="@+id/btn_second_first_page"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_create_category"
+            app:layout_constraintEnd_toStartOf="@+id/btn_create_category"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btn_create_category" />
 
