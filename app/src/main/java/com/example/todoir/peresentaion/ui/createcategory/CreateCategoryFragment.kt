@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoir.R
 import com.example.todoir.data.model.Category
@@ -17,6 +18,7 @@ import com.example.todoir.data.utils.dialog
 import com.example.todoir.databinding.FragmentCreateCategoryBinding
 import com.example.todoir.peresentaion.adapter.ColorAdapter
 import com.example.todoir.peresentaion.adapter.IconAdapter
+import com.example.todoir.peresentaion.ui.addtask.AddTaskFragmentArgs
 import com.example.todoir.peresentaion.viewmodel.CreateCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +28,8 @@ class CreateCategoryFragment : Fragment() {
     private lateinit var binding: FragmentCreateCategoryBinding
     private var icon:Int = 0
     private var color:String = ""
+    private val args: CreateCategoryFragmentArgs by navArgs()
+
 
     private val viewModel:CreateCategoryViewModel by viewModels()
 
@@ -61,7 +65,14 @@ class CreateCategoryFragment : Fragment() {
             viewModel.addCategory(category)
             val bundle =Bundle().apply {
                 putParcelable("category",category)
+                putString("title",args.title)
+                putString("description",args.description)
+                putString("time",args.time)
+                putString("date",args.date)
             }
+
+
+
             findNavController().navigate(R.id.action_createCategoryFragment_to_addTaskFragment, bundle)
         }
     }

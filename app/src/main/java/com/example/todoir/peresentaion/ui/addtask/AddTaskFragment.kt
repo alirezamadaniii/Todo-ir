@@ -75,6 +75,13 @@ class AddTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (!args.title.equals("null")){
+            binding.edtTaskTitle.setText(args.title)
+            binding.edtTaskDescription.setText(args.description)
+            Log.i("TAG", "onViewCreated: "+args.time)
+            Log.i("TAG", "onViewCreated: "+args.date)
+        }
+
         getCategoryFromDb()
         onClick()
 
@@ -199,32 +206,25 @@ class AddTaskFragment : Fragment() {
             adapter.setOnItemClick {
                 if (it.id==1){
                     categoryDialog.dismiss()
-                    val title = binding.edtTaskTitle.text.toString()
-                    val description = binding.edtTaskDescription.text.toString()
-                    val confirmTime = "${today?.hour}:${today?.minute}"
-                    val confirmDate = "${today?.year}/${today?.month}/${today?.dayOfMonth}"
+                    val title = binding.edtTaskTitle.text.toString().ifEmpty{ "" }
+                    val description = binding.edtTaskDescription.text.toString().ifEmpty { "" }
+                    val confirmTime = "${today?.hour}:${today?.minute}".ifEmpty { "" }
+                    val confirmDate = "${today?.year}/${today?.month}/${today?.dayOfMonth}".ifEmpty { "" }
 
-                    if(title.isEmpty()){
-                        Toast.makeText(requireContext(), getString(R.string.Please_enter_title), Toast.LENGTH_SHORT).show()
-                    }else if (description.isEmpty()){
-                        Toast.makeText(requireContext(), getString(R.string.Please_enter_Description), Toast.LENGTH_SHORT).show()
-
+                    val bundle = Bundle().apply {
+                        putString("title",title)
+                        putString("description",description)
+                        putString("time",confirmTime)
+                        putString("date",confirmDate)
                     }
-                    val task = Task()
-                    findNavController().navigate(R.id.action_addTaskFragment_to_createCategoryFragment)
+                    findNavController().navigate(R.id.action_addTaskFragment_to_createCategoryFragment,bundle)
 
                 }else{
-                    if (args.category==null){
                         category= it.name
                         categoryColor = it.color
                         categoryIcon = it.icon
                         categoryDialog.dismiss()
-                    }else{
-                        category= args.category?.name
-                        categoryColor = args.category?.color
-                        categoryIcon = args.category?.icon
-                        categoryDialog.dismiss()
-                    }
+
 
                 }
 
