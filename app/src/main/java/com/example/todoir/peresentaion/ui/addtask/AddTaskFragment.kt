@@ -281,7 +281,7 @@ class AddTaskFragment : Fragment() {
                 val task = Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
                     categoryColor.toString(),
                     categoryIcon!!,
-                    flag?.toInt()!!,confirmTime,confirmDate)
+                    flag?.toInt()!!,confirmTime,confirmDate,false)
                 viewModel.addTask(task)
                 findNavController().navigate(R.id.homeFragment)
             }

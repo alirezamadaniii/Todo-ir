@@ -31,7 +31,7 @@
             app:layout_constraintGuide_percent="0.20" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView12"
+            android:id="@+id/tv_user_name_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/vazir_medium"
@@ -43,20 +43,20 @@
             android:text="@string/name_login" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton2"
+            android:id="@+id/tv_left_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/gray_light"
             app:cornerRadius="4dp"
             android:fontFamily="@font/vazir_light"
-            app:layout_constraintBaseline_toBaselineOf="@+id/materialButton"
-            app:layout_constraintEnd_toStartOf="@+id/materialButton"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_done_task"
+            app:layout_constraintEnd_toStartOf="@+id/tv_done_task"
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/_0_task_left" />
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/tv_done_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/gray_light"
@@ -64,8 +64,8 @@
             app:cornerRadius="4dp"
             android:fontFamily="@font/vazir_light"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/materialButton2"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView12"
+            app:layout_constraintStart_toEndOf="@+id/tv_left_task"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name_profile"
             android:text="@string/_0_task_done" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -78,7 +78,7 @@
             android:textColor="@color/gray_text"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton2" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_left_task" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
