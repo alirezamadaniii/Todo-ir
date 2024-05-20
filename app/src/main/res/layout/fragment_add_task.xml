@@ -3,118 +3,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".peresentaion.ui.addtask.AddTaskFragment"
-    android:background="@color/gray_dark">
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/vazir_medium"
-        android:text="@string/add_task"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textColorHint="@color/mtrl_textinput_default_box_stroke_color"
-        app:boxStrokeColor="@color/purple"
-        app:hintTextColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView5">
+        android:layout_height="match_parent"
+        android:background="@color/gray_dark"
+        tools:context=".peresentaion.ui.addtask.AddTaskFragment">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_task_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/vazir_light"
-            android:hint="@string/task_title"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/materialTextView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/vazir_medium"
+            android:text="@string/add_task"
             android:textColor="@color/white"
-            android:textColorHint="@color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="8dp"
-        app:boxStrokeColor="@color/purple"
-        app:hintTextColor="@color/white"
-        android:textColorHint="@color/mtrl_textinput_default_box_stroke_color"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_task_description"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColorHint="@color/mtrl_textinput_default_box_stroke_color"
+            app:boxStrokeColor="@color/purple"
+            app:hintTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView5">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_task_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/vazir_light"
+                android:hint="@string/task_title"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="8dp"
+            android:textColorHint="@color/mtrl_textinput_default_box_stroke_color"
+            app:boxStrokeColor="@color/purple"
+            app:hintTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_task_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/vazir_light"
+                android:gravity="top"
+                android:hint="@string/description"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_calender"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/timer"
+            app:layout_constraintEnd_toStartOf="@+id/img_category"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_time_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/vazir_light"
-            android:gravity="top"
-            android:hint="@string/description"
-            android:overScrollMode="always"
-            android:scrollbarStyle="insideInset"
-            android:scrollbars="vertical"
             android:textColor="@color/white"
-            android:textColorHint="@color/white" />
+            app:layout_constraintBottom_toBottomOf="@+id/img_calender"
+            app:layout_constraintStart_toEndOf="@+id/img_calender"
+            app:layout_constraintTop_toTopOf="@+id/img_calender"
+            tools:text="12:58"
+            android:layout_marginStart="2dp"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img_calender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/timer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/tag"
-        app:layout_constraintBottom_toBottomOf="@+id/img_calender"
-        app:layout_constraintStart_toEndOf="@+id/img_calender"
-        app:layout_constraintTop_toTopOf="@+id/img_calender" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_category"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/tag"
+            app:layout_constraintBottom_toBottomOf="@+id/img_calender"
+            app:layout_constraintEnd_toStartOf="@+id/img_priority"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/img_calender"
+            app:layout_constraintTop_toTopOf="@+id/img_calender" />
 
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img_priority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/flag"
-        app:layout_constraintBottom_toBottomOf="@+id/img_category"
-        app:layout_constraintStart_toEndOf="@+id/img_category"
-        app:layout_constraintTop_toTopOf="@+id/img_category" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_category_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/color_1"
+            android:fontFamily="@font/vazir_light"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/img_category"
+            app:layout_constraintStart_toEndOf="@+id/img_category"
+            app:layout_constraintTop_toTopOf="@+id/img_category"
+            tools:text="Sport"
+            android:layout_marginStart="2dp"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_priority"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="26dp"
+            android:src="@drawable/flag"
+            app:layout_constraintBottom_toBottomOf="@+id/img_category"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/img_category"
+            app:layout_constraintTop_toTopOf="@+id/img_category" />
 
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img_add_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/send"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_priority"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_priority" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_priority_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/color_1"
+            android:fontFamily="@font/vazir_light"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/img_priority"
+            app:layout_constraintStart_toEndOf="@+id/img_priority"
+            app:layout_constraintTop_toTopOf="@+id/img_priority"
+            tools:text="1"
+            android:layout_marginStart="2dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_add_task"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

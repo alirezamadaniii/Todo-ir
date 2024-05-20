@@ -78,8 +78,11 @@ class AddTaskFragment : Fragment() {
         if (!args.title.equals("null")){
             binding.edtTaskTitle.setText(args.title)
             binding.edtTaskDescription.setText(args.description)
-            Log.i("TAG", "onViewCreated: "+args.time)
-            Log.i("TAG", "onViewCreated: "+args.date)
+            time = args.time
+            date = args.date
+            binding.tvTimeSelected.text = time
+
+
         }
 
         getCategoryFromDb()
@@ -185,6 +188,7 @@ class AddTaskFragment : Fragment() {
 
         picker.addOnPositiveButtonClickListener {
             time = picker.hour.toString()+":"+picker.minute.toString()
+            binding.tvTimeSelected.text = time.toString()
             Toast.makeText(requireContext(),picker.hour.toString()+":"+picker.minute.toString(),Toast.LENGTH_SHORT).show()
         }
     }
@@ -223,6 +227,7 @@ class AddTaskFragment : Fragment() {
                         category= it.name
                         categoryColor = it.color
                         categoryIcon = it.icon
+                        binding.tvCategorySelected.text = it.name
                         categoryDialog.dismiss()
 
 
@@ -254,6 +259,7 @@ class AddTaskFragment : Fragment() {
                 recycler.adapter =adapter
                 adapter.setOnItemClick {
                     flag = it.name
+                    binding.tvPrioritySelected.text = it.name
                     Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
                     priorityDialog.dismiss()
                 }
