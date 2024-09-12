@@ -1,6 +1,7 @@
 package com.example.todoir.data.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -9,7 +10,6 @@ import com.example.todoir.data.model.Task
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-
 interface Dao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -23,5 +23,8 @@ interface Dao {
 
     @Query("SELECT * FROM category_table")
     fun getCategory():Flow<List<Category>>
+
+    @Delete
+    suspend fun deleteTask(task: Task)
 
 }

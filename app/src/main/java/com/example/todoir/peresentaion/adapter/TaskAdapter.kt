@@ -2,8 +2,10 @@ package com.example.todoir.peresentaion.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -60,20 +62,20 @@ class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyVie
             binding.btnTaskCategory.text = item.categoryName
             binding.btnTaskFlag.text = item.flag.toString()
             binding.btnTaskCategory.setBackgroundColor(Color.parseColor(item.categoryColor))
-            binding.btnTaskCategory.icon = ContextCompat.getDrawable(context,item.categoryIcon)
+            binding.btnTaskCategory.icon = ContextCompat.getDrawable(context, item.categoryIcon)
             binding.btnTaskCategory.setIconTintResource(R.color.black)
 
-//            binding.root.setOnClickListener {
-//                onItemClick?.let {
-//                    it(item)
-//                }
-//            }
+            binding.cvTaskItem.setOnClickListener() {
+                onItemClick?.let {
+                    it(item)
+                }
+            }
         }
     }
 
-    private var onItemClick: ((Priority) -> Unit)? = null
+    private var onItemClick:((Task)->Unit)? = null
 
-    fun setOnItemClick(listener: (Priority) -> Unit) {
+    fun setOnItemClick(listener:(Task)->Unit) {
         onItemClick = listener
     }
 

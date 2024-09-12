@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.todoir.data.model.Task
 import com.example.todoir.domain.usecase.AddTaskUseCase
+import com.example.todoir.domain.usecase.DeleteTaskUseCase
 import com.example.todoir.domain.usecase.GetTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
-    private val getTaskUseCase: GetTaskUseCase
+    private val getTaskUseCase: GetTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase
 ) :ViewModel(){
     fun addTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
         addTaskUseCase.execute(task)
@@ -24,6 +26,11 @@ class MainActivityViewModel @Inject constructor(
         getTaskUseCase.execute().collect(){
             emit(it)
         }
+    }
+
+    fun deleteTask(task: Task) = viewModelScope.launch {
+        deleteTaskUseCase.execute(task)
+
     }
 
 }

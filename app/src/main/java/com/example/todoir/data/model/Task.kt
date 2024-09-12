@@ -6,8 +6,6 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "task_table")
-@Parcelize
-
 data class Task(
     @PrimaryKey(autoGenerate = true)
     val taskId:Int,
@@ -23,4 +21,4 @@ data class Task(
     val confirmTime:String,
     val confirmDate:String,
     val isCompleted:Boolean
-):Parcelable
+)

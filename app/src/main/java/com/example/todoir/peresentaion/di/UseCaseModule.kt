@@ -3,6 +3,7 @@ package com.example.todoir.peresentaion.di
 import com.example.todoir.domain.repository.TodoRepository
 import com.example.todoir.domain.usecase.AddCategoryUseCase
 import com.example.todoir.domain.usecase.AddTaskUseCase
+import com.example.todoir.domain.usecase.DeleteTaskUseCase
 import com.example.todoir.domain.usecase.GetCategoryUseCase
 import com.example.todoir.domain.usecase.GetTaskUseCase
 
@@ -47,6 +48,14 @@ class UseCaseModule {
         todoRepository: TodoRepository
     ):GetCategoryUseCase{
         return GetCategoryUseCase(todoRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteTaskUseCase(
+        todoRepository: TodoRepository
+    ):DeleteTaskUseCase{
+        return DeleteTaskUseCase(todoRepository)
     }
 
 }

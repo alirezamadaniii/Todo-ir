@@ -22,4 +22,8 @@ class TodoRepositoryImpl(private val localDataSource: LocalDataSource):TodoRepos
     override fun getCategory(): Flow<List<Category>> {
         return localDataSource.getCategory()
     }
+
+    override suspend fun deleteTask(task: Task) {
+        localDataSource.deleteTask(task)
+    }
 }

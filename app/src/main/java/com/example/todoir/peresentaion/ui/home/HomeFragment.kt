@@ -2,6 +2,7 @@ package com.example.todoir.peresentaion.ui.home
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,16 +16,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.todoir.R
 import com.example.todoir.data.utils.Sp
+import com.example.todoir.data.utils.SwipeToDelete
 import com.example.todoir.databinding.FragmentHomeBinding
 import com.example.todoir.peresentaion.adapter.TaskAdapter
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.todoir.data.model.Task
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,8 +50,9 @@ class HomeFragment : Fragment() {
         setImageProfile()
         showTask()
 
-
     }
+
+
 
     private fun setImageProfile() {
         val imageUrl = sp.fetch("img_profile")
@@ -63,16 +63,45 @@ class HomeFragment : Fragment() {
         viewModel.getTask().observe(viewLifecycleOwner){
             if (it.isNotEmpty()){
                 binding.consEmptyList.visibility = View.GONE
+                binding.inItemHome.consHomeItem.visibility = View.GONE
                 binding.inItemHome.consHomeItem.visibility = View.VISIBLE
-                adapter = TaskAdapter()
                 binding.inItemHome.recyTask.adapter = adapter
                 adapter.differ.submitList(it)
-
-
+                swipeToDelete(binding.inItemHome.recyTask)
+            }else{
+                binding.consEmptyList.visibility = View.VISIBLE
+                binding.inItemHome.consHomeItem.visibility = View.GONE
             }
         }
 
     }
+
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeToDeleteCallback = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val deletedItem = adapter.differ.currentList[viewHolder.adapterPosition]
+                // Delete Item
+                viewModel.deleteTask(deletedItem)
+                adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                // Restore Deleted Item
+                restoreDeletedData(viewHolder.itemView, deletedItem)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun restoreDeletedData(view: View, deletedItem: Task) {
+        val snackBar = Snackbar.make(
+            view, "Deleted '${deletedItem.title}'",
+            Snackbar.LENGTH_LONG
+        )
+        snackBar.setAction("Undo") {
+            viewModel.addTask(deletedItem)
+        }
+        snackBar.show()
+    }
+
 
 
 }

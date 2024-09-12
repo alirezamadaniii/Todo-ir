@@ -22,4 +22,8 @@ class LocalDataSourceImpl(private val dao: Dao):LocalDataSource {
     override fun getCategory(): Flow<List<Category>> {
         return dao.getCategory()
     }
+
+    override suspend fun deleteTask(task: Task) {
+        dao.deleteTask(task)
+    }
 }
