@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.todoir.data.model.Category
 import com.example.todoir.data.model.Task
 import kotlinx.coroutines.flow.Flow
@@ -26,5 +27,8 @@ interface Dao {
 
     @Delete
     suspend fun deleteTask(task: Task)
+
+    @Update
+    suspend fun updateTask(task: Task)
 
 }

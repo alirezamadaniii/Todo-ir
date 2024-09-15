@@ -9,7 +9,11 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.todoir.peresentaion.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
     <navigation android:id="@+id/intro_navigation"
         app:startDestination="@id/firstIntroFragment">
         <fragment
@@ -123,5 +127,19 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="null" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.todoir.peresentaion.ui.updatetask.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <argument
+            android:name="task"
+            app:argType="com.example.todoir.data.model.Task"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_updateFragment_to_createCategoryFragment"
+            app:destination="@id/createCategoryFragment" />
     </fragment>
 </navigation>

@@ -26,4 +26,8 @@ class TodoRepositoryImpl(private val localDataSource: LocalDataSource):TodoRepos
     override suspend fun deleteTask(task: Task) {
         localDataSource.deleteTask(task)
     }
+
+    override suspend fun updateTask(task: Task) {
+        localDataSource.updateTask(task)
+    }
 }

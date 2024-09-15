@@ -26,4 +26,8 @@ class LocalDataSourceImpl(private val dao: Dao):LocalDataSource {
     override suspend fun deleteTask(task: Task) {
         dao.deleteTask(task)
     }
+
+    override suspend fun updateTask(task: Task) {
+        dao.updateTask(task)
+    }
 }

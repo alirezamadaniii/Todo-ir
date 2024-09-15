@@ -6,6 +6,7 @@ import com.example.todoir.domain.usecase.AddTaskUseCase
 import com.example.todoir.domain.usecase.DeleteTaskUseCase
 import com.example.todoir.domain.usecase.GetCategoryUseCase
 import com.example.todoir.domain.usecase.GetTaskUseCase
+import com.example.todoir.domain.usecase.UpdateTaskUseCase
 
 
 import dagger.Module
@@ -56,6 +57,14 @@ class UseCaseModule {
         todoRepository: TodoRepository
     ):DeleteTaskUseCase{
         return DeleteTaskUseCase(todoRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUpdateTaskUseCase(
+        todoRepository: TodoRepository
+    ):UpdateTaskUseCase{
+        return UpdateTaskUseCase(todoRepository)
     }
 
 }

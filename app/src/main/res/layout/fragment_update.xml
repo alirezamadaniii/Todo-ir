@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,10 +13,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gray_dark"
-            tools:context=".peresentaion.ui.addtask.AddTaskFragment">
+            tools:context=".peresentaion.ui.updatetask.UpdateFragment">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/shapeableImageView41"
+                android:id="@+id/shapeableImageView4"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_margin="16dp"
@@ -26,7 +26,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/btn_close_add"
+                    android:id="@+id/btn_close"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -38,29 +38,28 @@
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/color_11"
+                app:cardBackgroundColor="@color/gray_light"
                 app:cardCornerRadius="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/btn_add_task"
+                    android:id="@+id/btn_update_task"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/baseline_done_24"
-                    />
+                    android:src="@drawable/repeat" />
             </androidx.cardview.widget.CardView>
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView1"
+                android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 app:cardBackgroundColor="@color/gray_dark"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView41">
+                app:layout_constraintTop_toBottomOf="@+id/shapeableImageView4">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -68,7 +67,7 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout21"
+                        android:id="@+id/textInputLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -80,7 +79,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edt_add_title"
+                            android:id="@+id/edt_update_title"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/vazir_light"
@@ -91,19 +90,19 @@
 
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout31"
+                        android:id="@+id/textInputLayout3"
                         android:layout_width="0dp"
                         android:layout_height="150dp"
                         android:layout_marginTop="8dp"
                         android:textColorHint="@color/mtrl_textinput_default_box_stroke_color"
                         app:boxStrokeColor="@color/purple"
                         app:hintTextColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="@+id/textInputLayout21"
-                        app:layout_constraintStart_toStartOf="@+id/textInputLayout21"
-                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout21">
+                        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+                        app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+                        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edt_add_description"
+                            android:id="@+id/edt_update_description"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/vazir_light"
@@ -125,79 +124,79 @@
 
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img_calender_add"
+                android:id="@+id/img_calender"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="32dp"
                 android:src="@drawable/timer"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toStartOf="@+id/cardView1"
-                app:layout_constraintTop_toBottomOf="@+id/cardView1" />
+                app:layout_constraintStart_toStartOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_time_selected_add"
+                android:id="@+id/tv_time_selected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/vazir_light"
                 android:text="@string/task_time"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/img_calender_add"
-                app:layout_constraintStart_toEndOf="@+id/img_calender_add"
-                app:layout_constraintTop_toTopOf="@+id/img_calender_add" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_calender"
+                app:layout_constraintStart_toEndOf="@+id/img_calender"
+                app:layout_constraintTop_toTopOf="@+id/img_calender" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_time_add"
+                android:id="@+id/bt_time_update"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/gray_light"
                 android:fontFamily="@font/vazir_light"
-                android:text="none"
+                android:text="Today At 16:45"
                 android:textColor="@color/white"
                 app:cornerRadius="6dp"
-                app:layout_constraintBottom_toBottomOf="@+id/img_calender_add"
-                app:layout_constraintEnd_toEndOf="@+id/cardView1"
-                app:layout_constraintTop_toTopOf="@+id/img_calender_add" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_calender"
+                app:layout_constraintEnd_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toTopOf="@+id/img_calender" />
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_time_selected11"
+                android:id="@+id/tv_time_selected1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/vazir_light"
                 android:text="@string/task_category"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/img_category_add"
-                app:layout_constraintStart_toEndOf="@+id/img_category_add"
-                app:layout_constraintTop_toTopOf="@+id/img_category_add" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_category"
+                app:layout_constraintStart_toEndOf="@+id/img_category"
+                app:layout_constraintTop_toTopOf="@+id/img_category" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img_category_add"
+                android:id="@+id/img_category"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="48dp"
                 android:src="@drawable/tag"
-                app:layout_constraintStart_toStartOf="@+id/img_calender_add"
-                app:layout_constraintTop_toBottomOf="@+id/img_calender_add" />
+                app:layout_constraintStart_toStartOf="@+id/img_calender"
+                app:layout_constraintTop_toBottomOf="@+id/img_calender" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_category_add"
+                android:id="@+id/bt_category_update"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/gray_light"
                 android:fontFamily="@font/vazir_light"
-                android:text="none"
+                android:text="University"
                 android:textColor="@color/white"
                 app:cornerRadius="6dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_time_selected11"
-                app:layout_constraintEnd_toEndOf="@+id/bt_time_add"
-                app:layout_constraintTop_toTopOf="@+id/tv_time_selected11" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_time_selected1"
+                app:layout_constraintEnd_toEndOf="@+id/bt_time_update"
+                app:layout_constraintTop_toTopOf="@+id/tv_time_selected1" />
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_category_selected21"
+                android:id="@+id/tv_category_selected2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -205,23 +204,24 @@
                 android:fontFamily="@font/vazir_light"
                 android:text="@string/task_priority"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/img_priority_add"
-                app:layout_constraintStart_toEndOf="@+id/img_priority_add"
-                app:layout_constraintTop_toTopOf="@+id/img_priority_add" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_priority"
+                app:layout_constraintStart_toEndOf="@+id/img_priority"
+
+                app:layout_constraintTop_toTopOf="@+id/img_priority" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img_priority_add"
+                android:id="@+id/img_priority"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="48dp"
                 android:src="@drawable/flag"
 
-                app:layout_constraintStart_toStartOf="@+id/img_category_add"
-                app:layout_constraintTop_toBottomOf="@+id/img_category_add" />
+                app:layout_constraintStart_toStartOf="@+id/img_category"
+                app:layout_constraintTop_toBottomOf="@+id/img_category" />
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_priority_add"
+                android:id="@+id/bt_priority_update"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/gray_light"
@@ -230,16 +230,44 @@
                 android:textColor="@color/white"
                 app:cornerRadius="6dp"
                 app:icon="@drawable/flag"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_category_selected21"
-                app:layout_constraintEnd_toEndOf="@+id/bt_time_add"
-                app:layout_constraintTop_toTopOf="@+id/tv_category_selected21" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_category_selected2"
+                app:layout_constraintEnd_toEndOf="@+id/bt_time_update"
+                app:layout_constraintTop_toTopOf="@+id/tv_category_selected2" />
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons_delete_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                app:layout_constraintStart_toStartOf="@+id/img_priority"
+                app:layout_constraintTop_toBottomOf="@+id/img_priority">
 
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_category_selected3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/color_1"
+                    android:fontFamily="@font/vazir_light"
+                    android:text="@string/delete_task"
+                    android:textColor="@color/red"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_priority1"
+                    app:layout_constraintStart_toEndOf="@+id/img_priority1"
+                    app:layout_constraintTop_toTopOf="@+id/img_priority1" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/img_priority1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/trash" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
 
 </layout>

@@ -58,6 +58,10 @@
     <string name="category_color">Category color :</string>
     <string name="create_category">Create Category</string>
     <string name="choose_icon">Choose Icon</string>
+    <string name="task_time">Task Time :</string>
+    <string name="task_category">Task Category :</string>
+    <string name="task_priority">Task Priority :</string>
+    <string name="delete_task">Delete Task</string>
 
 
 </resources>

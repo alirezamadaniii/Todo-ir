@@ -65,7 +65,7 @@ class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyVie
             binding.btnTaskCategory.icon = ContextCompat.getDrawable(context, item.categoryIcon)
             binding.btnTaskCategory.setIconTintResource(R.color.black)
 
-            binding.cvTaskItem.setOnClickListener() {
+            binding.cvTaskItem.setOnClickListener {
                 onItemClick?.let {
                     it(item)
                 }

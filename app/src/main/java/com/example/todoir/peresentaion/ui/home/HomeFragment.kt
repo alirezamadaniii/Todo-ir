@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.todoir.R
@@ -50,6 +51,12 @@ class HomeFragment : Fragment() {
         setImageProfile()
         showTask()
 
+        adapter.setOnItemClick {
+            val bundle = Bundle().apply {
+                putParcelable("task",it)
+            }
+            findNavController().navigate(R.id.action_homeFragment_to_updateFragment,bundle)
+        }
     }
 
 

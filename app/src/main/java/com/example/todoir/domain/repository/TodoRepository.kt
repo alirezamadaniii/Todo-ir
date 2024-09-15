@@ -15,4 +15,6 @@ interface TodoRepository {
     fun getCategory():Flow<List<Category>>
 
     suspend fun deleteTask(task: Task)
+
+    suspend fun updateTask(task: Task)
 }

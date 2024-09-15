@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -74,11 +75,11 @@ class AddTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (!args.title.equals("null")){
-            binding.edtTaskTitle.setText(args.title)
-            binding.edtTaskDescription.setText(args.description)
+            binding.edtAddTitle.setText(args.title)
+            binding.edtAddDescription.setText(args.description)
             time = args.time
             date = args.date
-            binding.tvTimeSelected.text = time
+            binding.btTimeAdd.text = time
 
 
         }
@@ -94,16 +95,16 @@ class AddTaskFragment : Fragment() {
 
 
     private fun onClick() {
-        binding.imgCalender.setOnClickListener {
+        binding.btTimeAdd.setOnClickListener {
             chooseLangForCalender()
         }
-        binding.imgCategory.setOnClickListener {
+        binding.btCategoryAdd.setOnClickListener {
             selectCategory()
         }
-        binding.imgPriority.setOnClickListener {
+        binding.btPriorityAdd.setOnClickListener {
             selectPriority()
         }
-        binding.imgAddTask.setOnClickListener {
+        binding.btnAddTask.setOnClickListener {
             addTask()
         }
     }
@@ -186,8 +187,7 @@ class AddTaskFragment : Fragment() {
 
         picker.addOnPositiveButtonClickListener {
             time = picker.hour.toString()+":"+picker.minute.toString()
-            binding.tvTimeSelected.text = time.toString()
-            Toast.makeText(requireContext(),picker.hour.toString()+":"+picker.minute.toString(),Toast.LENGTH_SHORT).show()
+            binding.btTimeAdd.text = time.toString()
         }
     }
 
@@ -208,8 +208,8 @@ class AddTaskFragment : Fragment() {
             adapter.setOnItemClick {
                 if (it.id==1){
                     categoryDialog.dismiss()
-                    val title = binding.edtTaskTitle.text.toString().ifEmpty{ "" }
-                    val description = binding.edtTaskDescription.text.toString().ifEmpty { "" }
+                    val title = binding.edtAddTitle.text.toString().ifEmpty{ "" }
+                    val description = binding.edtAddDescription.text.toString().ifEmpty { "" }
                     val confirmTime = "${today?.hour}:${today?.minute}".ifEmpty { "" }
                     val confirmDate = "${today?.year}/${today?.month}/${today?.dayOfMonth}".ifEmpty { "" }
 
@@ -225,7 +225,8 @@ class AddTaskFragment : Fragment() {
                         category= it.name
                         categoryColor = it.color
                         categoryIcon = it.icon
-                        binding.tvCategorySelected.text = it.name
+                        binding.btCategoryAdd.text = it.name
+                        binding.btCategoryAdd.icon = ContextCompat.getDrawable(requireContext(),it.icon)
                         categoryDialog.dismiss()
 
 
@@ -257,16 +258,15 @@ class AddTaskFragment : Fragment() {
                 recycler.adapter =adapter
                 adapter.setOnItemClick {
                     flag = it.name
-                    binding.tvPrioritySelected.text = it.name
-                    Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+                    binding.btPriorityAdd.text = it.name
                     priorityDialog.dismiss()
                 }
          }
 
     private fun addTask() {
 
-            val title = binding.edtTaskTitle.text.toString()
-            val description = binding.edtTaskDescription.text.toString()
+            val title = binding.edtAddTitle.text.toString()
+            val description = binding.edtAddDescription.text.toString()
             val confirmTime = "${today?.hour}:${today?.minute}"
             val confirmDate = "${today?.year}/${today?.month}/${today?.dayOfMonth}"
 
