@@ -1,15 +1,10 @@
 package com.example.todoir.peresentaion.ui.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -57,6 +52,14 @@ class HomeFragment : Fragment() {
             }
             findNavController().navigate(R.id.action_homeFragment_to_updateFragment,bundle)
         }
+
+        adapter.setOnCheckBoxClick { item, i ->
+            if (i==1) {
+                viewModel.completedTask(item.taskId,true)
+            }else {
+                viewModel.completedTask(item.taskId,false)
+            }
+        }
     }
 
 
@@ -70,14 +73,14 @@ class HomeFragment : Fragment() {
         viewModel.getTask().observe(viewLifecycleOwner){
             if (it.isNotEmpty()){
                 binding.consEmptyList.visibility = View.GONE
-                binding.inItemHome.consHomeItem.visibility = View.GONE
-                binding.inItemHome.consHomeItem.visibility = View.VISIBLE
-                binding.inItemHome.recyTask.adapter = adapter
+                binding.consHomeItem.visibility = View.GONE
+                binding.consHomeItem.visibility = View.VISIBLE
+                binding.recyTask.adapter = adapter
                 adapter.differ.submitList(it)
-                swipeToDelete(binding.inItemHome.recyTask)
+//                swipeToDelete(binding.recyTask)
             }else{
                 binding.consEmptyList.visibility = View.VISIBLE
-                binding.inItemHome.consHomeItem.visibility = View.GONE
+                binding.consHomeItem.visibility = View.GONE
             }
         }
 

@@ -3,6 +3,7 @@ package com.example.todoir.peresentaion.ui.addtask
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -287,6 +288,15 @@ class AddTaskFragment : Fragment() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        view?.isFocusableInTouchMode = true
+        view?.requestFocus()
+        view?.setOnKeyListener(View.OnKeyListener { _, keyCode, _ ->
+            findNavController().navigate(R.id.action_addTaskFragment_to_homeFragment)
+            return@OnKeyListener keyCode == KeyEvent.KEYCODE_BACK
+        })
+    }
 
 
 

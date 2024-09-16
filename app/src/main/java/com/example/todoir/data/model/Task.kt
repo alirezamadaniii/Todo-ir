@@ -20,5 +20,5 @@ data class Task(
     val flag:Int,
     val confirmTime:String,
     val confirmDate:String,
-    val isCompleted:Boolean
+    var isCompleted:Boolean
 ):Parcelable

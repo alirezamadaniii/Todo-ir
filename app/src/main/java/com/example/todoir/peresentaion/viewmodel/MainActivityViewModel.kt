@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.todoir.data.model.Task
 import com.example.todoir.domain.usecase.AddTaskUseCase
+import com.example.todoir.domain.usecase.CompletedTaskUseCase
 import com.example.todoir.domain.usecase.DeleteTaskUseCase
 import com.example.todoir.domain.usecase.GetTaskUseCase
 import com.example.todoir.domain.usecase.UpdateTaskUseCase
@@ -18,7 +19,8 @@ class MainActivityViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
     private val getTaskUseCase: GetTaskUseCase,
     private val deleteTaskUseCase: DeleteTaskUseCase,
-    private val updateTaskUseCase: UpdateTaskUseCase
+    private val updateTaskUseCase: UpdateTaskUseCase,
+    private val completedTaskUseCase: CompletedTaskUseCase
 ) :ViewModel(){
     fun addTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
         addTaskUseCase.execute(task)
@@ -37,6 +39,10 @@ class MainActivityViewModel @Inject constructor(
 
     fun updateTask(task: Task) = viewModelScope.launch {
         updateTaskUseCase.execute(task)
+    }
+
+    fun completedTask(id:Int,isCompleted: Boolean) = viewModelScope.launch {
+        completedTaskUseCase.execute(id, isCompleted)
     }
 
 }

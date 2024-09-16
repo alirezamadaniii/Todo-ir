@@ -31,4 +31,7 @@ interface Dao {
     @Update
     suspend fun updateTask(task: Task)
 
+    @Query("UPDATE task_table SET isCompleted = :isCompleted WHERE taskId = :id")
+    suspend fun completedTask(id:Int,isCompleted: Boolean)
+
 }

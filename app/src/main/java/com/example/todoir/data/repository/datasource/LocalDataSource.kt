@@ -14,4 +14,6 @@ interface LocalDataSource {
     suspend fun deleteTask(task: Task)
 
     suspend fun updateTask(task: Task)
+
+    suspend fun completedTask(id:Int,isCompleted: Boolean)
 }

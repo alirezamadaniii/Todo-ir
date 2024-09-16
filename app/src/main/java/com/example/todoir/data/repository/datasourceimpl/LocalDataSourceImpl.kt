@@ -30,4 +30,8 @@ class LocalDataSourceImpl(private val dao: Dao):LocalDataSource {
     override suspend fun updateTask(task: Task) {
         dao.updateTask(task)
     }
+
+    override suspend fun completedTask(id: Int, isCompleted: Boolean) {
+        dao.completedTask(id, isCompleted)
+    }
 }

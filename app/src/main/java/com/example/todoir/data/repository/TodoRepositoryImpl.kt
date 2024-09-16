@@ -30,4 +30,8 @@ class TodoRepositoryImpl(private val localDataSource: LocalDataSource):TodoRepos
     override suspend fun updateTask(task: Task) {
         localDataSource.updateTask(task)
     }
+
+    override suspend fun completedTask(id: Int, isCompleted: Boolean) {
+        localDataSource.completedTask(id, isCompleted)
+    }
 }

@@ -6,15 +6,79 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_dark"
-    tools:context=".peresentaion.ui.home.HomeFragment">
+    android:background="@color/gray_dark">
 
-    <include
-        android:id="@+id/in_item_home"
-        layout="@layout/item_home"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_home_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/im_profile_home" />
+        android:visibility="visible"
+        android:background="@color/gray_dark"
+        app:layout_constraintTop_toBottomOf="@+id/im_profile_home" >
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="@color/gray_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/shapeableImageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/search_normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:autofillHints="sds"
+                    android:background="@color/gray_light"
+                    android:fontFamily="@font/vazir_light"
+                    android:hint="@string/search_for_your_task"
+                    android:inputType="text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/gray_text"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/shapeableImageView2"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recy_task"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:nestedScrollingEnabled="true"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cons_home_item"
+        tools:listitem="@layout/item_task" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/appCompatImageButton"
@@ -38,6 +102,7 @@
 
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/vazir_light"

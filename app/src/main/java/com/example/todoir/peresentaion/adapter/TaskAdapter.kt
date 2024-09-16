@@ -2,24 +2,24 @@ package com.example.todoir.peresentaion.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoir.R
-import com.example.todoir.data.model.Priority
 import com.example.todoir.data.model.Task
-import com.example.todoir.databinding.ItemPriorityBinding
 import com.example.todoir.databinding.ItemTaskBinding
 import javax.inject.Inject
 import javax.inject.Singleton
 
+
 @Singleton
-class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyViewHolder>() {
+class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyViewHolder>(){
     private lateinit var context: Context
 
     private val callback = object : DiffUtil.ItemCallback<Task>() {
@@ -43,6 +43,36 @@ class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyVie
         return MyViewHolder(binding)
     }
 
+//    override fun getFilter(): Filter {
+//        return object : Filter() {
+//            override fun performFiltering(constraint: CharSequence?): FilterResults {
+//                val charString = constraint?.toString() ?: ""
+//                if (charString.isEmpty()) photosListFiltered = photosList else {
+//                    val filteredList = ArrayList<Photos>()
+//                    photosList
+//                        .filter {
+//                            (it.id.contains(constraint!!)) or
+//                                    (it.author.contains(constraint))
+//
+//                        }
+//                        .forEach { filteredList.add(it) }
+//                    photosListFiltered = filteredList
+//
+//                }
+//                return FilterResults().apply { values = photosListFiltered }
+//            }
+//
+//            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+//
+//                photosListFiltered = if (results?.values == null)
+//                    ArrayList()
+//                else
+//                    results.values as ArrayList<Photos>
+//                notifyDataSetChanged()
+//            }
+//        }
+//    }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = differ.currentList[position]
         holder.bind(item)
@@ -57,6 +87,12 @@ class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyVie
     inner class MyViewHolder(val binding: ItemTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Task) {
+            if (item.isCompleted){
+                binding.tvTitleTask.paintFlags = binding.tvTitleTask.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                binding.tvTaskTime.paintFlags = binding.tvTitleTask.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                binding.cvTaskItem.setCardBackgroundColor( Color.parseColor("#686767"))
+                binding.materialCheckBox.isChecked = true
+            }
             binding.tvTitleTask.text = item.title
             binding.tvTaskTime.text = item.date
             binding.btnTaskCategory.text = item.categoryName
@@ -64,6 +100,24 @@ class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyVie
             binding.btnTaskCategory.setBackgroundColor(Color.parseColor(item.categoryColor))
             binding.btnTaskCategory.icon = ContextCompat.getDrawable(context, item.categoryIcon)
             binding.btnTaskCategory.setIconTintResource(R.color.black)
+
+
+            binding.materialCheckBox.addOnCheckedStateChangedListener { _, state ->
+                onCheckBoxClick?.let {
+                    it(item,state)
+                }
+                if (state == 1){
+                binding.tvTitleTask.paintFlags = binding.tvTitleTask.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                binding.tvTaskTime.paintFlags = binding.tvTitleTask.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                binding.cvTaskItem.setCardBackgroundColor( Color.parseColor("#686767"))
+
+                }else{
+                    binding.tvTitleTask.paintFlags = binding.tvTitleTask.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    binding.tvTaskTime.paintFlags = binding.tvTitleTask.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    binding.cvTaskItem.setCardBackgroundColor( Color.parseColor("#363636"))
+                }
+            }
+
 
             binding.cvTaskItem.setOnClickListener {
                 onItemClick?.let {
@@ -78,6 +132,13 @@ class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyVie
     fun setOnItemClick(listener:(Task)->Unit) {
         onItemClick = listener
     }
+
+    private var onCheckBoxClick:((Task,Int)->Unit)? = null
+
+    fun setOnCheckBoxClick(listener:(Task,Int)->Unit) {
+        onCheckBoxClick = listener
+    }
+
 
 
 }
