@@ -1,10 +1,17 @@
 package com.example.todoir.peresentaion.ui.home
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,7 +27,11 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todoir.data.model.Task
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 import javax.inject.Inject
+
+
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -29,6 +40,11 @@ class HomeFragment : Fragment() {
     private  val viewModel: MainActivityViewModel by viewModels()
     @Inject
     lateinit var adapter :TaskAdapter
+
+    private lateinit var searchView: SearchView
+    private lateinit var searchList: ArrayList<Task>
+    private lateinit var dataList: ArrayList<Task>
+
 
     @Inject
     lateinit var sp: Sp
@@ -46,6 +62,11 @@ class HomeFragment : Fragment() {
         setImageProfile()
         showTask()
 
+
+
+
+        searchList = arrayListOf<Task>()
+        dataList = arrayListOf<Task>()
         adapter.setOnItemClick {
             val bundle = Bundle().apply {
                 putParcelable("task",it)
@@ -72,12 +93,38 @@ class HomeFragment : Fragment() {
     private fun showTask() {
         viewModel.getTask().observe(viewLifecycleOwner){
             if (it.isNotEmpty()){
+                searchList.addAll(it)
                 binding.consEmptyList.visibility = View.GONE
                 binding.consHomeItem.visibility = View.GONE
                 binding.consHomeItem.visibility = View.VISIBLE
                 binding.recyTask.adapter = adapter
                 adapter.differ.submitList(it)
-//                swipeToDelete(binding.recyTask)
+
+//                binding.search.clearFocus()
+//                binding.search.setOnQueryTextListener(object : Sear3chView.OnQueryTextListener{
+//                    override fun onQueryTextSubmit(query: String?): Boolean {
+//                        binding.search.clearFocus()
+//                        return true
+//                    }
+//                    override fun onQueryTextChange(newText: String?): Boolean {
+//                        searchList .clear()
+//                        val searchText = newText!!.toLowerCase(Locale.getDefault())
+//                        if (searchText.isNotEmpty()){
+//                            dataList.forEach{
+//                                if (it.title.toLowerCase(Locale.getDefault()).contains(searchText)) {
+//                                    searchList.add(it)
+//                                }
+//                            }
+//                            binding.recyTask.adapter!!.notifyDataSetChanged()
+//                        } else {
+//                            searchList.clear()
+//                            searchList.addAll(dataList)
+//                            binding.recyTask.adapter!!.notifyDataSetChanged()
+//                        }
+//                        return false
+//                    }
+//                })
+                swipeToDelete(binding.recyTask)
             }else{
                 binding.consEmptyList.visibility = View.VISIBLE
                 binding.consHomeItem.visibility = View.GONE

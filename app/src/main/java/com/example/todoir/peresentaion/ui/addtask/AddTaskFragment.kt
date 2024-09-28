@@ -51,8 +51,8 @@ class AddTaskFragment : Fragment() {
 
     private var date: String? = null
     private var time: String? = null
-    private var category: String? = "All"
-    private var categoryColor: String? = "All"
+    private var category: String? = null
+    private var categoryColor: String? = null
     private var categoryIcon: Int? = 0
     private var flag: String? = "0"
     private var today: CivilCalendar? = null
@@ -276,6 +276,16 @@ class AddTaskFragment : Fragment() {
             }else if (description.isEmpty()){
                 Toast.makeText(requireContext(), getString(R.string.Please_enter_Description), Toast.LENGTH_SHORT).show()
 
+            }else if (time.isNullOrEmpty()){
+                time = "None"
+            }else if (date.isNullOrEmpty()){
+                date = "None"
+            }else if (category.isNullOrEmpty()){
+                category = "All"
+                categoryColor = "#80FFD1"
+                categoryIcon = R.drawable.add_1
+            }else if (flag.isNullOrEmpty()){
+                flag = "0"
             }else{
                 val task = Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
                     categoryColor.toString(),

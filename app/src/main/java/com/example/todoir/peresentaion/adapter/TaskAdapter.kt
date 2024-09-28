@@ -43,35 +43,7 @@ class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyVie
         return MyViewHolder(binding)
     }
 
-//    override fun getFilter(): Filter {
-//        return object : Filter() {
-//            override fun performFiltering(constraint: CharSequence?): FilterResults {
-//                val charString = constraint?.toString() ?: ""
-//                if (charString.isEmpty()) photosListFiltered = photosList else {
-//                    val filteredList = ArrayList<Photos>()
-//                    photosList
-//                        .filter {
-//                            (it.id.contains(constraint!!)) or
-//                                    (it.author.contains(constraint))
-//
-//                        }
-//                        .forEach { filteredList.add(it) }
-//                    photosListFiltered = filteredList
-//
-//                }
-//                return FilterResults().apply { values = photosListFiltered }
-//            }
-//
-//            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-//
-//                photosListFiltered = if (results?.values == null)
-//                    ArrayList()
-//                else
-//                    results.values as ArrayList<Photos>
-//                notifyDataSetChanged()
-//            }
-//        }
-//    }
+
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = differ.currentList[position]
