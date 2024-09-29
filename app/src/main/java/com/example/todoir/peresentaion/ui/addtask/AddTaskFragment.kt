@@ -1,7 +1,13 @@
 package com.example.todoir.peresentaion.ui.addtask
 
 import android.app.Dialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.text.format.DateFormat
 import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -9,6 +15,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -20,6 +29,8 @@ import com.aminography.primecalendar.persian.PersianCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.example.todoir.R
+import com.example.todoir.alarm.AlarmSchedulerImpl
+import com.example.todoir.data.model.Alarm
 import com.example.todoir.data.model.Priority
 import com.example.todoir.data.model.Task
 import com.example.todoir.data.utils.CustomCalender
@@ -30,10 +41,13 @@ import com.example.todoir.peresentaion.adapter.CategoryAdapter
 import com.example.todoir.peresentaion.adapter.PriorityAdapter
 import com.example.todoir.peresentaion.viewmodel.CreateCategoryViewModel
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.MaterialTimePicker.INPUT_MODE_KEYBOARD
 import com.google.android.material.timepicker.TimeFormat
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
+import java.util.Date
 import java.util.TimeZone
 import javax.inject.Inject
 
@@ -47,6 +61,9 @@ class AddTaskFragment : Fragment() {
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: CategoryAdapter
     private val args: AddTaskFragmentArgs by navArgs()
+    private lateinit var alarmSchedulerImpl: AlarmSchedulerImpl
+    private var alarm: Alarm? = null
+    private lateinit var picker:MaterialTimePicker
 
 
     private var date: String? = null
@@ -72,8 +89,12 @@ class AddTaskFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        alarmSchedulerImpl = AlarmSchedulerImpl(requireContext())
+
 
         if (!args.title.equals("null")){
             binding.edtAddTitle.setText(args.title)
@@ -95,6 +116,7 @@ class AddTaskFragment : Fragment() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun onClick() {
         binding.btTimeAdd.setOnClickListener {
             chooseLangForCalender()
@@ -106,10 +128,83 @@ class AddTaskFragment : Fragment() {
             selectPriority()
         }
         binding.btnAddTask.setOnClickListener {
+
             addTask()
+
+        }
+
+
+        binding.button1.setOnClickListener {
+            if (isPermissionGranted()) {
+                createAlarm("title", "message", picker.hour, picker.minute)
+            } else {
+                activityResultLauncher.launch(
+                    android.Manifest.permission.POST_NOTIFICATIONS
+                )
+            }
         }
     }
 
+    private val activityResultLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { permissions ->
+        if (permissions) {
+            createAlarm("title", "message", picker.hour, picker.minute)
+        } else {
+            showEducationalDialog()
+        }
+
+        }
+
+
+private fun isPermissionGranted() =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    } else {
+        true
+    }
+
+private fun showEducationalDialog() {
+    val dialog = MaterialAlertDialogBuilder(requireContext())
+        .setTitle(R.string.Please_enter_title)
+        .setMessage(R.string.add)
+        .setNegativeButton(R.string.Home) { dialog, _ ->
+            dialog.dismiss()
+            requireActivity().finish()
+        }
+        .setPositiveButton(R.string.Sport) { dialog, _ ->
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri = Uri.fromParts("package", requireActivity().packageName, null)
+            intent.setData(uri)
+            startActivity(intent)
+            dialog.dismiss()
+        }
+        .setCancelable(false)
+    dialog.show()
+}
+
+
+
+    private fun createAlarm(title: String, message: String, hour: Int, min: Int) {
+
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, min)
+        calendar.set(Calendar.SECOND, 0)
+
+        alarm = Alarm(
+            0L,
+            title,
+            message,
+            calendar.timeInMillis
+        )
+
+        alarm?.let(alarmSchedulerImpl::schedule)
+
+    }
 
 
     private fun chooseLangForCalender() {
@@ -175,12 +270,19 @@ class AddTaskFragment : Fragment() {
         }
 
     private fun timePiker() {
-        val picker =
+
+        val date = Date()
+        val calendar = Calendar.getInstance()
+        calendar.setTime(date)
+        calendar.add(Calendar.HOUR, 1)
+        calendar.set(Calendar.SECOND, 0)
+
+         picker =
             MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_12H)
-                .setHour(12)
+                .setTimeFormat(if (DateFormat.is24HourFormat(requireContext())) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
+                .setHour(calendar.get(Calendar.HOUR))
                 .setInputMode(INPUT_MODE_KEYBOARD)
-                .setMinute(10)
+                .setMinute(calendar.get(Calendar.MINUTE))
                 .setTitleText("Select Appointment time")
                 .build()
 

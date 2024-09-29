@@ -68,59 +68,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
-//        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//
-////        val intent = Intent(this, afterNotification::class)
-////        // FLAG_UPDATE_CURRENT specifies that if a previous
-////        // PendingIntent already exists, then the current one
-////        // will update it with the latest intent
-////        // 0 is the request code, using it later with the
-////        // same method again will get back the same pending
-////        // intent for future reference
-////        // intent passed here is to our afterNotification class
-////        val pendingIntent =
-////            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-////
-////        // RemoteViews are used to use the content of
-////        // some different layout apart from the current activity layout
-////        val contentView = RemoteViews(packageName, R.layout.dialog_category)
-//
-//        // checking if android version is greater than oreo(API 26) or not
-//        val tsLong = System.currentTimeMillis() / 1000
-//        val ts = tsLong.toString()
-//        if (ts == "1727024450"){
-//            Log.i("TAG", "aaaaaonCreate: "+ts)
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                notificationChannel =
-//                    NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-//                notificationChannel.enableLights(true)
-//                notificationChannel.lightColor = Color.GREEN
-//                notificationChannel.enableVibration(false)
-//                notificationManager.createNotificationChannel(notificationChannel)
-//
-//                builder = Notification.Builder(this, channelId)
-//                    .setSmallIcon(R.drawable.ic_launcher_background)
-//                    .setLargeIcon(
-//                        BitmapFactory.decodeResource(
-//                            this.resources,
-//                            R.drawable.ic_launcher_background
-//                        )
-//                    )
-//            } else {
-//
-//                builder = Notification.Builder(this)
-//                    .setSmallIcon(R.drawable.ic_launcher_background)
-//                    .setLargeIcon(
-//                        BitmapFactory.decodeResource(
-//                            this.resources,
-//                            R.drawable.ic_launcher_background
-//                        )
-//                    )
-//            }
-//            notificationManager.notify(1234, builder.build())
-//
-//        }
-
 
         createCustomBottomNavigation()
         initNavigation()
