@@ -62,6 +62,10 @@
     <string name="task_category">Task Category :</string>
     <string name="task_priority">Task Priority :</string>
     <string name="delete_task">Delete Task</string>
-
+    <string name="permission_denied">Permission denied!</string>
+    <string name="request_msg"> To send a notification when alarm is triggered allow AlarmManager to send a notification. Tap Settings Permissions, and turn Notifications on.</string>
+    <string name="close">Close</string>
+    <string name="reminder">Reminder</string>
+    <string name="reminder_channel_desc">This is required to send a notification when alarm is set</string>
 
 </resources>

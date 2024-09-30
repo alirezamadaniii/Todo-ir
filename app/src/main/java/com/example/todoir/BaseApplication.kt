@@ -13,8 +13,8 @@ class BaseApplication:Application(){
         super.onCreate()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.Home)
-            val channelDescription = getString(R.string.description)
+            val name = getString(R.string.reminder)
+            val channelDescription = getString(R.string.reminder_channel_desc)
             val importance = NotificationManager.IMPORTANCE_HIGH
             val mChannel = NotificationChannel(ALARM_CHANNEL_NAME, name, importance)
             mChannel.description = channelDescription

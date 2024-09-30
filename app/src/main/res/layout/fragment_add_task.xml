@@ -220,6 +220,43 @@
 
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/bt_add_reminder"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/gray_light"
+                android:fontFamily="@font/vazir_light"
+                android:text="Add Reminder"
+                android:textColor="@color/white"
+                app:cornerRadius="6dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_category_selected212"
+                app:layout_constraintEnd_toEndOf="@+id/bt_priority_add"
+                app:layout_constraintTop_toTopOf="@+id/tv_category_selected212" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_category_selected212"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="@color/color_1"
+                android:fontFamily="@font/vazir_light"
+                android:text="@string/reminder"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/img_reminder"
+                app:layout_constraintStart_toEndOf="@+id/img_reminder"
+                app:layout_constraintTop_toTopOf="@+id/img_reminder" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_reminder"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="48dp"
+                android:src="@drawable/ic_reminder"
+                app:layout_constraintStart_toStartOf="@+id/img_category_add"
+                app:layout_constraintTop_toBottomOf="@+id/img_priority_add" />
+
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/bt_priority_add"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
@@ -228,20 +265,9 @@
                 android:text="Default"
                 android:textColor="@color/white"
                 app:cornerRadius="6dp"
-                app:icon="@drawable/flag"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_category_selected21"
                 app:layout_constraintEnd_toEndOf="@+id/bt_time_add"
                 app:layout_constraintTop_toTopOf="@+id/tv_category_selected21" />
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="115dp"
-                android:layout_marginBottom="145dp"
-                android:text="Button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

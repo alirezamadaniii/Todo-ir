@@ -1,8 +1,11 @@
 package com.example.todoir.peresentaion.ui.addtask
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.Ringtone
+import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -10,16 +13,15 @@ import android.provider.Settings
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -51,6 +53,7 @@ import java.util.Date
 import java.util.TimeZone
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class AddTaskFragment : Fragment() {
 
@@ -64,7 +67,7 @@ class AddTaskFragment : Fragment() {
     private lateinit var alarmSchedulerImpl: AlarmSchedulerImpl
     private var alarm: Alarm? = null
     private lateinit var picker:MaterialTimePicker
-
+    private lateinit var ringtone: Ringtone
 
     private var date: String? = null
     private var time: String? = null
@@ -73,6 +76,7 @@ class AddTaskFragment : Fragment() {
     private var categoryIcon: Int? = 0
     private var flag: String? = "0"
     private var today: CivilCalendar? = null
+    var tone: String? = null
 
 
     @Inject
@@ -93,7 +97,13 @@ class AddTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         alarmSchedulerImpl = AlarmSchedulerImpl(requireContext())
+//        tone=RingtoneManager.getActualDefaultRingtoneUri(this.context, RingtoneManager.TYPE_ALARM).toString()
+//        ringtone = RingtoneManager.getRingtone(getContext(), Uri.parse(tone));
+//        if(alarm!=null){
+//            updateAlarmInfo(alarm);
+//        }
 
 
         if (!args.title.equals("null")){
@@ -128,13 +138,23 @@ class AddTaskFragment : Fragment() {
             selectPriority()
         }
         binding.btnAddTask.setOnClickListener {
-
             addTask()
-
         }
 
 
-        binding.button1.setOnClickListener {
+//        binding.button.setOnClickListener {
+//            val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
+//            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
+//            intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Alarm Sound")
+//            intent.putExtra(
+//                RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+//                Uri.parse(tone)
+//            )
+//            startActivityForResult(intent, 5)
+//        }
+
+        binding.btAddReminder.setOnClickListener {
+
             if (isPermissionGranted()) {
                 createAlarm("title", "message", picker.hour, picker.minute)
             } else {
@@ -142,6 +162,7 @@ class AddTaskFragment : Fragment() {
                     android.Manifest.permission.POST_NOTIFICATIONS
                 )
             }
+
         }
     }
 
@@ -157,7 +178,20 @@ class AddTaskFragment : Fragment() {
         }
 
 
-private fun isPermissionGranted() =
+//    @Deprecated("Deprecated in Java")
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (resultCode == Activity.RESULT_OK && requestCode == 5) {
+//            val uri = data?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+//            ringtone = RingtoneManager.getRingtone(context, uri)
+//            if (uri != null) {
+//                tone = uri.toString()
+//
+//            } else { }
+//        }
+//    }
+
+
+    private fun isPermissionGranted() =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         ContextCompat.checkSelfPermission(
             requireContext(),
@@ -167,15 +201,15 @@ private fun isPermissionGranted() =
         true
     }
 
-private fun showEducationalDialog() {
+    private fun showEducationalDialog() {
     val dialog = MaterialAlertDialogBuilder(requireContext())
-        .setTitle(R.string.Please_enter_title)
-        .setMessage(R.string.add)
-        .setNegativeButton(R.string.Home) { dialog, _ ->
+        .setTitle(R.string.permission_denied)
+        .setMessage(R.string.request_msg)
+        .setNegativeButton(R.string.close) { dialog, _ ->
             dialog.dismiss()
             requireActivity().finish()
         }
-        .setPositiveButton(R.string.Sport) { dialog, _ ->
+        .setPositiveButton(R.string.setting) { dialog, _ ->
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
             val uri = Uri.fromParts("package", requireActivity().packageName, null)
             intent.setData(uri)
@@ -184,7 +218,7 @@ private fun showEducationalDialog() {
         }
         .setCancelable(false)
     dialog.show()
-}
+    }
 
 
 
