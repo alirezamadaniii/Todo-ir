@@ -75,6 +75,7 @@ class AddTaskFragment : Fragment() {
     private var categoryColor: String? = null
     private var categoryIcon: Int? = 0
     private var flag: String? = "0"
+    private var isAlarm: Boolean = false
     private var today: CivilCalendar? = null
     var tone: String? = null
 
@@ -153,15 +154,24 @@ class AddTaskFragment : Fragment() {
 //            startActivityForResult(intent, 5)
 //        }
 
-        binding.btAddReminder.setOnClickListener {
-
-            if (isPermissionGranted()) {
-                createAlarm("title", "message", picker.hour, picker.minute)
-            } else {
-                activityResultLauncher.launch(
-                    android.Manifest.permission.POST_NOTIFICATIONS
-                )
+        binding.btAddReminder.setOnCheckedChangeListener { _, b ->
+            if (b){
+                if (this::picker.isInitialized) {
+                    if (isPermissionGranted()) {
+                        isAlarm = true
+                    } else {
+                        activityResultLauncher.launch(
+                            android.Manifest.permission.POST_NOTIFICATIONS
+                        )
+                    }
+                }else{
+                    binding.btAddReminder.isChecked = false
+                    Toast.makeText(requireContext(),"To use the reminder, you must set a time.",Toast.LENGTH_LONG).show()
+                }
+            }else{
+                isAlarm = false
             }
+
 
         }
     }
@@ -170,7 +180,7 @@ class AddTaskFragment : Fragment() {
         ActivityResultContracts.RequestPermission()
     ) { permissions ->
         if (permissions) {
-            createAlarm("title", "message", picker.hour, picker.minute)
+            isAlarm = true
         } else {
             showEducationalDialog()
         }
@@ -422,7 +432,10 @@ class AddTaskFragment : Fragment() {
                 categoryIcon = R.drawable.add_1
             }else if (flag.isNullOrEmpty()){
                 flag = "0"
-            }else{
+            } else{
+                if (isAlarm){
+                    createAlarm(title, description, picker.hour, picker.minute)
+                }
                 val task = Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
                     categoryColor.toString(),
                     categoryIcon!!,

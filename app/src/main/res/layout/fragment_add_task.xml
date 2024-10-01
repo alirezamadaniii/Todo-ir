@@ -219,17 +219,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/img_category_add" />
 
 
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/bt_add_reminder"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/gray_light"
-                android:fontFamily="@font/vazir_light"
-                android:text="Add Reminder"
-                android:textColor="@color/white"
-                app:cornerRadius="6dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_category_selected212"
                 app:layout_constraintEnd_toEndOf="@+id/bt_priority_add"
+                app:layout_constraintStart_toStartOf="@+id/bt_priority_add"
                 app:layout_constraintTop_toTopOf="@+id/tv_category_selected212" />
 
 
