@@ -67,5 +67,6 @@
     <string name="close">Close</string>
     <string name="reminder">Reminder</string>
     <string name="reminder_channel_desc">This is required to send a notification when alarm is set</string>
+    <string name="please_select_the_fliter">Please select the fliter</string>
 
 </resources>

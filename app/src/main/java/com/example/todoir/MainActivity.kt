@@ -52,14 +52,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navGraph: NavGraph
     private lateinit var bottomSheetDialog: BottomSheetDialog
-    private lateinit var bottomSheetDialog2: BottomSheetDialog
     private val itemAdapterBottomSheet = LanguageBottomSheet()
-    private val customCalender = CustomCalender()
-    lateinit var notificationManager: NotificationManager
-    lateinit var notificationChannel: NotificationChannel
-    lateinit var builder: Notification.Builder
-    private val channelId = "i.apps.notifications"
-    private val description = "Test notification"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,10 +117,10 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomAppBar.visibility = View.VISIBLE
                     binding.fab.visibility =View.VISIBLE
                 }
-//                R.id.welcomeIntroFragment -> {
-//                    binding.bottomAppBar.visibility = View.GONE
-//                    binding.fab.visibility =View.GONE
-//                }
+                R.id.calenderFragment -> {
+                    binding.bottomAppBar.visibility = View.VISIBLE
+                    binding.fab.visibility =View.VISIBLE
+                }
                 else -> {
                     binding.bottomAppBar.visibility = View.GONE
                     binding.fab.visibility = View.GONE

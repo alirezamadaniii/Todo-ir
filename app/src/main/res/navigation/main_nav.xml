@@ -146,4 +146,8 @@
             android:id="@+id/action_updateFragment_to_createCategoryFragment"
             app:destination="@id/createCategoryFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/calenderFragment"
+        android:name="com.example.todoir.peresentaion.ui.CalenderFragment"
+        android:label="CalenderFragment" />
 </navigation>

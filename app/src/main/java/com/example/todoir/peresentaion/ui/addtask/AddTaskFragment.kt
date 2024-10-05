@@ -13,15 +13,16 @@ import android.provider.Settings
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.KeyEvent
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -269,7 +270,7 @@ class AddTaskFragment : Fragment() {
             today = CivilCalendar()
 
 
-            val datePicker = PrimeDatePicker.bottomSheetWith(today!!)
+            val datePicker = PrimeDatePicker.dialogWith(today!!)
                 .pickSingleDay(callback)
                 .initiallyPickedSingleDay(today!!)
                 .applyTheme(customCalender)
@@ -302,7 +303,7 @@ class AddTaskFragment : Fragment() {
 
 
 
-            val datePicker = PrimeDatePicker.bottomSheetWith(calendar)
+            val datePicker = PrimeDatePicker.dialogWith(calendar)
                 .pickSingleDay(callback)
                 .initiallyPickedSingleDay(calendar)
                 .applyTheme(customCalender)

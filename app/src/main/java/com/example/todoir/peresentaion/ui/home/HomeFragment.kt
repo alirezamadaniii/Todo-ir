@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.SearchView
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
@@ -25,6 +26,9 @@ import com.example.todoir.peresentaion.adapter.TaskAdapter
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.todoir.data.model.Task
+import com.example.todoir.peresentaion.adapter.FilterBottomSheet
+import com.example.todoir.peresentaion.adapter.LanguageBottomSheet
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
@@ -44,6 +48,8 @@ class HomeFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var searchList: ArrayList<Task>
     private lateinit var dataList: ArrayList<Task>
+    private val itemAdapterBottomSheet = FilterBottomSheet()
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
 
     @Inject
@@ -59,8 +65,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setImageProfile()
         showTask()
+        onClick()
 
 
 
@@ -83,6 +91,33 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun onClick() {
+        binding.imbFilter.setOnClickListener {
+            showBottomSheet()
+        }
+
+    }
+
+
+    private fun showBottomSheet() {
+        val dialogView =
+            layoutInflater.inflate(R.layout.bottom_sheet_filter, LinearLayout(requireContext()))
+        bottomSheetDialog =
+            BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        bottomSheetDialog.setContentView(dialogView)
+        bottomSheetDialog.setCancelable(false)
+        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.recyyy_filter)
+        recyclerView.adapter = itemAdapterBottomSheet
+        bottomSheetDialog.show()
+
+        bottomSheetItemClicked()
+    }
+
+    private fun bottomSheetItemClicked() {
+        itemAdapterBottomSheet.setOnItemClick {
+            bottomSheetDialog.dismiss()
+        }
+    }
 
 
     private fun setImageProfile() {
