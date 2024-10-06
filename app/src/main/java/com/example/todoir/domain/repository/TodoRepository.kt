@@ -10,6 +10,14 @@ interface TodoRepository {
 
     suspend fun getTask(): Flow<List<Task>>
 
+    suspend fun getTaskAfterFilter(date:String): Flow<List<Task>>
+
+    suspend fun getPriorityTask(priority:Int): Flow<List<Task>>
+
+    suspend fun getCategoryTask(category:String): Flow<List<Task>>
+
+    suspend fun getCompletedTask(isCompleted:Boolean): Flow<List<Task>>
+
     suspend fun addCategory(category: Category)
 
     fun getCategory():Flow<List<Category>>

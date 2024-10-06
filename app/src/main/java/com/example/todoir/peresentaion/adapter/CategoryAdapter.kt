@@ -1,6 +1,7 @@
 package com.example.todoir.peresentaion.adapter
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -47,6 +48,7 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.MyViewHolder>() {
     inner class  MyViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Category){
             binding.tvCategoryName.text = item.name
+            Log.i("TAG", "bindqqqqq: "+item.icon.toString())
             binding.imgCategoryIcon.setImageResource(item.icon)
             binding.cvGrocery.setCardBackgroundColor(Color.parseColor(item.color))
             binding.root.setOnClickListener {

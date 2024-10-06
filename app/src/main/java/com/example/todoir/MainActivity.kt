@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(2000)
+        Thread.sleep(300)
         installSplashScreen()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
@@ -109,10 +109,6 @@ class MainActivity : AppCompatActivity() {
                     binding.fab.visibility = View.VISIBLE
                 }
 
-                R.id.addTaskFragment -> {
-                    binding.bottomAppBar.visibility = View.VISIBLE
-                    binding.fab.visibility =View.VISIBLE
-                }
                 R.id.profileFragment -> {
                     binding.bottomAppBar.visibility = View.VISIBLE
                     binding.fab.visibility =View.VISIBLE

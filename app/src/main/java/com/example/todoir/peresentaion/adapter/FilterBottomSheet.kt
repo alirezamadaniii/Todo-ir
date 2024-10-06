@@ -14,7 +14,7 @@ class FilterBottomSheet (
     private val mList: MutableList<Filter>  = ArrayList()
 
     init {
-        val filter1 = Filter(1,"Completed")
+        val filter1 = Filter(1,"Done")
         val filter2 = Filter(2,"Undone")
         val filter3 = Filter(3,"Date")
         val filter4 = Filter(4,"Priority")

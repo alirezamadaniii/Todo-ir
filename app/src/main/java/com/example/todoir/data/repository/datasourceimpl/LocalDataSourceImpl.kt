@@ -15,6 +15,22 @@ class LocalDataSourceImpl(private val dao: Dao):LocalDataSource {
         return dao.getTask()
     }
 
+    override suspend fun getTaskAfterFilter(date: String): Flow<List<Task>> {
+        return dao.getTaskAfterFilter(date)
+    }
+
+    override suspend fun getPriorityTask(priority: Int): Flow<List<Task>> {
+        return dao.getPriorityTask(priority)
+    }
+
+    override suspend fun getCategoryTask(category: String): Flow<List<Task>> {
+       return dao.getCategoryTask(category)
+    }
+
+    override suspend fun getCompletedTask(isCompleted: Boolean): Flow<List<Task>> {
+        return dao.getCompletedTask(isCompleted)
+    }
+
     override suspend fun addCategory(category: Category) {
         dao.addCategory(category)
     }

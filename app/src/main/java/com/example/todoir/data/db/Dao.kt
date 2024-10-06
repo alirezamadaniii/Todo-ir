@@ -19,6 +19,19 @@ interface Dao {
     @Query("SELECT * FROM task_table")
     fun getTask(): Flow<List<Task>>
 
+    @Query("SELECT * FROM task_table WHERE date =:date")
+    fun getTaskAfterFilter(date:String): Flow<List<Task>>
+
+    @Query("SELECT * FROM task_table WHERE flag =:priority")
+    fun getPriorityTask(priority:Int): Flow<List<Task>>
+
+    @Query("SELECT * FROM task_table WHERE categoryName =:category")
+    fun getCategoryTask(category:String): Flow<List<Task>>
+
+    @Query("SELECT * FROM task_table WHERE isCompleted =:isCompleted")
+    fun getCompletedTask(isCompleted:Boolean): Flow<List<Task>>
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addCategory(category: Category)
 

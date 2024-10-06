@@ -389,16 +389,11 @@ class AddTaskFragment : Fragment() {
                 val priority3 = Priority(3,"3")
                 val priority4 = Priority(4,"4")
                 val priority5 = Priority(5,"5")
-                val priority6 = Priority(6,"6")
-                val priority7 = Priority(7,"7")
-                val priority8 = Priority(8,"8")
-                val priority9 = Priority(9,"9")
-                val priority10 = Priority(10,"10")
+
 
                 val priorityList = arrayListOf(
                     priority,
-                    priority2,priority3,priority4,priority5,
-                    priority6,priority7,priority8,priority9,priority10)
+                    priority2,priority3,priority4,priority5)
                 val priorityDialog = requireActivity().dialog(R.layout.dialog_priority,binding.root,true)
                 val recycler =priorityDialog.findViewById<RecyclerView>(R.id.recy_priority)
                 val adapter = PriorityAdapter()

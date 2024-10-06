@@ -15,6 +15,22 @@ class TodoRepositoryImpl(private val localDataSource: LocalDataSource):TodoRepos
         return localDataSource.getTask()
     }
 
+    override suspend fun getTaskAfterFilter(date: String): Flow<List<Task>> {
+        return localDataSource.getTaskAfterFilter(date)
+    }
+
+    override suspend fun getPriorityTask(priority: Int): Flow<List<Task>> {
+        return localDataSource.getPriorityTask(priority)
+    }
+
+    override suspend fun getCategoryTask(category: String): Flow<List<Task>> {
+        return localDataSource.getCategoryTask(category)
+    }
+
+    override suspend fun getCompletedTask(isCompleted: Boolean): Flow<List<Task>> {
+        return localDataSource.getCompletedTask(isCompleted)
+    }
+
     override suspend fun addCategory(category: Category) {
         localDataSource.addCategory(category)
     }

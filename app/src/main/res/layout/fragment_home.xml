@@ -41,6 +41,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:id="@+id/filter_task"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -64,19 +65,6 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <androidx.appcompat.widget.SearchView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:id="@+id/search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:iconifiedByDefault="false"
-            app:searchHintIcon="@null"
-            app:queryHint="Search..."
-            android:focusable="false"
-         />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
