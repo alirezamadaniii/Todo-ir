@@ -1,5 +1,6 @@
 package com.example.todoir.peresentaion.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -55,7 +56,6 @@ class HomeFragment : Fragment() {
     private lateinit var categoryAdapter: CategoryAdapter
 
     private var date: String? = null
-    private var time: String? = null
     private var today: CivilCalendar? = null
 
     lateinit var data: List<Task>
@@ -101,7 +101,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-
+    @SuppressLint("NotifyDataSetChanged")
     private fun filterItems(query: String) {
         val filteredList = if (query.isEmpty()) {
             data // If query is empty, return the original list
@@ -111,7 +111,6 @@ class HomeFragment : Fragment() {
         adapter.differ.submitList(filteredList)
         adapter.notifyDataSetChanged()
     }
-
 
     private fun onClick() {
         binding.imbFilter.setOnClickListener {
@@ -134,7 +133,6 @@ class HomeFragment : Fragment() {
         }
 
     }
-
 
     private fun showBottomSheet() {
         val dialogView =
@@ -228,7 +226,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun englishCalender() {
         val callback = SingleDayPickCallback { day ->
             val month = (day.month + 1)
@@ -294,7 +291,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun getCategoryFromDb() {
         createCategoryViewModel.getCategory().observe(viewLifecycleOwner) {
             categoryAdapter = CategoryAdapter()
@@ -324,7 +320,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun getDateFilter(date: String) {
         viewModel.getTaskAfterFilter(date).observe(viewLifecycleOwner) {
             binding.consEmptyList.visibility = View.GONE
@@ -333,7 +328,6 @@ class HomeFragment : Fragment() {
             adapter.differ.submitList(it)
         }
     }
-
 
     private fun setImageProfile() {
         val imageUrl = sp.fetch("img_profile")

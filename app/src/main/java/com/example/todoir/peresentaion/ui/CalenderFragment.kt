@@ -1,18 +1,26 @@
 package com.example.todoir.peresentaion.ui
 
+import android.os.Build
 import android.os.Bundle
+import android.provider.CalendarContract.Calendars
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.civil.CivilCalendarUtils
 import com.aminography.primecalendar.persian.PersianCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.example.todoir.R
+import com.example.todoir.data.utils.CurrentWeek
 import com.example.todoir.data.utils.CustomCalender
+import java.time.LocalDate
+import java.util.Calendar
+import java.util.TimeZone
 
 
 class CalenderFragment : Fragment() {
@@ -29,27 +37,52 @@ class CalenderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        englishCalender()
+        val currentWeek = CurrentWeek()
+        currentWeek.displayCurrentWeekInfo()
+        persianCalender()
     }
 
-    private fun englishCalender() {
+    private fun persianCalender() {
+        val today = CivilCalendar(TimeZone.getTimeZone("GMT+3:30"))
+
+
+        Log.i("TAG", "persianCalendedfsfdsfr: ${today.weekOfYear} \n ${today.weekOfMonth} \n" +
+                " ${today.weekDayName}\n" +
+                " ${today.weekDayNameShort}\n" +
+                " ${today.dayOfWeek}\n" +
+                " ${today.firstDayOfWeek}\n" +
+                " ${today.dayOfWeekInMonth}")
+
+        val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
+
+
+        Log.i("TAG", "persianCalendedfsfdsfr22:  \n ${calendar.weekOfMonth} \n" +
+                " ${calendar.weekDayName}\n" +
+                " ${calendar.weekDayNameShort}\n" +
+                " ${calendar.dayOfWeek}\n" +
+                " ${calendar.firstDayOfWeek}\n" +
+                " ${calendar.dayOfWeekInMonth}")
+
+       val a= android.icu.util.Calendar.getWeekDataForRegion("Tehran")
+
+
+        Log.i("TAG", "persianCalender2: "+a.weekendOnset.toString())
+
         val callback = SingleDayPickCallback { day ->
-            val month = (day.month+1)
-//            date = "${day.year} / $month /  ${day.date}"
-            Log.i("TAG", "persianCalender: " + day.year + "/" + month + "/" + day.date)
-//            timePiker()
+
+
         }
 
-        val today = CivilCalendar()
-        Log.i("TAG", "englishCalender: "+today.month)
-
-
-        val datePicker = PrimeDatePicker.dialogWith(today!!)
+        val datePicker = PrimeDatePicker.dialogWith(calendar)
             .pickSingleDay(callback)
-            .initiallyPickedSingleDay(today!!)
+            .initiallyPickedSingleDay(calendar)
             .applyTheme(customCalender)
             .build()
 
-        datePicker.show(requireActivity().supportFragmentManager, "SOME_TAG") }
+        datePicker.show(requireActivity().supportFragmentManager, "SOME_TAG")
+
+
+
+    }
 
 }
