@@ -20,7 +20,7 @@ class CurrentWeek {
     var date: Int = 0
     var month: Int = 0
     var year: Int = 0
-    private val currentDate: LocalDate = LocalDate.now()
+    val currentDate: LocalDate = LocalDate.now()
     private val weekFields: WeekFields = WeekFields.of(Locale.getDefault())
 
     // Getting the week number of the year
@@ -35,6 +35,12 @@ class CurrentWeek {
     // Getting the current date and time
     val currentDateTime: LocalDateTime = LocalDateTime.now()
 
+    val monthName: String = currentDate.month.name
+
+    val yearName: String = currentDate.year.toString()
+
+    val currentName: String = currentDate.dayOfWeek.name
+
 
 
 
@@ -47,7 +53,8 @@ class CurrentWeek {
     }
 
         // Method to display information about the current week
-    fun displayCurrentWeekInfo() {
+    fun displayCurrentWeekInfo(){
+        var dayInfo :DayInfo
         val persianDate = PersianDate()
         Log.i("TAG", "Current Date: $currentDate")
         Log.i("TAG", "Week Number: $weekNumber")
@@ -56,8 +63,12 @@ class CurrentWeek {
         Log.i("TAG", "Current Date and Time: $currentDateTime")
         getDaysOfCurrentWeek().forEach { day ->
             val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
-            Log.i("TAG", "${day.dayOfWeek} - ${persianDate.getWeek(persianDate)}")
+//            Log.i("TAG", "${day.dayOfWeek} - ${persianDate.getWeek(persianDate)}")
         }
+    }
+
+    fun getYearAndMonth():String{
+        return "$monthName $yearName"
     }
 
 
