@@ -27,10 +27,10 @@ class CurrentWeek {
     val weekNumber: Int = currentDate.get(weekFields.weekOfWeekBasedYear())
 
     // Getting the start of the week
-    val startOfWeek: LocalDate = currentDate.with(weekFields.dayOfWeek(), 1) // 1 for Monday
+    val startOfWeek: LocalDate = currentDate.minusDays(3) // 1 for Monday
 
     // Getting the end of the week
-    val endOfWeek: LocalDate = startOfWeek.plusDays(6)
+    val endOfWeek: LocalDate = startOfWeek.plusDays(3)
 
     // Getting the current date and time
     val currentDateTime: LocalDateTime = LocalDateTime.now()

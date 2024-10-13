@@ -6,26 +6,38 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.persian.PersianCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.example.todoir.R
 import com.example.todoir.data.utils.CurrentWeek
 import com.example.todoir.data.utils.CustomCalender
 import com.example.todoir.data.utils.DayInfo
+import com.example.todoir.data.utils.Sp
 import com.example.todoir.databinding.FragmentCalenderBinding
 import com.example.todoir.peresentaion.adapter.WeekAdapter
+import com.example.todoir.peresentaion.adapter.WeekPersianAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import saman.zamani.persiandate.PersianDate
+import java.util.TimeZone
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class CalenderFragment : Fragment() {
 
     private lateinit var binding: FragmentCalenderBinding
     private val customCalender = CustomCalender()
     private val currentWeek = CurrentWeek()
-    private  var dayInfoList = mutableListOf<DayInfo>()
-    private lateinit var adapter: WeekAdapter
+    private  var dayInfoEnglishList = mutableListOf<DayInfo>()
+    private lateinit var englishAdapter: WeekAdapter
+    private lateinit var persianAdapter: WeekPersianAdapter
+
+    @Inject
+    lateinit var sp: Sp
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,12 +50,21 @@ class CalenderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        chooseLangForCalender()
+    }
+
+
+    private fun chooseLangForCalender() {
+        if (sp.fetch("language") == "Persian") {
+            setUpPersianCalendar()
+        } else {
         val currentWeek = CurrentWeek()
         currentWeek.displayCurrentWeekInfo()
         displayCurrentWeekInfo()
         setUpEnglishCalendar()
+        }
     }
-
 
 
     private fun setUpEnglishCalendar() {
@@ -56,17 +77,15 @@ class CalenderFragment : Fragment() {
 
     private fun displayCurrentWeekInfo() {
             currentWeek.getDaysOfCurrentWeek().forEach { day ->
-                dayInfoList.add(day)
-                Log.i("SSSAASS", "${day.dayOfWeek} - ${day.date}")
+                dayInfoEnglishList.add(day)
         }
 
-        adapter = WeekAdapter()
-        adapter.differ.submitList(dayInfoList)
+        englishAdapter = WeekAdapter()
+        englishAdapter.differ.submitList(dayInfoEnglishList)
         binding.recyWeek.layoutManager = GridLayoutManager(requireContext(),7)
-        binding.recyWeek.adapter = adapter
+        binding.recyWeek.adapter = englishAdapter
 
     }
-
 
     private fun englishCalender() {
         val callback = SingleDayPickCallback { day ->
@@ -80,6 +99,55 @@ class CalenderFragment : Fragment() {
             .initiallyPickedSingleDay(today)
             .applyTheme(customCalender)
             .build()
+        datePicker.show(requireActivity().supportFragmentManager, "SOME_TAG")
+    }
+
+
+
+    private fun setUpPersianCalendar(){
+        val persianDate = PersianDate()
+        val monthName="${persianDate.monthName} ${persianDate.shYear}"
+        binding.tvMonthCalendar.text = monthName
+        binding.btnShowCalendar.setOnClickListener {
+            persianCalender()
+        }
+
+
+        currentWeek.getDaysOfCurrentWeek().forEach { day ->
+            dayInfoEnglishList.add(day)
+        }
+
+        persianAdapter = WeekPersianAdapter()
+        persianAdapter.differ.submitList(dayInfoEnglishList)
+        binding.recyWeek.layoutManager = GridLayoutManager(requireContext(),7)
+        binding.recyWeek.adapter = persianAdapter
+    }
+
+    private fun persianCalender() {
+        val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
+        val callback = SingleDayPickCallback { day ->
+            if (day.year<calendar.year){
+                Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
+            }else if (day.month<calendar.month){
+                Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
+
+            }else if (day.dayOfMonth<calendar.dayOfMonth){
+                Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
+            }else{
+                val month = (day.month+1)
+
+            }
+
+        }
+
+
+
+        val datePicker = PrimeDatePicker.dialogWith(calendar)
+            .pickSingleDay(callback)
+            .initiallyPickedSingleDay(calendar)
+            .applyTheme(customCalender)
+            .build()
+
         datePicker.show(requireActivity().supportFragmentManager, "SOME_TAG")
     }
 

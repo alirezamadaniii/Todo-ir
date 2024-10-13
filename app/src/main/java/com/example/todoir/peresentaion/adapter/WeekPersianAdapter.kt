@@ -1,22 +1,21 @@
 package com.example.todoir.peresentaion.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todoir.data.model.Category
 import com.example.todoir.data.utils.DayInfo
 import com.example.todoir.databinding.ItemCalendarBinding
-import com.example.todoir.databinding.ItemCategoryBinding
 import saman.zamani.persiandate.PersianDate
 import java.time.LocalDate
+import kotlin.math.log
 
-class WeekAdapter : RecyclerView.Adapter<WeekAdapter.MyViewHolder>() {
+class WeekPersianAdapter : RecyclerView.Adapter<WeekPersianAdapter.MyViewHolder>() {
 
     private val callback = object : DiffUtil.ItemCallback<DayInfo>() {
         override fun areItemsTheSame(oldItem: DayInfo, newItem: DayInfo): Boolean {
@@ -55,11 +54,13 @@ class WeekAdapter : RecyclerView.Adapter<WeekAdapter.MyViewHolder>() {
             val currentDate: LocalDate = LocalDate.now()
             binding.apply {
 
-                val a=PersianDate().gregorian_to_jalali(currentDate.year,10,item.date.toString().substring(8).toInt())
-                Log.i("TAG", "bindaa: "+currentDate.month.value)
-                tvSymbolToday.text = item.dayOfWeek.substring(0,3)
-                tvNumberToday.text = item.date.toString().substring(8)
-                if (item.dayOfWeek==currentDate.dayOfWeek.name){
+                val date=PersianDate().gregorian_to_jalali(currentDate.year,currentDate.month.value,item.date.toString().substring(8).toInt())
+                val persianDate = PersianDate()
+                val today = persianDate.shDay
+
+//                tvSymbolToday.text = date.get(3).toString()
+                tvNumberToday.text = date.get(2).toString()
+                if (date[2]==today){
                     cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#4345F0"))
                 }
             }
