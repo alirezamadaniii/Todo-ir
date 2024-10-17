@@ -68,5 +68,9 @@
     <string name="reminder">Reminder</string>
     <string name="reminder_channel_desc">This is required to send a notification when alarm is set</string>
     <string name="please_select_the_fliter">Please select the fliter</string>
+    <string name="have_a_good_night">Have a good night</string>
+    <string name="it_s_time_to_wake_up">It’s time to wake up</string>
+    <string name="_08_00_am">08:00 AM</string>
+    <string name="_10_00_pm">10:00 PM</string>
 
 </resources>
