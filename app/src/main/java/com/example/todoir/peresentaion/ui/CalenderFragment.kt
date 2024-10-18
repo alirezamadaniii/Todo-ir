@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
@@ -19,8 +20,10 @@ import com.example.todoir.data.utils.CustomCalender
 import com.example.todoir.data.utils.DayInfo
 import com.example.todoir.data.utils.Sp
 import com.example.todoir.databinding.FragmentCalenderBinding
+import com.example.todoir.peresentaion.adapter.TimeLineCalendarAdapter
 import com.example.todoir.peresentaion.adapter.WeekAdapter
 import com.example.todoir.peresentaion.adapter.WeekPersianAdapter
+import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import saman.zamani.persiandate.PersianDate
 import java.util.TimeZone
@@ -30,11 +33,13 @@ import javax.inject.Inject
 class CalenderFragment : Fragment() {
 
     private lateinit var binding: FragmentCalenderBinding
+    private val viewModel: MainActivityViewModel by viewModels()
     private val customCalender = CustomCalender()
     private val currentWeek = CurrentWeek()
     private  var dayInfoEnglishList = mutableListOf<DayInfo>()
     private lateinit var englishAdapter: WeekAdapter
     private lateinit var persianAdapter: WeekPersianAdapter
+    private lateinit var timeLineCalendarAdapter: TimeLineCalendarAdapter
 
     @Inject
     lateinit var sp: Sp
@@ -52,8 +57,22 @@ class CalenderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         chooseLangForCalender()
+
+
+        getDateFilter("2024 / 11 /  13")
     }
 
+
+    private fun getDateFilter(date: String) {
+        timeLineCalendarAdapter = TimeLineCalendarAdapter()
+        viewModel.getTaskAfterFilter(date).observe(viewLifecycleOwner) {
+            Log.i("TAG", "getDateFilter: "+it)
+            binding.btnAddTaskCalander.visibility = View.GONE
+            binding.recyCalender.visibility = View.VISIBLE
+            binding.recyCalender.adapter = timeLineCalendarAdapter
+            timeLineCalendarAdapter.differ.submitList(it)
+        }
+    }
 
     private fun chooseLangForCalender() {
         if (sp.fetch("language") == "Persian") {
