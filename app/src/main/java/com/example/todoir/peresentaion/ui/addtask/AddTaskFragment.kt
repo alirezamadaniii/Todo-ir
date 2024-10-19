@@ -28,6 +28,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.aminography.primecalendar.civil.CivilCalendar
+import com.aminography.primecalendar.common.operators.hour
 import com.aminography.primecalendar.persian.PersianCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
@@ -318,13 +319,13 @@ class AddTaskFragment : Fragment() {
 
         val date = Date()
         val calendar = Calendar.getInstance()
-        calendar.setTime(date)
-        calendar.add(Calendar.HOUR, 1)
+        calendar.time = date
+        calendar.add(Calendar.HOUR, 0)
         calendar.set(Calendar.SECOND, 0)
 
          picker =
             MaterialTimePicker.Builder()
-                .setTimeFormat(if (DateFormat.is24HourFormat(requireContext())) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H)
+                .setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(calendar.get(Calendar.HOUR))
                 .setInputMode(INPUT_MODE_KEYBOARD)
                 .setMinute(calendar.get(Calendar.MINUTE))
@@ -334,8 +335,23 @@ class AddTaskFragment : Fragment() {
         picker.show(requireActivity().supportFragmentManager, "tag")
 
         picker.addOnPositiveButtonClickListener {
-            time = picker.hour.toString()+":"+picker.minute.toString()
-            binding.btTimeAdd.text = time.toString()
+            var hour = picker.hour.toString()
+            var minute = picker.minute.toString()
+            if (picker.hour.toString().length==1){
+                hour = "0${picker.hour}"
+            }
+            if (picker.minute.toString().length==1){
+                minute = "0${picker.minute}"
+            }
+            if (calendar.get(Calendar.AM_PM) == Calendar.AM){
+                time = "$hour:$minute AM"
+                binding.btTimeAdd.text = time.toString()
+            }
+            else if (calendar.get(Calendar.AM_PM) == Calendar.PM){
+                time = "$hour:$minute PM"
+                binding.btTimeAdd.text = time.toString()
+            }
+
         }
     }
 

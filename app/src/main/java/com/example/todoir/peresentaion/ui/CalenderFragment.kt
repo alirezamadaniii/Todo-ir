@@ -58,6 +58,10 @@ class CalenderFragment : Fragment() {
 
         chooseLangForCalender()
 
+        binding.checkWekeUp.addOnCheckedStateChangedListener { checkBox, state ->
+            if (state==1) binding.view.setBackgroundResource(R.drawable.dotted_line_selected)
+        }
+
 
         getDateFilter("2024 / 11 /  13")
     }
