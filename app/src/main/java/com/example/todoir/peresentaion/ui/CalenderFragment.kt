@@ -63,7 +63,7 @@ class CalenderFragment : Fragment() {
         }
 
 
-        getDateFilter("2024 / 11 /  13")
+
     }
 
 
@@ -99,14 +99,22 @@ class CalenderFragment : Fragment() {
     }
 
     private fun displayCurrentWeekInfo() {
+
             currentWeek.getDaysOfCurrentWeek().forEach { day ->
                 dayInfoEnglishList.add(day)
         }
+        getDateFilter("${currentWeek.currentDate.year} / ${currentWeek.currentDate.monthValue} /  ${currentWeek.currentDate.dayOfMonth}")
 
         englishAdapter = WeekAdapter()
         englishAdapter.differ.submitList(dayInfoEnglishList)
         binding.recyWeek.layoutManager = GridLayoutManager(requireContext(),7)
         binding.recyWeek.adapter = englishAdapter
+
+        englishAdapter.setOnItemClick {
+            getDateFilter("${currentWeek.currentDate.year} / ${currentWeek.currentDate.monthValue} /  $it")
+            Log.i("TAG", "displayCurrentWeekInfo: ${currentWeek.currentDate.year} / ${currentWeek.currentDate.monthValue} /  $it")
+        }
+
 
     }
 

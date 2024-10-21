@@ -18,6 +18,7 @@ import java.time.LocalDate
 
 class WeekAdapter : RecyclerView.Adapter<WeekAdapter.MyViewHolder>() {
 
+    private var isSelected = false
     private val callback = object : DiffUtil.ItemCallback<DayInfo>() {
         override fun areItemsTheSame(oldItem: DayInfo, newItem: DayInfo): Boolean {
             return oldItem == newItem
@@ -55,12 +56,24 @@ class WeekAdapter : RecyclerView.Adapter<WeekAdapter.MyViewHolder>() {
             val currentDate: LocalDate = LocalDate.now()
             binding.apply {
 
-                val a=PersianDate().gregorian_to_jalali(currentDate.year,10,item.date.toString().substring(8).toInt())
-                Log.i("TAG", "bindaa: "+currentDate.month.value)
                 tvSymbolToday.text = item.dayOfWeek.substring(0,3)
                 tvNumberToday.text = item.date.toString().substring(8)
                 if (item.dayOfWeek==currentDate.dayOfWeek.name){
                     cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#4345F0"))
+                }
+
+                if (isSelected){
+                    cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#121212"))
+                }
+
+                root.setOnClickListener {
+
+//                    cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#121212"))
+                        cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#4345F0"))
+                    isSelected = true
+                    onItemClick?.let {
+                        it(item.date.toString().substring(8))
+                    }
                 }
             }
 
@@ -70,9 +83,10 @@ class WeekAdapter : RecyclerView.Adapter<WeekAdapter.MyViewHolder>() {
 
     }
 
-    private var onItemClick: ((Category) -> Unit)? = null
+    private var onItemClick: ((String) -> Unit)? = null
 
-    fun setOnItemClick(listener: (Category) -> Unit) {
+
+    fun setOnItemClick(listener: (String) -> Unit) {
         onItemClick = listener
     }
 }
