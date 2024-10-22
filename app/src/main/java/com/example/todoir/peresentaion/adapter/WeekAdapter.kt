@@ -1,24 +1,22 @@
 package com.example.todoir.peresentaion.adapter
 
 import android.graphics.Color
-import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoir.data.model.Category
+import com.example.todoir.R
 import com.example.todoir.data.utils.DayInfo
 import com.example.todoir.databinding.ItemCalendarBinding
-import com.example.todoir.databinding.ItemCategoryBinding
-import saman.zamani.persiandate.PersianDate
 import java.time.LocalDate
 
 class WeekAdapter : RecyclerView.Adapter<WeekAdapter.MyViewHolder>() {
 
-    private var isSelected = false
+
+    private var mExpandedPosition = -1
+
     private val callback = object : DiffUtil.ItemCallback<DayInfo>() {
         override fun areItemsTheSame(oldItem: DayInfo, newItem: DayInfo): Boolean {
             return oldItem == newItem
@@ -58,28 +56,27 @@ class WeekAdapter : RecyclerView.Adapter<WeekAdapter.MyViewHolder>() {
 
                 tvSymbolToday.text = item.dayOfWeek.substring(0,3)
                 tvNumberToday.text = item.date.toString().substring(8)
+
+
+
+                val isExpanded = position == mExpandedPosition
+                cvBackWeekDay.setCardBackgroundColor(if (isExpanded) Color.parseColor("#FF9680") else Color.parseColor("#121212"))
                 if (item.dayOfWeek==currentDate.dayOfWeek.name){
                     cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#4345F0"))
                 }
 
-                if (isSelected){
-                    cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#121212"))
-                }
-
-                root.setOnClickListener {
-
-//                    cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#121212"))
-                        cvBackWeekDay.setCardBackgroundColor(Color.parseColor("#4345F0"))
-                    isSelected = true
+                root.setOnClickListener{
                     onItemClick?.let {
                         it(item.date.toString().substring(8))
                     }
+                    mExpandedPosition = if (isExpanded) -1 else position
+                    notifyDataSetChanged()
                 }
+
+
             }
 
-
         }
-
 
     }
 

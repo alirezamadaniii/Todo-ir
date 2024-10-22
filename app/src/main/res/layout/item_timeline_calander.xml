@@ -23,19 +23,18 @@
         android:id="@+id/cardView3"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        app:cardCornerRadius="12dp"
+        android:layout_marginStart="80dp"
         app:cardBackgroundColor="@color/gray_light"
-        app:layout_constraintStart_toEndOf="@+id/tv_time"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardCornerRadius="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeline_line">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_icon_timeline"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            />
+            android:src="@drawable/group" />
     </androidx.cardview.widget.CardView>
 
 
@@ -54,6 +53,7 @@
 
 
     <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/check_timeline_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/MyRadioButton"
@@ -62,15 +62,15 @@
         app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
 
-
     <View
+        android:id="@+id/timeline_line"
         android:layout_width="1dp"
         android:layout_height="100dp"
+        android:layout_marginStart="110dp"
         android:background="@drawable/dotted_line"
         android:layerType="software"
-        app:layout_constraintEnd_toEndOf="@+id/cardView3"
-        app:layout_constraintStart_toStartOf="@+id/cardView3"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -36,6 +36,7 @@ class CalenderFragment : Fragment() {
     private val viewModel: MainActivityViewModel by viewModels()
     private val customCalender = CustomCalender()
     private val currentWeek = CurrentWeek()
+    private var date: String? = null
     private  var dayInfoEnglishList = mutableListOf<DayInfo>()
     private lateinit var englishAdapter: WeekAdapter
     private lateinit var persianAdapter: WeekPersianAdapter
@@ -58,8 +59,16 @@ class CalenderFragment : Fragment() {
 
         chooseLangForCalender()
 
-        binding.checkWekeUp.addOnCheckedStateChangedListener { checkBox, state ->
-            if (state==1) binding.view.setBackgroundResource(R.drawable.dotted_line_selected)
+        binding.checkNight.addOnCheckedStateChangedListener { _, state ->
+            if (state==1) binding.timelineLineNight.setBackgroundResource(R.drawable.dotted_line_selected)
+        }
+
+        timeLineCalendarAdapter.setOnCheckBoxClick { item, i ->
+            if (i == 1) {
+                viewModel.completedTask(item.taskId, true)
+            } else {
+                viewModel.completedTask(item.taskId, false)
+            }
         }
 
 
@@ -121,7 +130,8 @@ class CalenderFragment : Fragment() {
     private fun englishCalender() {
         val callback = SingleDayPickCallback { day ->
             val month = (day.month+1)
-
+            date = "${day.year} / $month /  ${day.date}"
+            getDateFilter(date!!)
         }
 
         val today = CivilCalendar()
@@ -166,7 +176,8 @@ class CalenderFragment : Fragment() {
                 Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
             }else{
                 val month = (day.month+1)
-
+                date = "${day.year} / $month /  ${day.date}"
+                getDateFilter(date!!)
             }
 
         }

@@ -78,11 +78,11 @@
                 android:id="@+id/cardView3"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 app:cardBackgroundColor="@color/gray_light"
                 app:cardCornerRadius="12dp"
-                app:layout_constraintStart_toEndOf="@+id/tv_time"
+                android:layout_marginStart="80dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -116,15 +116,7 @@
                 android:theme="@style/MyRadioButton"
                 app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="1dp"
-                android:layout_height="200dp"
-                android:background="@drawable/dotted_line"
-                android:layerType="software"
-                app:layout_constraintEnd_toEndOf="@+id/cardView3"
-                app:layout_constraintStart_toStartOf="@+id/cardView3"
-                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
 
 
             <com.google.android.material.button.MaterialButton
@@ -145,7 +137,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                android:layout_marginTop="60dp"
                 android:nestedScrollingEnabled="true"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -162,6 +153,17 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
 
+
+            <View
+                android:id="@+id/timeline_line_night"
+                android:layout_width="1dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="110dp"
+                android:background="@drawable/dotted_line"
+                android:layerType="software"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/materialTextView91"
                 android:layout_width="wrap_content"
@@ -177,11 +179,11 @@
                 android:id="@+id/cardView31"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="80dp"
                 app:cardBackgroundColor="@color/gray_light"
                 app:cardCornerRadius="12dp"
-                app:layout_constraintStart_toEndOf="@+id/materialTextView91"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeline_line_night">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:layout_width="30dp"
@@ -206,6 +208,7 @@
 
 
             <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/check_night"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/MyRadioButton"
