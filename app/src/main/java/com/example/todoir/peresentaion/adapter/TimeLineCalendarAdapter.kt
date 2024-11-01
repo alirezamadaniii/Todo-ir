@@ -81,14 +81,20 @@ class TimeLineCalendarAdapter : RecyclerView.Adapter<TimeLineCalendarAdapter.MyV
 
                 }
             }
+
+            binding.tvTitleTimeline.setOnClickListener {
+                onItemClick?.let {
+                    it(item)
+                }
+            }
         }
 
 
     }
 
-    private var onItemClick: ((Category) -> Unit)? = null
+    private var onItemClick: ((Task) -> Unit)? = null
 
-    fun setOnItemClick(listener: (Category) -> Unit) {
+    fun setOnItemClick(listener: (Task) -> Unit) {
         onItemClick = listener
     }
 

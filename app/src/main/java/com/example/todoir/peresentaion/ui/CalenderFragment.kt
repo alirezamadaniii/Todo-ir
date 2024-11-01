@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
@@ -69,6 +70,14 @@ class CalenderFragment : Fragment() {
             } else {
                 viewModel.completedTask(item.taskId, false)
             }
+        }
+
+
+        timeLineCalendarAdapter.setOnItemClick {
+            val bundle = Bundle().apply {
+                putParcelable("task",it)
+            }
+            findNavController().navigate(R.id.action_calenderFragment_to_updateFragment,bundle)
         }
 
 

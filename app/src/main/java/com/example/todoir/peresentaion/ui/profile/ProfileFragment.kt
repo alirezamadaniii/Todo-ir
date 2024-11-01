@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.todoir.R
 import com.example.todoir.data.utils.Sp
 import com.example.todoir.databinding.FragmentProfileBinding
@@ -41,6 +42,13 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setName()
         showTask()
+        changeAccountData()
+    }
+
+    private fun changeAccountData() {
+        binding.constraintLayout.setOnClickListener {
+            findNavController().navigate(R.id.registerFragment)
+        }
     }
 
     private fun setName() {
