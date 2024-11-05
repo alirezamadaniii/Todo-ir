@@ -1,5 +1,6 @@
 package com.example.todoir.peresentaion.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,6 +29,7 @@ import com.example.todoir.peresentaion.adapter.WeekPersianAdapter
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import saman.zamani.persiandate.PersianDate
+import java.time.LocalDate
 import java.util.TimeZone
 import javax.inject.Inject
 
@@ -36,7 +39,7 @@ class CalenderFragment : Fragment() {
     private lateinit var binding: FragmentCalenderBinding
     private val viewModel: MainActivityViewModel by viewModels()
     private val customCalender = CustomCalender()
-    private val currentWeek = CurrentWeek()
+    private var currentWeek =CurrentWeek()
     private var date: String? = null
     private  var dayInfoEnglishList = mutableListOf<DayInfo>()
     private lateinit var englishAdapter: WeekAdapter
@@ -55,10 +58,13 @@ class CalenderFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         chooseLangForCalender()
+
 
         binding.checkNight.addOnCheckedStateChangedListener { _, state ->
             if (state==1) binding.timelineLineNight.setBackgroundResource(R.drawable.dotted_line_selected)
@@ -86,6 +92,7 @@ class CalenderFragment : Fragment() {
 
 
     private fun getDateFilter(date: String) {
+        Log.i("TAG", "getDateFilter: "+date)
         timeLineCalendarAdapter = TimeLineCalendarAdapter()
         viewModel.getTaskAfterFilter(date).observe(viewLifecycleOwner) {
             Log.i("TAG", "getDateFilter: "+it)
@@ -96,11 +103,11 @@ class CalenderFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun chooseLangForCalender() {
         if (sp.fetch("language") == "Persian") {
             setUpPersianCalendar()
         } else {
-        val currentWeek = CurrentWeek()
         currentWeek.displayCurrentWeekInfo()
         displayCurrentWeekInfo()
         setUpEnglishCalendar()
@@ -116,6 +123,7 @@ class CalenderFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun displayCurrentWeekInfo() {
 
             currentWeek.getDaysOfCurrentWeek().forEach { day ->
@@ -141,6 +149,7 @@ class CalenderFragment : Fragment() {
             val month = (day.month+1)
             date = "${day.year} / $month /  ${day.date}"
             getDateFilter(date!!)
+
         }
 
         val today = CivilCalendar()

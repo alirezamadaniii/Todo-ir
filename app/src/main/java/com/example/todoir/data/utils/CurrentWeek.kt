@@ -12,7 +12,7 @@ import java.util.TimeZone
 
 
 data class DayInfo(val dayOfWeek: String, val date: LocalDate)
-class CurrentWeek {
+class CurrentWeek() {
 
     var strWeekDay: String = ""
     var strMonth: String = ""
@@ -61,10 +61,7 @@ class CurrentWeek {
         Log.i("TAG", "Start of the Week: $startOfWeek")
         Log.i("TAG", "End of the Week: $endOfWeek")
         Log.i("TAG", "Current Date and Time: $currentDateTime")
-        getDaysOfCurrentWeek().forEach { day ->
-            val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
-//            Log.i("TAG", "${day.dayOfWeek} - ${persianDate.getWeek(persianDate)}")
-        }
+
     }
 
     fun getYearAndMonth():String{
