@@ -71,15 +71,16 @@ class AddTaskFragment : Fragment() {
     private lateinit var picker:MaterialTimePicker
     private lateinit var ringtone: Ringtone
 
-    private var date: String? = null
-    private var time: String? = null
-    private var category: String? = null
-    private var categoryColor: String? = null
-    private var categoryIcon: Int? = 0
+    private var date: String? = "None"
+    private var time: String? = "None"
+    private var category: String? = "All"
+    private var categoryColor: String? = "#80FFD1"
+    private var categoryIcon: Int? = R.drawable.baseline_360_24
     private var flag: String? = "0"
     private var isAlarm: Boolean = false
     private var today: CivilCalendar? = null
     var tone: String? = null
+
 
 
     @Inject
@@ -240,6 +241,8 @@ class AddTaskFragment : Fragment() {
         calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, min)
         calendar.set(Calendar.SECOND, 0)
+
+        Log.i("TAG", "createAlarm: "+calendar.timeInMillis)
 
         alarm = Alarm(
             0L,
@@ -431,29 +434,22 @@ class AddTaskFragment : Fragment() {
 
             if(title.isEmpty()){
                 Toast.makeText(requireContext(), getString(R.string.Please_enter_title), Toast.LENGTH_SHORT).show()
-            }else if (description.isEmpty()){
-                Toast.makeText(requireContext(), getString(R.string.Please_enter_Description), Toast.LENGTH_SHORT).show()
-
-            }else if (time.isNullOrEmpty()){
-                time = "None"
-            }else if (date.isNullOrEmpty()){
-                date = "None"
-            }else if (category.isNullOrEmpty()){
-                category = "All"
-                categoryColor = "#80FFD1"
-                categoryIcon = R.drawable.add_1
-            }else if (flag.isNullOrEmpty()){
-                flag = "0"
             } else{
-                if (isAlarm){
-                    createAlarm(title, description, picker.hour, picker.minute)
-                }
-                val task = Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
-                    categoryColor.toString(),
-                    categoryIcon!!,
-                    flag?.toInt()!!,confirmTime,confirmDate,false)
-                viewModel.addTask(task)
-                findNavController().navigate(R.id.homeFragment)
+                 if (description.isEmpty()){
+                    Toast.makeText(requireContext(), getString(R.string.Please_enter_Description), Toast.LENGTH_SHORT).show()
+                }else{
+                     if (isAlarm){
+                         createAlarm(title, description, picker.hour, picker.minute)
+                     }
+                     val task = Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
+                         categoryColor.toString(),
+                         categoryIcon!!,
+                         flag?.toInt()!!,confirmTime,confirmDate,false)
+                     viewModel.addTask(task)
+                     findNavController().navigate(R.id.homeFragment)
+                 }
+
+
             }
 
     }

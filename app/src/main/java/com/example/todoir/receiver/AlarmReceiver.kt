@@ -21,21 +21,24 @@ import com.example.todoir.data.utils.Constants.TITLE
 
 class AlarmReceiver : BroadcastReceiver() {
 
+     private var mediaPlayer: MediaPlayer? =null
+
     override fun onReceive(context: Context?, intent: Intent?) {
 
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val mediaPlayer: MediaPlayer =
+        mediaPlayer =
             MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI)
-        mediaPlayer.isLooping = true
+        mediaPlayer!!.isLooping = true
 
 
         if (intent?.action == STOP_ALARM) {
             val alarmId = intent.getIntExtra(ALARM_ID, 2)
             NotificationManagerCompat.from(context).cancel(alarmId)
 
-            mediaPlayer.release()
-            mediaPlayer.stop()
+
+//            mediaPlayer.release()
+            stopPlaying()
 
             val pIntent = PendingIntent.getBroadcast(
                 context,
@@ -76,7 +79,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 stopPendingIntent
             )
 
-        mediaPlayer.start()
+        mediaPlayer!!.start()
 
         if (ActivityCompat.checkSelfPermission(
                 context,
@@ -84,6 +87,14 @@ class AlarmReceiver : BroadcastReceiver() {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             NotificationManagerCompat.from(context).notify(1, builder.build())
+        }
+    }
+
+    private fun stopPlaying() {
+        if (mediaPlayer != null) {
+            mediaPlayer!!.reset();
+            mediaPlayer!!.release();
+            mediaPlayer!!.setVolume(0F, 0F)
         }
     }
 }

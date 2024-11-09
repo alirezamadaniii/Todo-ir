@@ -14,16 +14,19 @@ class FilterBottomSheet (
     private val mList: MutableList<Filter>  = ArrayList()
 
     init {
-        val filter1 = Filter(1,"Done")
-        val filter2 = Filter(2,"Undone")
-        val filter3 = Filter(3,"Date")
-        val filter4 = Filter(4,"Priority")
-        val filter5 = Filter(5,"Category")
+        val filterAll = Filter(1,"All")
+        val filter1 = Filter(2,"Done")
+        val filter2 = Filter(3,"Undone")
+        val filter3 = Filter(4,"Date")
+        val filter4 = Filter(5,"Priority")
+        val filter5 = Filter(6,"Category")
+        mList.add(filterAll)
         mList.add(filter1)
         mList.add(filter2)
         mList.add(filter3)
         mList.add(filter4)
         mList.add(filter5)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

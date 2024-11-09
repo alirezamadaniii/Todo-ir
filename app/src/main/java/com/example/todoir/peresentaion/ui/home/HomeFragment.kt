@@ -140,7 +140,7 @@ class HomeFragment : Fragment() {
         bottomSheetDialog =
             BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         bottomSheetDialog.setContentView(dialogView)
-        bottomSheetDialog.setCancelable(false)
+        bottomSheetDialog.setCancelable(true)
         val recyclerView = dialogView.findViewById<RecyclerView>(R.id.recyyy_filter)
         recyclerView.adapter = itemAdapterBottomSheet
         bottomSheetDialog.show()
@@ -151,23 +151,32 @@ class HomeFragment : Fragment() {
     private fun bottomSheetItemClicked() {
         itemAdapterBottomSheet.setOnItemClick {
             when (it) {
+                "All" ->{
+                    binding.imgIsFilter.visibility = View.GONE
+                    showTask()
+                }
                 "Done" -> {
+                    binding.imgIsFilter.visibility = View.VISIBLE
                     getDoneFilter()
                 }
 
                 "Undone" -> {
+                    binding.imgIsFilter.visibility = View.VISIBLE
                     getUnDoneFilter()
                 }
 
                 "Date" -> {
+                    binding.imgIsFilter.visibility = View.VISIBLE
                     chooseLangForCalender()
                 }
 
                 "Priority" -> {
+                    binding.imgIsFilter.visibility = View.VISIBLE
                     selectPriority()
                 }
 
                 "Category" -> {
+                    binding.imgIsFilter.visibility = View.VISIBLE
                     selectCategory()
 
                 }

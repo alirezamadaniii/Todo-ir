@@ -66,6 +66,7 @@ class TaskAdapter @Inject constructor() : RecyclerView.Adapter<TaskAdapter.MyVie
                 binding.materialCheckBox.isChecked = true
             }
             binding.tvTitleTask.text = item.title
+            binding.tvDescription.text = item.description
             binding.tvTaskTime.text = item.date
             binding.btnTaskCategory.text = item.categoryName
             binding.btnTaskFlag.text = item.flag.toString()

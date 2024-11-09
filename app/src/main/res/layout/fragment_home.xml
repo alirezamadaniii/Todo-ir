@@ -92,6 +92,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/im_profile_home" />
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_is_filter"
+        android:layout_width="16dp"
+        android:layout_height="14dp"
+        android:visibility="gone"
+        android:src="@drawable/baseline_filter_alt_24"
+        app:layout_constraintBottom_toBottomOf="@+id/imb_filter"
+        app:layout_constraintEnd_toEndOf="@+id/imb_filter"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/im_profile_home"
         android:layout_width="65dp"

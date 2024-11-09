@@ -44,15 +44,31 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Do Math Homework" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vazir_light"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/gray_text"
+                app:layout_constraintEnd_toStartOf="@+id/btn_task_category"
+                app:layout_constraintStart_toEndOf="@+id/materialCheckBox"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_task"
+                tools:text="kjdsjhdsadjsajdjsadjsdjashdasjdasdjasdhshdhahd" />
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_task_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/vazir_light"
                 android:textColor="@color/gray_text"
-                app:layout_constraintStart_toEndOf="@+id/materialCheckBox"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_task"
+                app:layout_constraintBottom_toTopOf="@+id/btn_task_flag"
+                app:layout_constraintEnd_toEndOf="@+id/btn_task_flag"
+                app:layout_constraintStart_toStartOf="@+id/btn_task_category"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Today At 16:45" />
 
             <com.google.android.material.button.MaterialButton
@@ -75,19 +91,17 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_task_category"
                 style="@style/Widget.Material3.Button.IconButton.Filled"
-                android:layout_width="0dp"
+                android:layout_width="120dp"
                 android:layout_height="45dp"
-                android:layout_marginStart="10dp"
+                android:backgroundTint="@color/color_5"
                 android:fontFamily="@font/vazir_light"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:cornerRadius="4dp"
                 app:icon="@drawable/flag"
                 app:iconTint="@color/white"
-                android:backgroundTint="@color/color_5"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_task_flag"
                 app:layout_constraintEnd_toStartOf="@+id/btn_task_flag"
-                app:layout_constraintStart_toEndOf="@+id/tv_task_time"
                 app:layout_constraintTop_toTopOf="@+id/btn_task_flag"
                 tools:text="University" />
 
