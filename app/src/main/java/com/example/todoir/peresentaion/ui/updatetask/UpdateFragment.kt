@@ -54,10 +54,10 @@ class UpdateFragment : Fragment() {
     private var today: CivilCalendar? = null
 
     private var category: String? = "All"
-    private var categoryColor: String? = "All"
-    private var categoryIcon: Int? = 0
+    private var categoryColor: String? = "#80FFD1"
+    private var categoryIcon: Int? = R.drawable.baseline_360_24
 
-    private var flag: String? = "0"
+    private var flag: Int = 0
 
     private val customCalender = CustomCalender()
 
@@ -79,12 +79,28 @@ class UpdateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getCategoryFromDb()
+
         getTaskFromHome()
+        getCategoryFromDb()
         onClick()
         editableText()
+        toFillAfterCreteCategory()
+
     }
 
+    private fun toFillAfterCreteCategory() {
+        if (!args.title.equals("null")){
+            binding.edtUpdateTitle.setText(args.title)
+            binding.edtUpdateDescription.setText(args.description)
+            time = args.time
+            date = args.date
+            binding.btTimeUpdate.text = time
+
+            binding.btPriorityUpdate.text = args.task!!.flag.toString()
+
+
+        }
+    }
 
 
     private fun onClick() {
@@ -108,6 +124,9 @@ class UpdateFragment : Fragment() {
             updateTask()
         }
 
+        binding.btnClose.setOnClickListener {
+            findNavController().navigate(R.id.action_updateFragment_to_calenderFragment)
+        }
     }
 
     private fun editableText() {
@@ -133,7 +152,7 @@ class UpdateFragment : Fragment() {
             category.toString(),
             categoryColor.toString(),
             categoryIcon!!,
-            flag?.toInt()!!,
+            flag,
             confirmTime,
             confirmDate,
             false
@@ -144,19 +163,27 @@ class UpdateFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun getTaskFromHome() {
-        args.task?.apply {
             binding.apply {
-                edtUpdateTitle.setText(title)
-                edtUpdateDescription.setText(description)
-                btTimeUpdate.text = time
-                btCategoryUpdate.text = categoryName
-                btCategoryUpdate.icon = ContextCompat.getDrawable(requireContext(), categoryIcon)
-                btPriorityUpdate.text = flag.toString()
-            }
+                edtUpdateTitle.setText(args.task?.title)
+                edtUpdateDescription.setText(args.task?.description)
+                btTimeUpdate.text = args.task?.time
+                btCategoryUpdate.text = args.task?.categoryName
+                btCategoryUpdate.icon = ContextCompat.getDrawable(requireContext(),
+                    args.task?.categoryIcon!!
+                )
+                btPriorityUpdate.text = args.task!!.flag.toString()
+                time = args.task!!.time
+                date = args.task!!.date
+                category = args.task!!.categoryName
+                Log.i("TAG", "getTaskFromHome: $categoryColor")
+                Log.i("TAG", "getTaskFromHome: ${args.task!!.flag}")
+                categoryColor = args.task!!.categoryColor
+                categoryIcon = args.task!!.categoryIcon
+                flag = args.task!!.flag
+
+
         }
-        binding.btnClose.setOnClickListener {
-            findNavController().popBackStack()
-        }
+
     }
 
     private fun chooseLangForCalender() {
@@ -287,16 +314,11 @@ class UpdateFragment : Fragment() {
         val priority3 = Priority(3,"3")
         val priority4 = Priority(4,"4")
         val priority5 = Priority(5,"5")
-        val priority6 = Priority(6,"6")
-        val priority7 = Priority(7,"7")
-        val priority8 = Priority(8,"8")
-        val priority9 = Priority(9,"9")
-        val priority10 = Priority(10,"10")
+
 
         val priorityList = arrayListOf(
             priority,
-            priority2,priority3,priority4,priority5,
-            priority6,priority7,priority8,priority9,priority10
+            priority2,priority3,priority4,priority5
         )
         val priorityDialog = requireActivity().dialog(R.layout.dialog_priority,binding.root,true)
         val recycler =priorityDialog.findViewById<RecyclerView>(R.id.recy_priority)
@@ -304,7 +326,7 @@ class UpdateFragment : Fragment() {
         adapter.differ.submitList(priorityList)
         recycler.adapter =adapter
         adapter.setOnItemClick {
-            flag = it.name
+            flag = it.name.toInt()
             binding.btPriorityUpdate.text = it.name
             priorityDialog.dismiss()
         }

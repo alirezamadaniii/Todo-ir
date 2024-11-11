@@ -145,6 +145,36 @@
         <action
             android:id="@+id/action_updateFragment_to_createCategoryFragment"
             app:destination="@id/createCategoryFragment" />
+        <argument
+            android:name="category"
+            app:argType="com.example.todoir.data.model.Category"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
+
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+        <argument
+            android:name="description"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+        <argument
+            android:name="time"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+        <argument
+            android:name="date"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+        <action
+            android:id="@+id/action_updateFragment_to_calenderFragment"
+            app:destination="@id/calenderFragment" />
     </fragment>
     <fragment
         android:id="@+id/calenderFragment"
@@ -152,6 +182,7 @@
         android:label="CalenderFragment" >
         <action
             android:id="@+id/action_calenderFragment_to_updateFragment"
-            app:destination="@id/updateFragment" />
+            app:destination="@id/updateFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

@@ -42,7 +42,7 @@ class CalenderFragment : Fragment() {
     private var currentWeek =CurrentWeek()
     private var date: String? = null
     private  var dayInfoEnglishList = mutableListOf<DayInfo>()
-    private lateinit var englishAdapter: WeekAdapter
+    private var englishAdapter = WeekAdapter()
     private lateinit var persianAdapter: WeekPersianAdapter
     private lateinit var timeLineCalendarAdapter: TimeLineCalendarAdapter
 
@@ -92,14 +92,12 @@ class CalenderFragment : Fragment() {
 
 
     private fun getDateFilter(date: String) {
-        Log.i("TAG", "getDateFilter: "+date)
         timeLineCalendarAdapter = TimeLineCalendarAdapter()
         viewModel.getTaskAfterFilter(date).observe(viewLifecycleOwner) {
-            Log.i("TAG", "getDateFilter: "+it)
-            binding.btnAddTaskCalander.visibility = View.GONE
-            binding.recyCalender.visibility = View.VISIBLE
-            binding.recyCalender.adapter = timeLineCalendarAdapter
-            timeLineCalendarAdapter.differ.submitList(it)
+            if (it.isNotEmpty()) {
+                binding.recyCalender.adapter = timeLineCalendarAdapter
+                timeLineCalendarAdapter.differ.submitList(it)
+            }
         }
     }
 
@@ -210,6 +208,8 @@ class CalenderFragment : Fragment() {
 
         datePicker.show(requireActivity().supportFragmentManager, "SOME_TAG")
     }
+
+
 
 
 }

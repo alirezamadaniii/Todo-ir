@@ -116,18 +116,28 @@ class AddTaskFragment : Fragment() {
             time = args.time
             date = args.date
             binding.btTimeAdd.text = time
-
-
         }
 
         getCategoryFromDb()
         onClick()
+
+        toFillCategoryFromCategoryPage()
 
 
 
 
     }
 
+    private fun toFillCategoryFromCategoryPage() {
+        if (args.category!=null){
+            category= args.category!!.name
+            categoryColor = args.category!!.color
+            categoryIcon = args.category!!.icon
+            binding.btCategoryAdd.text = args.category!!.name
+            binding.btCategoryAdd.icon = ContextCompat.getDrawable(requireContext(),
+                args.category!!.icon)
+        }
+    }
 
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -143,6 +153,10 @@ class AddTaskFragment : Fragment() {
         }
         binding.btnAddTask.setOnClickListener {
             addTask()
+        }
+
+        binding.btnCloseAdd.setOnClickListener {
+            findNavController().popBackStack()
         }
 
 
