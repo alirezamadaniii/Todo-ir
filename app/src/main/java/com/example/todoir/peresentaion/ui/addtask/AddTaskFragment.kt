@@ -1,16 +1,17 @@
 package com.example.todoir.peresentaion.ui.addtask
 
-import android.app.Activity
+import com.example.todoir.receiver.AlarmReceiver
+import android.app.AlarmManager
 import android.app.Dialog
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.Ringtone
-import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.text.format.DateFormat
 import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -20,7 +21,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -28,12 +28,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.aminography.primecalendar.civil.CivilCalendar
-import com.aminography.primecalendar.common.operators.hour
 import com.aminography.primecalendar.persian.PersianCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.example.todoir.R
-import com.example.todoir.alarm.AlarmSchedulerImpl
+//import com.example.todoir.alarm.AlarmSchedulerImpl
 import com.example.todoir.data.model.Alarm
 import com.example.todoir.data.model.Priority
 import com.example.todoir.data.model.Task
@@ -66,7 +65,7 @@ class AddTaskFragment : Fragment() {
     private lateinit var recycler: RecyclerView
     private lateinit var adapter: CategoryAdapter
     private val args: AddTaskFragmentArgs by navArgs()
-    private lateinit var alarmSchedulerImpl: AlarmSchedulerImpl
+//    private lateinit var alarmSchedulerImpl: AlarmSchedulerImpl
     private var alarm: Alarm? = null
     private lateinit var picker:MaterialTimePicker
     private lateinit var ringtone: Ringtone
@@ -81,7 +80,8 @@ class AddTaskFragment : Fragment() {
     private var today: CivilCalendar? = null
     var tone: String? = null
 
-
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
 
     @Inject
     lateinit var sp: Sp
@@ -101,8 +101,9 @@ class AddTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        alarmSchedulerImpl = AlarmSchedulerImpl(requireContext())
+//        alarmSchedulerImpl = AlarmSchedulerImpl(requireContext())
 //        tone=RingtoneManager.getActualDefaultRingtoneUri(this.context, RingtoneManager.TYPE_ALARM).toString()
 //        ringtone = RingtoneManager.getRingtone(getContext(), Uri.parse(tone));
 //        if(alarm!=null){
@@ -275,7 +276,7 @@ class AddTaskFragment : Fragment() {
             calendar.timeInMillis
         )
 
-        alarm?.let(alarmSchedulerImpl::schedule)
+//        alarm?.let(alarmSchedulerImpl::schedule)
 
     }
 
@@ -463,7 +464,9 @@ class AddTaskFragment : Fragment() {
                     Toast.makeText(requireContext(), getString(R.string.Please_enter_Description), Toast.LENGTH_SHORT).show()
                 }else{
                      if (isAlarm){
-                         createAlarm(title, description, picker.hour, picker.minute)
+//                         createAlarm(title, description, picker.hour, picker.minute)
+                         setAlarm(picker.hour, picker.minute)
+                         // Start the foreground service
                      }
                      val task = Task(0,title,1,description,time.toString(),date.toString(),category.toString(),
                          categoryColor.toString(),
@@ -477,6 +480,31 @@ class AddTaskFragment : Fragment() {
             }
 
     }
+
+
+
+    private fun setAlarm(hour: Int, min: Int) {
+        val intent = Intent(requireContext(), AlarmReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(
+            requireContext(),
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, min)
+        calendar.set(Calendar.SECOND, 0)
+
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+
+        // Optional: Feedback to user
+        Toast.makeText(requireContext(), "Alarm set for ${calendar.time}", Toast.LENGTH_LONG).show()
+    }
+
+
 
 
     override fun onResume() {

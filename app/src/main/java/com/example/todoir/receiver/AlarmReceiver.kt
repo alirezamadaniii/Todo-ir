@@ -1,100 +1,43 @@
 package com.example.todoir.receiver
-
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.media.MediaPlayer
-import android.provider.Settings
-import androidx.core.app.ActivityCompat
+import android.app.NotificationManager
+import android.app.NotificationChannel
+import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
+import com.example.todoir.AlarmActivity
 import com.example.todoir.R
-import com.example.todoir.data.utils.Constants.ALARM_CHANNEL_NAME
-import com.example.todoir.data.utils.Constants.ALARM_ID
-import com.example.todoir.data.utils.Constants.MESSAGE
-import com.example.todoir.data.utils.Constants.STOP_ALARM
-import com.example.todoir.data.utils.Constants.TITLE
-
 
 class AlarmReceiver : BroadcastReceiver() {
 
-     private var mediaPlayer: MediaPlayer? =null
-
     override fun onReceive(context: Context?, intent: Intent?) {
-
-        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-        mediaPlayer =
-            MediaPlayer.create(context, Settings.System.DEFAULT_ALARM_ALERT_URI)
-        mediaPlayer!!.isLooping = true
-
-
-        if (intent?.action == STOP_ALARM) {
-            val alarmId = intent.getIntExtra(ALARM_ID, 2)
-            NotificationManagerCompat.from(context).cancel(alarmId)
-
-
-//            mediaPlayer.release()
-            stopPlaying()
-
-            val pIntent = PendingIntent.getBroadcast(
-                context,
-                alarmId,
-                Intent(context, AlarmReceiver::class.java),
-                PendingIntent.FLAG_IMMUTABLE
-            )
-
-            alarmManager.cancel(pIntent)
-
-            return
-        }
-        val title = intent?.getStringExtra(TITLE) ?: return
-        val message = intent.getStringExtra(MESSAGE)
-        val alarmId = intent.getIntExtra(ALARM_ID, 1)
-//        val goIntent = Intent(context, AlarmActivity::class.java).apply {
-//            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//        }
-//        val pendingIntent: PendingIntent =
-//            PendingIntent.getActivity(context, 1, goIntent, PendingIntent.FLAG_IMMUTABLE)
-
-        val stopPendingIntent = PendingIntent.getBroadcast(
-            context, 1, Intent(context, AlarmReceiver::class.java).apply {
-                action = STOP_ALARM
-                putExtra(ALARM_ID, alarmId)
-            },
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        val builder = NotificationCompat.Builder(context, ALARM_CHANNEL_NAME)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
-//            .setContentIntent(pendingIntent)
-            .addAction(
-                R.drawable.ic_launcher_foreground, "STOP",
-                stopPendingIntent
-            )
-
-        mediaPlayer!!.start()
-
-        if (ActivityCompat.checkSelfPermission(
-                context,
-                android.Manifest.permission.POST_NOTIFICATIONS
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            NotificationManagerCompat.from(context).notify(1, builder.build())
-        }
+        // Start AlarmActivity as a popup when the alarm goes off
+        val alarmIntent = Intent(context, AlarmActivity::class.java)
+        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // Required if starting from BroadcastReceiver
+        context?.startActivity(alarmIntent)
     }
 
-    private fun stopPlaying() {
-        if (mediaPlayer != null) {
-            mediaPlayer!!.reset();
-            mediaPlayer!!.release();
-            mediaPlayer!!.setVolume(0F, 0F)
+    private fun showNotification(context: Context?) {
+        val channelId = "todo_alarm_channel"
+        val channelName = "Todo Alarm Notifications"
+
+        // Create Notification Channel for Android O and above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
+            val notificationManager = context?.getSystemService(NotificationManager::class.java)
+            notificationManager?.createNotificationChannel(channel)
         }
+
+        val notificationBuilder = NotificationCompat.Builder(context!!, channelId)
+            .setSmallIcon(R.drawable.add_1) // Replace with your notification icon
+            .setContentTitle("To-Do Alarm")
+            .setContentText("Your to-do item is due!")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(1001, notificationBuilder.build())
     }
 }
