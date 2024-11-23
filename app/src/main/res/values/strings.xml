@@ -72,5 +72,8 @@
     <string name="it_s_time_to_wake_up">It’s time to wake up</string>
     <string name="_08_00_am">08:00 AM</string>
     <string name="_10_00_pm">10:00 PM</string>
+    <string name="none">none</string>
+    <string name="default1">Default</string>
+    <string name="all">All</string>
 
 </resources>

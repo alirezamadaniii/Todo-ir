@@ -136,7 +136,6 @@ class MainActivity : AppCompatActivity() {
         val lang = sp.fetch("username").toString()
         val destination: Int = if (lang.isEmpty()) {
             showBottomSheet()
-            addPrimaryCategory()
             R.id.intro_navigation
         } else {
             chooseLang(sp.fetch("language").toString())
@@ -151,17 +150,35 @@ class MainActivity : AppCompatActivity() {
 
     private fun addPrimaryCategory() {
 
-        viewModel.addCategory(Category(1,getString(R.string.add),R.drawable.add_1,"#80FFD1"))
-        viewModel.addCategory(Category(2,getString(R.string.Grocery),R.drawable.bread_1,"#CCFF80"))
-        viewModel.addCategory(Category(3,getString(R.string.Work),R.drawable.briefcase_1,"#FF9680"))
-        viewModel.addCategory(Category(4,getString(R.string.Sport),R.drawable.sport_1,"#80FFFF"))
-        viewModel.addCategory(Category(5,getString(R.string.Design),R.drawable.design__1__1,"#80FFD9"))
-        viewModel.addCategory(Category(6,getString(R.string.University),R.drawable.mortarboard_1,"#809CFF"))
-        viewModel.addCategory(Category(7,getString(R.string.Social),R.drawable.megaphone_1,"#FF80EB"))
-        viewModel.addCategory(Category(8,getString(R.string.Music),R.drawable.music__1__1,"#FC80FF"))
-        viewModel.addCategory(Category(9,getString(R.string.Health),R.drawable.heartbeat_1,"#80FFA3"))
-        viewModel.addCategory(Category(10,getString(R.string.Movie),R.drawable.video_camera_1,"#FFCC80"))
-        viewModel.addCategory(Category(11,getString(R.string.Home),R.drawable.home__2__1,"#80D1FF"))
+        if (sp.fetch("language").equals("Persian")){
+            Log.i("TAG", "addPrimaryCategory1: "+sp.fetch("language").equals("Persian"))
+            viewModel.addCategory(Category(1,"Add",R.drawable.add_1,"#80FFD1"))
+            viewModel.addCategory(Category(2,"Grocery",R.drawable.bread_1,"#CCFF80"))
+            viewModel.addCategory(Category(3,"Work",R.drawable.briefcase_1,"#FF9680"))
+            viewModel.addCategory(Category(4,"Sport",R.drawable.sport_1,"#80FFFF"))
+            viewModel.addCategory(Category(5,"Design",R.drawable.design__1__1,"#80FFD9"))
+            viewModel.addCategory(Category(6,"University",R.drawable.mortarboard_1,"#809CFF"))
+            viewModel.addCategory(Category(7,"Social",R.drawable.megaphone_1,"#FF80EB"))
+            viewModel.addCategory(Category(8,"Music",R.drawable.music__1__1,"#FC80FF"))
+            viewModel.addCategory(Category(9,"Health",R.drawable.heartbeat_1,"#80FFA3"))
+            viewModel.addCategory(Category(10,"Movie",R.drawable.video_camera_1,"#FFCC80"))
+            viewModel.addCategory(Category(11,"Home",R.drawable.home__2__1,"#80D1FF"))
+        }else{
+            Log.i("TAG", "addPrimaryCategory2: ")
+            viewModel.addCategory(Category(1,"اضافه کردن",R.drawable.add_1,"#80FFD1"))
+            viewModel.addCategory(Category(2,"خوراک",R.drawable.bread_1,"#CCFF80"))
+            viewModel.addCategory(Category(3,"کار",R.drawable.briefcase_1,"#FF9680"))
+            viewModel.addCategory(Category(4,"ورزش",R.drawable.sport_1,"#80FFFF"))
+            viewModel.addCategory(Category(5,"طراحی",R.drawable.design__1__1,"#80FFD9"))
+            viewModel.addCategory(Category(6,"دانشگاه",R.drawable.mortarboard_1,"#809CFF"))
+            viewModel.addCategory(Category(7,"شبکه های اجتماعی",R.drawable.megaphone_1,"#FF80EB"))
+            viewModel.addCategory(Category(8,"موسیقی",R.drawable.music__1__1,"#FC80FF"))
+            viewModel.addCategory(Category(9,"سلامتی",R.drawable.heartbeat_1,"#80FFA3"))
+            viewModel.addCategory(Category(10,"فیلم",R.drawable.video_camera_1,"#FFCC80"))
+            viewModel.addCategory(Category(11,"خانه",R.drawable.home__2__1,"#80D1FF"))
+        }
+
+
     }
 
     private fun initBottomNavigation() {
@@ -203,6 +220,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             setLocal("en", 0)
         }
+        addPrimaryCategory()
     }
 
     private fun setLocal(langCode: String, direction: Int) {

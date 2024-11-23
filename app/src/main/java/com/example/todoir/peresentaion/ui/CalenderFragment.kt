@@ -62,7 +62,7 @@ class CalenderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        timeLineCalendarAdapter = TimeLineCalendarAdapter()
         chooseLangForCalender()
 
 
@@ -92,7 +92,6 @@ class CalenderFragment : Fragment() {
 
 
     private fun getDateFilter(date: String) {
-        timeLineCalendarAdapter = TimeLineCalendarAdapter()
         viewModel.getTaskAfterFilter(date).observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 binding.recyCalender.adapter = timeLineCalendarAdapter

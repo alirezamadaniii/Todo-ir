@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "373185472878",
+    "project_id": "todoir",
+    "storage_bucket": "todoir.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373185472878:android:172a69569972b6784f397f",
+        "android_client_info": {
+          "package_name": "com.example.todoir"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYtZaPjdbgXeKA3wzILgl5Xt2v8sjQVu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

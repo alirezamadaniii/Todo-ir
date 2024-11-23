@@ -59,5 +59,23 @@
     <string name="category_color">رنگ دسته بندی :</string>
     <string name="create_category">ساخت دسته بندی</string>
 
+    <string name="choose_icon">انتخاب آیکون</string>
+    <string name="task_time">زمان تسک :</string>
+    <string name="task_category">دسته بندی تسک :</string>
+    <string name="task_priority">الویت تسک :</string>
+    <string name="delete_task">حذف تسک</string>
+    <string name="permission_denied">دسترسی رد شد ض!</string>
+    <string name="request_msg"> برای ارسال اعلان هنگام فعال شدن زنگ هشدار به AlarmManager اجازه ارسال اعلان را بدهید. روی تنظیمات مجوزها ضربه بزنید و اعلان‌ها را روشن کنید.</string>
+    <string name="close">بستن</string>
+    <string name="reminder">یادآوری</string>
+    <string name="reminder_channel_desc">این برای ارسال اعلان هنگام تنظیم زنگ هشدار لازم است</string>
+    <string name="please_select_the_fliter">لطفا فیلتر را انتخاب کنید</string>
+    <string name="have_a_good_night">شب خوبی داشته باشید</string>
+    <string name="it_s_time_to_wake_up">وقت بیدار شدن است</string>
+    <string name="_08_00_am">08:00 ق.ظ</string>
+    <string name="_10_00_pm">10:00 ب.ظ</string>
+    <string name="none">خالی</string>
+    <string name="default1">پیش فرض</string>
+    <string name="all">همه</string>
 
 </resources>

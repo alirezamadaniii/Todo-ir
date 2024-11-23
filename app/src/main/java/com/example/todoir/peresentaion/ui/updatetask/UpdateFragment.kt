@@ -79,6 +79,15 @@ class UpdateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (sp.fetch("language").equals("Persian")){
+            category = "همه"
+            date = "خالی"
+            time = "خالی"
+        }else{
+            category = "All"
+            date = "none"
+            time = "none"
+        }
 
         getTaskFromHome()
         getCategoryFromDb()

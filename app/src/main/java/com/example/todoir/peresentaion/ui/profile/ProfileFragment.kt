@@ -91,43 +91,9 @@ class ProfileFragment : Fragment() {
             setUpAccountChangerDialog()
         }
 
-        binding.constraintLayout3.setOnClickListener {
-            showBottomSheet()
-        }
 
     }
 
-
-    private fun showBottomSheet() {
-        val dialogView =
-            layoutInflater.inflate(R.layout.bottom_sheet, LinearLayout(requireContext()))
-        bottomSheetDialog =
-            BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
-        bottomSheetDialog.setContentView(dialogView)
-        bottomSheetDialog.setCancelable(false)
-        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.recyyy)
-        recyclerView.adapter = itemAdapterBottomSheet
-        bottomSheetDialog.show()
-
-        bottomSheetItemClicked()
-    }
-
-    private fun bottomSheetItemClicked() {
-        itemAdapterBottomSheet.setOnItemClick {
-            chooseLang(it)
-            sp.data("language", it)
-            bottomSheetDialog.dismiss()
-            _isLoading.value = false
-        }
-    }
-
-    private fun chooseLang(it: String) {
-        if (it == "Persian") {
-            setLocal("fa", 1)
-        } else {
-            setLocal("en", 0)
-        }
-    }
 
     private fun setLocal(langCode: String, direction: Int) {
         val local = Locale(langCode)

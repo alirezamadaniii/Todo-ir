@@ -71,8 +71,8 @@ class AddTaskFragment : Fragment() {
     private lateinit var picker:MaterialTimePicker
     private lateinit var ringtone: Ringtone
 
-    private var date: String? = "None"
-    private var time: String? = "None"
+    private var date: String? = "none"
+    private var time: String? = "none"
     private var category: String? = "All"
     private var categoryColor: String? = "#80FFD1"
     private var categoryIcon: Int? = R.drawable.baseline_360_24
@@ -109,6 +109,16 @@ class AddTaskFragment : Fragment() {
 //            updateAlarmInfo(alarm);
 //        }
 
+
+        if (sp.fetch("language").equals("Persian")){
+            category = "همه"
+            date = "خالی"
+            time = "خالی"
+        }else{
+            category = "All"
+            date = "none"
+            time = "none"
+        }
 
         if (!args.title.equals("null")){
             binding.edtAddTitle.setText(args.title)
