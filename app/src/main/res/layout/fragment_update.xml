@@ -34,22 +34,24 @@
             </androidx.cardview.widget.CardView>
 
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/gray_light"
-                app:cardCornerRadius="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.imageview.ShapeableImageView
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_update_task"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/repeat" />
-            </androidx.cardview.widget.CardView>
+                    app:icon="@drawable/repeat"
+                    android:fontFamily="@font/vazir_bold"
+                    android:text="@string/edit_task"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/color_11"
+                    app:cornerRadius="4dp"
+                    android:layout_marginBottom="8dp"
+                    app:iconTint="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
 
             <androidx.cardview.widget.CardView

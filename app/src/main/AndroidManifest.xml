@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+
+
 
 
     <application
@@ -20,11 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Todoir.Starting"
         tools:targetApi="31">
-        <activity
-            android:name=".AlarmActivity"
-            android:theme="@style/Theme.AppCompat.Dialog">
 
-        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -38,7 +39,12 @@
         </activity>
 
 
-        <receiver android:name=".receiver.AlarmReceiver" />
+        <service
+            android:name=".receiver.AlarmService"
+            android:foregroundServiceType="dataSync"/>
+
+        <receiver android:name=".receiver.NotificationReceiver"/>
+
 
         <service
             android:name=".data.utils.firebase.MyFirebaseMessagingService"

@@ -34,23 +34,7 @@
             </androidx.cardview.widget.CardView>
 
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView2"
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_margin="16dp"
-                app:cardBackgroundColor="@color/color_11"
-                app:cardCornerRadius="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/btn_add_task"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/baseline_done_24" />
-            </androidx.cardview.widget.CardView>
 
 
             <androidx.cardview.widget.CardView
@@ -266,6 +250,24 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_category_selected21" />
 
 
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_task"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/color_11"
+                    app:icon="@drawable/baseline_done_24"
+                    app:iconTint="@color/black"
+                    android:fontFamily="@font/vazir_bold"
+                    android:text="@string/create_task"
+                    android:textColor="@color/black"
+                    app:cornerRadius="4dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

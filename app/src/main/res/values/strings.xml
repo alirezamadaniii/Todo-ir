@@ -75,5 +75,7 @@
     <string name="none">none</string>
     <string name="default1">Default</string>
     <string name="all">All</string>
+    <string name="create_task">Create Task</string>
+    <string name="edit_task">Edit Task</string>
 
 </resources>
