@@ -16,7 +16,7 @@ interface Dao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun addTask(task: Task)
 
-    @Query("SELECT * FROM task_table")
+    @Query("SELECT * FROM task_table ORDER BY taskId DESC")
     fun getTask(): Flow<List<Task>>
 
     @Query("SELECT * FROM task_table WHERE date =:date")

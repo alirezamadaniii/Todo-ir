@@ -40,8 +40,7 @@
 
 
         <service
-            android:name=".receiver.AlarmService"
-            android:foregroundServiceType="dataSync"/>
+            android:name=".receiver.AlarmService" />
 
         <receiver android:name=".receiver.NotificationReceiver"/>
 

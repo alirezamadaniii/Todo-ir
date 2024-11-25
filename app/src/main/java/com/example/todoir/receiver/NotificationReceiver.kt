@@ -20,6 +20,8 @@ class NotificationReceiver : BroadcastReceiver() {
         val serviceIntent = Intent(context, AlarmService::class.java)
         serviceIntent.putExtra("title",taskTitle)
         serviceIntent.putExtra("description",taskDescription)
-        context.startForegroundService(serviceIntent)
+        context.startService(serviceIntent)
     }
+
+
 }

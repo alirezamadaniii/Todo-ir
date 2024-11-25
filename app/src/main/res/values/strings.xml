@@ -77,5 +77,9 @@
     <string name="all">All</string>
     <string name="create_task">Create Task</string>
     <string name="edit_task">Edit Task</string>
+    <string name="make_your_time_valuable">Make your time valuable!</string>
+    <string name="first_description_page">Time management means doing the right things at the right time.</string>
+    <string name="every_task_is_a_step_closer_to_success">Every task is a step closer to success.</string>
+    <string name="secound_des_page">Complete tasks in order of priority and feel the progress.</string>
 
 </resources>

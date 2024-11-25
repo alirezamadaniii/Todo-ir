@@ -55,6 +55,20 @@ class AlarmService : Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
      fun sendNotification() {
+
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        // Create a pending intent
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+
         Log.i("TAG", "onStartCommand2: ")
         val notificationManager = getSystemService(NotificationManager::class.java)
         val notification = Notification.Builder(this, CHANNEL_ID)
@@ -62,6 +76,7 @@ class AlarmService : Service() {
             .setContentText(destination)
             .setSmallIcon(R.drawable.add_1) // Make sure to replace with your actual icon
             .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
             .build()
 
         notificationManager.notify(1, notification) // Show the notification
@@ -69,8 +84,12 @@ class AlarmService : Service() {
 
 
 
+
+
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
+
+
 
 }
