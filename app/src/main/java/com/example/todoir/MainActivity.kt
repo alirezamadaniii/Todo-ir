@@ -21,6 +21,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -88,9 +89,14 @@ class MainActivity : AppCompatActivity() {
             //setup nav from home or first intro page
             val graphInflater = navHostFragment.navController.navInflater
             navGraph = graphInflater.inflate(R.navigation.main_nav)
+            val navOptions = NavOptions.Builder()
+                .setEnterAnim(R.anim.anim_right_to_left)
+                .setPopEnterAnim(R.anim.anim_left_to_right)
+                .build()
             val destination: Int = R.id.addTaskFragment
             navGraph.setStartDestination(destination)
             navController.graph = navGraph
+            navController.navigate(R.id.addTaskFragment, null, navOptions)
         }
     }
 

@@ -34,24 +34,22 @@
             </androidx.cardview.widget.CardView>
 
 
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_update_task"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:icon="@drawable/repeat"
-                    android:fontFamily="@font/vazir_bold"
-                    android:text="@string/edit_task"
-                    android:textColor="@color/black"
-                    android:backgroundTint="@color/color_11"
-                    app:cornerRadius="4dp"
-                    android:layout_marginBottom="8dp"
-                    app:iconTint="@color/black"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_update_task"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/color_11"
+                android:fontFamily="@font/vazir_bold"
+                android:text="@string/edit_task"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/black"
+                app:cornerRadius="4dp"
+                app:icon="@drawable/repeat"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cons_delete_task" />
 
 
             <androidx.cardview.widget.CardView

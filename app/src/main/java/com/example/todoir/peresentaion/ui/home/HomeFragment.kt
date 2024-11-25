@@ -37,6 +37,10 @@ import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.TimeZone
 import javax.inject.Inject
 
@@ -58,7 +62,7 @@ class HomeFragment : Fragment() {
     private var date: String? = null
     private var today: CivilCalendar? = null
 
-    lateinit var data: List<Task>
+    lateinit var filterData: List<Task>
 
     @Inject
     lateinit var sp: Sp
@@ -95,7 +99,10 @@ class HomeFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                filterItems(p0.toString())
+                if (this@HomeFragment::filterData.isInitialized) {
+                    filterItems(p0.toString())
+                }
+
             }
 
         })
@@ -104,9 +111,9 @@ class HomeFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun filterItems(query: String) {
         val filteredList = if (query.isEmpty()) {
-            data // If query is empty, return the original list
+            filterData // If query is empty, return the original list
         } else {
-            data.filter { it.title.contains(query, ignoreCase = true) }
+            filterData.filter { it.title.contains(query, ignoreCase = true) }
         }
         adapter.differ.submitList(filteredList)
         adapter.notifyDataSetChanged()
@@ -151,10 +158,11 @@ class HomeFragment : Fragment() {
     private fun bottomSheetItemClicked() {
         itemAdapterBottomSheet.setOnItemClick {
             when (it) {
-                "All" ->{
+                "All" -> {
                     binding.imgIsFilter.visibility = View.GONE
                     showTask()
                 }
+
                 "Done" -> {
                     binding.imgIsFilter.visibility = View.VISIBLE
                     getDoneFilter()
@@ -345,18 +353,22 @@ class HomeFragment : Fragment() {
 
     private fun showTask() {
         viewModel.getTask().observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                data = it
-                binding.consEmptyList.visibility = View.GONE
-                binding.consHomeItem.visibility = View.VISIBLE
-                binding.recyTask.adapter = adapter
-                adapter.differ.submitList(it)
-                swipeToDelete(binding.recyTask)
-            } else {
-                binding.consEmptyList.visibility = View.VISIBLE
-                binding.consHomeItem.visibility = View.GONE
+            CoroutineScope(Dispatchers.Main).launch {
+                if (it.isNotEmpty()) {
+                    filterData = it
+                    binding.consEmptyList.visibility = View.GONE
+                    binding.consHomeItem.visibility = View.VISIBLE
+                    binding.recyTask.visibility = View.VISIBLE
+                    binding.recyTask.adapter = adapter
+                    adapter.differ.submitList(it)
+                    swipeToDelete(binding.recyTask)
+                } else {
+                    binding.consEmptyList.visibility = View.VISIBLE
+                    binding.consHomeItem.visibility = View.GONE
+                }
             }
         }
+
 
     }
 

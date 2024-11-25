@@ -29,7 +29,6 @@ import com.example.todoir.peresentaion.adapter.WeekPersianAdapter
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import saman.zamani.persiandate.PersianDate
-import java.time.LocalDate
 import java.util.TimeZone
 import javax.inject.Inject
 
@@ -93,10 +92,8 @@ class CalenderFragment : Fragment() {
 
     private fun getDateFilter(date: String) {
         viewModel.getTaskAfterFilter(date).observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
                 binding.recyCalender.adapter = timeLineCalendarAdapter
                 timeLineCalendarAdapter.differ.submitList(it)
-            }
         }
     }
 
@@ -136,6 +133,7 @@ class CalenderFragment : Fragment() {
         englishAdapter.setOnItemClick {
             getDateFilter("${currentWeek.currentDate.year} / ${currentWeek.currentDate.monthValue} /  $it")
             Log.i("TAG", "displayCurrentWeekInfo: ${currentWeek.currentDate.year} / ${currentWeek.currentDate.monthValue} /  $it")
+
         }
 
 

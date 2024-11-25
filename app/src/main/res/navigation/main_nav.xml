@@ -12,7 +12,12 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_updateFragment"
-            app:destination="@id/updateFragment" />
+            app:destination="@id/updateFragment"
+            app:enterAnim="@anim/anim_right_to_left"
+            app:popEnterAnim="@anim/anim_left_to_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
     </fragment>
     <navigation android:id="@+id/intro_navigation"
         app:startDestination="@id/firstIntroFragment">
@@ -98,6 +103,8 @@
         <action
             android:id="@+id/action_addTaskFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@anim/anim_left_to_right"
+            app:popEnterAnim="@anim/anim_right_to_left"
             app:popUpTo="@id/main_nav" />
     </fragment>
     <fragment
