@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -87,11 +88,20 @@ class ProfileFragment : Fragment() {
 
         setName()
         showTask()
+        onClick()
+
+
+
+    }
+
+    private fun onClick() {
         binding.constraintLayout.setOnClickListener {
             setUpAccountChangerDialog()
         }
-
-
+        binding.consLogOut.setOnClickListener {
+            sp.clear()
+            findNavController().navigate(R.id.action_profileFragment_to_intro_navigation)
+        }
     }
 
 
