@@ -42,7 +42,7 @@
                 android:backgroundTint="@color/color_11"
                 android:fontFamily="@font/vazir_bold"
                 android:text="@string/edit_task"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:textColor="@color/black"
                 app:cornerRadius="4dp"
                 app:icon="@drawable/repeat"

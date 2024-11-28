@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +40,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.TimeZone
 import javax.inject.Inject
@@ -365,6 +365,7 @@ class HomeFragment : Fragment() {
                 } else {
                     binding.consEmptyList.visibility = View.VISIBLE
                     binding.consHomeItem.visibility = View.GONE
+                    binding.recyTask.visibility = View.GONE
                 }
             }
         }
@@ -379,6 +380,8 @@ class HomeFragment : Fragment() {
                 // Delete Item
                 viewModel.deleteTask(deletedItem)
                 adapter.notifyItemRemoved(viewHolder.adapterPosition)
+                Log.i("TAG", "onSwiped: "+deletedItem)
+                Log.i("TAG", "onSwiped: "+viewHolder.adapterPosition)
                 // Restore Deleted Item
                 restoreDeletedData(viewHolder.itemView, deletedItem)
             }
