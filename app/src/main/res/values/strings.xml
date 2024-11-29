@@ -84,5 +84,6 @@
     <string name="are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
     <string name="about_us_page">About Us</string>
     <string name="contact_us">Contact Us</string>
+    <string name="setting2">Setting</string>
 
 </resources>

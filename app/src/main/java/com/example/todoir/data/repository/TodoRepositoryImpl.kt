@@ -1,5 +1,6 @@
 package com.example.todoir.data.repository
 
+import com.example.todoir.data.db.CategoryCount
 import com.example.todoir.data.model.Category
 import com.example.todoir.data.model.Task
 import com.example.todoir.data.repository.datasource.LocalDataSource
@@ -49,5 +50,9 @@ class TodoRepositoryImpl(private val localDataSource: LocalDataSource):TodoRepos
 
     override suspend fun completedTask(id: Int, isCompleted: Boolean) {
         localDataSource.completedTask(id, isCompleted)
+    }
+
+    override fun getCategoryChart(): Flow<List<CategoryCount>> {
+        return localDataSource.getCategoryChart()
     }
 }

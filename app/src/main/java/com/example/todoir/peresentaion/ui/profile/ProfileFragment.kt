@@ -1,45 +1,27 @@
 package com.example.todoir.peresentaion.ui.profile
 
-import android.Manifest
-import android.app.Activity
-import android.app.Dialog
-import android.content.Intent
-import android.content.res.Configuration
-import android.content.res.Resources
-import android.net.Uri
+import android.graphics.Color
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.example.todoir.R
 import com.example.todoir.data.utils.Sp
-import com.example.todoir.data.utils.dialog
 import com.example.todoir.databinding.FragmentProfileBinding
 import com.example.todoir.peresentaion.viewmodel.MainActivityViewModel
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Locale
 import javax.inject.Inject
 
 
@@ -48,15 +30,14 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private val viewModel: MainActivityViewModel by viewModels()
-    private lateinit var profileImage: ImageView
-    private lateinit var dialog: Dialog
     private val mutableLiveData = MutableLiveData<String>()
+
 
 
     @Inject
     lateinit var sp: Sp
 
-    private var imageUri: Uri? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,133 +54,94 @@ class ProfileFragment : Fragment() {
 
         mutableLiveData.value = sp.fetch("username").toString()
 
+chart()
         setName()
         showTask()
-        onClick()
 
 
     }
 
-    private fun onClick() {
-        binding.constraintLayout.setOnClickListener {
-            setUpAccountChangerDialog()
-        }
-        binding.consLogOut.setOnClickListener {
-            val dialog = requireContext().dialog(R.layout.dialog_exit_app,binding.root,true)
-            dialog.findViewById<Button>(R.id.btn_exit_dialog).setOnClickListener {
-                sp.clear()
-                findNavController().navigate(R.id.action_profileFragment_to_intro_navigation)
-            }
-            dialog.findViewById<Button>(R.id.btn_cancel_dialog).setOnClickListener {
-                dialog.dismiss()
-            }
 
-        }
+    private fun initPieChart() {
+        //using percentage as values instead of amount
+        binding.pieChart.setUsePercentValues(true)
+
+        //remove the description label on the lower left corner, default true if not set
+        binding.pieChart.getDescription().setEnabled(false)
+
+        //enabling the user to rotate the chart, default true
+        binding.pieChart.setRotationEnabled(true)
+        //adding friction when rotating the pie chart
+        binding.pieChart.setDragDecelerationFrictionCoef(0.9f)
+        //setting the first entry start from right hand side, default starting from top
+        binding.pieChart.setRotationAngle(0F)
+
+        //highlight the entry when it is tapped, default true if not set
+        binding.pieChart.setHighlightPerTapEnabled(true)
+        //adding animation so the entries pop up from 0 degree
+        binding.pieChart.animateY(1400, Easing.EaseInOutQuad)
+        //setting the color of the hole in the middle, default white
+        binding.pieChart.setHoleColor(Color.parseColor("#000000"))
+        binding.pieChart.setEntryLabelColor(Color.parseColor("#FFFFFFFF"))
+        binding.pieChart.setCenterTextColor(Color.parseColor("#FFFFFFFF"))
+
+
     }
 
+    private fun chart() {
+        initPieChart()
+        val pieEntries = ArrayList<PieEntry>()
+        val label = "type"
 
-    private fun setLocal(langCode: String, direction: Int) {
-        val local = Locale(langCode)
-        val resource: Resources = resources
-        val config: Configuration = resource.configuration
-        config.setLocale(local)
-        resource.updateConfiguration(config, resource.displayMetrics)
-        ViewCompat.setLayoutDirection(binding.root, direction)
-        refreshCurrentFragment()
-    }
-
-    private fun refreshCurrentFragment() {
-        // Recreate the Fragment to apply language changes
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .detach(this)
-            .attach(this)
-            .commit();
-    }
-
-
-    private fun setUpAccountChangerDialog() {
-
-
-        dialog = requireContext().dialog(R.layout.dialog_change_account, binding.root, true)
-        profileImage = dialog.findViewById<ImageView>(R.id.im_profile_setting)
-        val imageChose = dialog.findViewById<TextView>(R.id.im_choose_image_setting)
-        val edtUsername = dialog.findViewById<EditText>(R.id.edt_name_setting)
-        val btnSaveChanges = dialog.findViewById<Button>(R.id.btn_login_setting)
-
-        if (imageUri != null) {
-            Glide.with(binding.root)
-                .load(sp.fetch("img_profile"))
-                .into(profileImage)
-        }
-
-
-        btnSaveChanges.setOnClickListener {
-
-            if (edtUsername.text.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "please enter name", Toast.LENGTH_SHORT).show()
-            } else {
-                if (imageUri == null) {
-                    mutableLiveData.value = edtUsername.text.toString()
-                    sp.data("username", edtUsername.text.toString())
-                    dialog.dismiss()
-                } else {
-                    mutableLiveData.value = edtUsername.text.toString()
-                    sp.data("username", edtUsername.text.toString())
-                    sp.data("img_profile", imageUri.toString())
-                    dialog.dismiss()
-                }
-
+        viewModel.getCategoryChartTask().observe(viewLifecycleOwner){
+            Log.i("TAG", "chart: "+it)
+            val typeAmountMap: MutableMap<String, Int> = HashMap()
+            it.forEach { categoryCount ->
+                typeAmountMap[categoryCount.categoryName] = categoryCount.count
             }
 
-        }
 
-        imageChose.setOnClickListener {
-            checkPermission()
-        }
+            //initializing colors for the entries
+            val colors = ArrayList<Int>()
+            colors.add(Color.parseColor("#890567"))
+            colors.add(Color.parseColor("#304567"))
+            colors.add(Color.parseColor("#309967"))
+            colors.add(Color.parseColor("#476567"))
+            colors.add(Color.parseColor("#a35567"))
+            colors.add(Color.parseColor("#ff5f67"))
+            colors.add(Color.parseColor("#3ca567"))
 
-    }
 
-
-    //check permission for get image with dexter library
-    private fun checkPermission() {
-        Dexter.withContext(requireContext())
-            .withPermissions(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.READ_MEDIA_IMAGES
-            ).withListener(object : MultiplePermissionsListener {
-                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                    val intent =
-                        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                    activityResultLauncher.launch(Intent.createChooser(intent, "open gallery"))
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: List<PermissionRequest>,
-                    token: PermissionToken
-                ) {
-                    token.continuePermissionRequest()
-                }
-            }).check()
-    }
-
-    //get data from gallery intent
-    var activityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { data ->
-        if (data.resultCode == Activity.RESULT_OK) {
-            try {
-                val lang: String = sp.fetch("language").toString()
-                if (lang == "Persian") setLocal("fa", 1) else setLocal("en", 0)
-                val intent = data.data
-                imageUri = intent?.data!!
-                Glide.with(requireContext()).load(imageUri).into(profileImage)
-
-            } catch (e: Exception) {
-                e.printStackTrace()
+            //input data and fit data into pie chart entry
+            for (type in typeAmountMap.keys) {
+                pieEntries.add(PieEntry(typeAmountMap[type]!!.toFloat(), type))
             }
+
+
+            //collecting the entries with label name
+            val pieDataSet = PieDataSet(pieEntries, label)
+
+            //setting text size of the value
+            pieDataSet.valueTextSize = 12f
+
+            //providing color list for coloring different entries
+            pieDataSet.colors = colors
+
+            //grouping the data set from entry to chart
+            val pieData = PieData(pieDataSet)
+
+            //showing the value of the entries, default true if not set
+            pieData.setDrawValues(true)
+
+            binding.pieChart.setData(pieData)
+            binding.pieChart.invalidate()
+
         }
+
+
+
     }
+
 
 
     private fun setName() {

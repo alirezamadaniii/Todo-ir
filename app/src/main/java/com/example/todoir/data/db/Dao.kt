@@ -47,4 +47,13 @@ interface Dao {
     @Query("UPDATE task_table SET isCompleted = :isCompleted WHERE taskId = :id")
     suspend fun completedTask(id:Int,isCompleted: Boolean)
 
+
+    @Query("SELECT categoryName, COUNT(*) as count FROM task_table GROUP BY categoryName")
+    fun getCategoryChart(): Flow<List<CategoryCount>>
+
 }
+
+data class CategoryCount(
+    val categoryName: String,
+    val count: Int
+)

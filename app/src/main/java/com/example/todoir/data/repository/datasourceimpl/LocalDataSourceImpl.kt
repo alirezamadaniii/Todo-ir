@@ -1,5 +1,6 @@
 package com.example.todoir.data.repository.datasourceimpl
 
+import com.example.todoir.data.db.CategoryCount
 import com.example.todoir.data.db.Dao
 import com.example.todoir.data.model.Category
 import com.example.todoir.data.model.Task
@@ -49,5 +50,9 @@ class LocalDataSourceImpl(private val dao: Dao):LocalDataSource {
 
     override suspend fun completedTask(id: Int, isCompleted: Boolean) {
         dao.completedTask(id, isCompleted)
+    }
+
+    override fun getCategoryChart(): Flow<List<CategoryCount>>{
+        return dao.getCategoryChart()
     }
 }

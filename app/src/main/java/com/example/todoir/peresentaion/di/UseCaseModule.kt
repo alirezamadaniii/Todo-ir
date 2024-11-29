@@ -5,6 +5,7 @@ import com.example.todoir.domain.usecase.AddCategoryUseCase
 import com.example.todoir.domain.usecase.AddTaskUseCase
 import com.example.todoir.domain.usecase.CompletedTaskUseCase
 import com.example.todoir.domain.usecase.DeleteTaskUseCase
+import com.example.todoir.domain.usecase.GetCategoryChartUseCase
 import com.example.todoir.domain.usecase.GetCategoryTaskUseCase
 import com.example.todoir.domain.usecase.GetCategoryUseCase
 import com.example.todoir.domain.usecase.GetCompletedTaskUseCase
@@ -114,4 +115,11 @@ class UseCaseModule {
         return GetCompletedTaskUseCase(todoRepository)
     }
 
+    @Singleton
+    @Provides
+    fun provideGetCategoryChartUseCase(
+        todoRepository: TodoRepository
+    ):GetCategoryChartUseCase{
+        return GetCategoryChartUseCase(todoRepository)
+    }
 }

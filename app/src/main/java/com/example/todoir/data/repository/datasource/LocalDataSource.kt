@@ -1,5 +1,6 @@
 package com.example.todoir.data.repository.datasource
 
+import com.example.todoir.data.db.CategoryCount
 import com.example.todoir.data.model.Category
 import com.example.todoir.data.model.Task
 import kotlinx.coroutines.flow.Flow
@@ -26,4 +27,6 @@ interface LocalDataSource {
     suspend fun updateTask(task: Task)
 
     suspend fun completedTask(id:Int,isCompleted: Boolean)
+
+    fun getCategoryChart():Flow<List<CategoryCount>>
 }

@@ -114,12 +114,15 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomAppBar.visibility = View.VISIBLE
                     binding.fab.visibility = View.VISIBLE
                 }
-
                 R.id.profileFragment -> {
                     binding.bottomAppBar.visibility = View.VISIBLE
                     binding.fab.visibility =View.VISIBLE
                 }
                 R.id.calenderFragment -> {
+                    binding.bottomAppBar.visibility = View.VISIBLE
+                    binding.fab.visibility =View.VISIBLE
+                }
+                R.id.settingFragment -> {
                     binding.bottomAppBar.visibility = View.VISIBLE
                     binding.fab.visibility =View.VISIBLE
                 }
