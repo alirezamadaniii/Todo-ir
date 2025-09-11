@@ -74,7 +74,7 @@ class AlarmService : Service() {
         val notification = Notification.Builder(this, CHANNEL_ID)
             .setContentTitle(title)
             .setContentText(destination)
-            .setSmallIcon(R.drawable.add_1) // Make sure to replace with your actual icon
+            .setSmallIcon(R.mipmap.ic_app) // Make sure to replace with your actual icon
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .build()

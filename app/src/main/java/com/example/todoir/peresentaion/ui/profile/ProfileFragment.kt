@@ -33,10 +33,8 @@ class ProfileFragment : Fragment() {
     private val mutableLiveData = MutableLiveData<String>()
 
 
-
     @Inject
     lateinit var sp: Sp
-
 
 
     override fun onCreateView(
@@ -54,7 +52,7 @@ class ProfileFragment : Fragment() {
 
         mutableLiveData.value = sp.fetch("username").toString()
 
-chart()
+        chart()
         setName()
         showTask()
 
@@ -94,7 +92,6 @@ chart()
         val label = "type"
 
         viewModel.getCategoryChartTask().observe(viewLifecycleOwner){
-            Log.i("TAG", "chart: "+it)
             val typeAmountMap: MutableMap<String, Int> = HashMap()
             it.forEach { categoryCount ->
                 typeAmountMap[categoryCount.categoryName] = categoryCount.count
@@ -164,8 +161,8 @@ chart()
                     } else {
                         b += 1
                     }
-                    binding.tvDoneTask.text = "$a Task Done"
-                    binding.tvLeftTask.text = "$b Task Left"
+                    binding.tvDoneTask.text = "$a ${binding.root.context.getString(R.string._0_task_done)}"
+                    binding.tvLeftTask.text = "$b ${binding.root.context.getString(R.string._0_task_left)}"
                 }
 
             }

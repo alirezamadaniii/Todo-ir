@@ -7,7 +7,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="95dp"
+        android:background="@color/gray_dark"
         android:fillViewport="true">
 
 
@@ -65,16 +66,16 @@
             app:layout_constraintTop_toBottomOf="@+id/recy_week">
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/vazir_light"
-                android:text="@string/_08_00_am"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cardView3" />
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/tv_time"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:fontFamily="@font/vazir_light"-->
+<!--                android:text="@string/_08_00_am"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/cardView3"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/cardView3" />-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView3"
@@ -109,14 +110,14 @@
                 app:layout_constraintTop_toTopOf="@+id/cardView3" />
 
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/check_weke_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:theme="@style/MyRadioButton"
-                app:layout_constraintTop_toTopOf="@+id/cardView3" />
+<!--            <com.google.android.material.checkbox.MaterialCheckBox-->
+<!--                android:id="@+id/check_weke_up"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/cardView3"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:theme="@style/MyRadioButton"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/cardView3" />-->
 
 
 
@@ -152,16 +153,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView91"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/vazir_light"
-                android:text="@string/_10_00_pm"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView31"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cardView31" />
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/materialTextView91"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="8dp"-->
+<!--                android:fontFamily="@font/vazir_light"-->
+<!--                android:text="@string/_10_00_pm"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/cardView31"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/cardView31" />-->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView31"
@@ -195,14 +196,7 @@
                 app:layout_constraintTop_toTopOf="@+id/cardView31" />
 
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/check_night"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:theme="@style/MyRadioButton"
-                app:layout_constraintBottom_toBottomOf="@+id/cardView31"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cardView31" />
+
 
 
 

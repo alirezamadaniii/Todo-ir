@@ -30,8 +30,10 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingFragment : Fragment() {
 
 
@@ -71,12 +73,18 @@ class SettingFragment : Fragment() {
             val dialog = requireContext().dialog(R.layout.dialog_exit_app,binding.root,true)
             dialog.findViewById<Button>(R.id.btn_exit_dialog).setOnClickListener {
                 sp.clear()
-                findNavController().navigate(R.id.action_profileFragment_to_intro_navigation)
+                findNavController().navigate(R.id.intro_navigation)
+                dialog.dismiss()
             }
             dialog.findViewById<Button>(R.id.btn_cancel_dialog).setOnClickListener {
                 dialog.dismiss()
             }
-
+        }
+        binding.constraintLayout33.setOnClickListener {
+            findNavController().navigate(R.id.action_settingFragment_to_aboutUsFragment)
+        }
+        binding.constraintLayout331.setOnClickListener {
+            findNavController().navigate(R.id.action_settingFragment_to_contactUsFragment)
         }
     }
 

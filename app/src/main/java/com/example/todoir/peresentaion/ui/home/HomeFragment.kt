@@ -22,6 +22,7 @@ import com.aminography.primedatepicker.picker.PrimeDatePicker
 import com.aminography.primedatepicker.picker.callback.SingleDayPickCallback
 import com.bumptech.glide.Glide
 import com.example.todoir.R
+import com.example.todoir.data.model.Filter
 import com.example.todoir.data.model.Priority
 import com.example.todoir.data.model.Task
 import com.example.todoir.data.utils.CustomCalender
@@ -55,7 +56,7 @@ class HomeFragment : Fragment() {
     @Inject
     lateinit var adapter: TaskAdapter
 
-    private val itemAdapterBottomSheet = FilterBottomSheet()
+    private lateinit var itemAdapterBottomSheet:FilterBottomSheet
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var categoryAdapter: CategoryAdapter
 
@@ -142,6 +143,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun showBottomSheet() {
+
+        val mList: MutableList<Filter>  = ArrayList()
+        val filterAll = Filter(1, getString(R.string.all))
+        val filter1 = Filter(2,getString(R.string.done))
+        val filter2 = Filter(3,getString(R.string.undone))
+        val filter3 = Filter(4,getString(R.string.date))
+        val filter4 = Filter(5,getString(R.string.priority))
+        val filter5 = Filter(6, getString(R.string.category))
+        mList.add(filterAll)
+        mList.add(filter1)
+        mList.add(filter2)
+        mList.add(filter3)
+        mList.add(filter4)
+        mList.add(filter5)
+
         val dialogView =
             layoutInflater.inflate(R.layout.bottom_sheet_filter, LinearLayout(requireContext()))
         bottomSheetDialog =
@@ -149,7 +165,9 @@ class HomeFragment : Fragment() {
         bottomSheetDialog.setContentView(dialogView)
         bottomSheetDialog.setCancelable(true)
         val recyclerView = dialogView.findViewById<RecyclerView>(R.id.recyyy_filter)
+        itemAdapterBottomSheet= FilterBottomSheet(mList)
         recyclerView.adapter = itemAdapterBottomSheet
+
         bottomSheetDialog.show()
 
         bottomSheetItemClicked()
@@ -158,32 +176,32 @@ class HomeFragment : Fragment() {
     private fun bottomSheetItemClicked() {
         itemAdapterBottomSheet.setOnItemClick {
             when (it) {
-                "All" -> {
+                getString(R.string.all) -> {
                     binding.imgIsFilter.visibility = View.GONE
                     showTask()
                 }
 
-                "Done" -> {
+                getString(R.string.done) -> {
                     binding.imgIsFilter.visibility = View.VISIBLE
                     getDoneFilter()
                 }
 
-                "Undone" -> {
+                getString(R.string.undone) -> {
                     binding.imgIsFilter.visibility = View.VISIBLE
                     getUnDoneFilter()
                 }
 
-                "Date" -> {
+                getString(R.string.date) -> {
                     binding.imgIsFilter.visibility = View.VISIBLE
                     chooseLangForCalender()
                 }
 
-                "Priority" -> {
+                getString(R.string.priority) -> {
                     binding.imgIsFilter.visibility = View.VISIBLE
                     selectPriority()
                 }
 
-                "Category" -> {
+                getString(R.string.category) -> {
                     binding.imgIsFilter.visibility = View.VISIBLE
                     selectCategory()
 
@@ -301,7 +319,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun chooseLangForCalender() {
-        if (sp.fetch("language") == "Persian") {
+        if (sp.fetch("language") == "fa") {
             persianCalender()
         } else {
             englishCalender()

@@ -56,12 +56,21 @@ class MainActivity : AppCompatActivity() {
     private val itemAdapterBottomSheet = LanguageBottomSheet()
 
 
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("system", Context.MODE_PRIVATE)
+        val lang = prefs.getString("language", "en") ?: "en"
+        val context = LocaleHelper.updateLocale(newBase, lang)
+        super.attachBaseContext(context)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Thread.sleep(300)
         installSplashScreen()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        applyDirection()
 
 
         createCustomBottomNavigation()
@@ -144,10 +153,13 @@ class MainActivity : AppCompatActivity() {
         navGraph = graphInflater.inflate(R.navigation.main_nav)
         val lang = sp.fetch("username").toString()
         val destination: Int = if (lang.isEmpty()) {
-            showBottomSheet()
+            if (sp.fetch("language").toString().isEmpty()){
+                showBottomSheet()
+            }
+
             R.id.intro_navigation
         } else {
-            chooseLang(sp.fetch("language").toString())
+//            chooseLang(sp.fetch("language").toString())
             R.id.homeFragment
 
 
@@ -159,7 +171,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addPrimaryCategory() {
 
-        if (sp.fetch("language").equals("Persian")){
+        if (sp.fetch("language").equals("fa")){
 
 
             Log.i("TAG", "addPrimaryCategory2: ")
@@ -221,35 +233,40 @@ class MainActivity : AppCompatActivity() {
         private fun bottomSheetItemClicked() {
         itemAdapterBottomSheet.setOnItemClick {
             chooseLang(it)
-            sp.data("language", it)
             bottomSheetDialog.dismiss()
             _isLoading.value = false
         }
     }
-    private fun chooseLang(it: String) {
-        if (it == "Persian") {
-            setLocal("fa", 1)
+
+    private fun changeLanguage(langCode: String) {
+        sp.data("language", langCode)
+        recreate()
+    }
+
+
+
+    private fun chooseLang(language: String) {
+        if (language == "Persian") {
+            changeLanguage("fa")
         } else {
-            setLocal("en", 0)
+            changeLanguage("en")
         }
         addPrimaryCategory()
     }
 
-    private fun setLocal(langCode: String, direction: Int) {
-        val local = Locale(langCode)
-        val resource: Resources = resources
-        val config: Configuration = resource.configuration
-        config.setLocale(local)
-        resource.updateConfiguration(config, resource.displayMetrics)
-        ViewCompat.setLayoutDirection(binding.root, direction)
-        refreshCurrentFragment()
+
+    private fun applyDirection() {
+
+
+        val lang = sp.fetch("language")?: "en"
+        if (lang == "fa") {
+            ViewCompat.setLayoutDirection(binding.root, ViewCompat.LAYOUT_DIRECTION_RTL)
+        } else {
+            ViewCompat.setLayoutDirection(binding.root, ViewCompat.LAYOUT_DIRECTION_LTR)
+        }
     }
 
-    private fun refreshCurrentFragment() {
-        val id = R.id.intro_navigation
-        navController.popBackStack(id, true)
-        navController.navigate(id)
-    }
+
 
 
 

@@ -79,7 +79,7 @@ class UpdateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (sp.fetch("language").equals("Persian")){
+        if (sp.fetch("language").equals("fa")){
             category = "همه"
             date = "خالی"
             time = "خالی"
@@ -196,7 +196,7 @@ class UpdateFragment : Fragment() {
     }
 
     private fun chooseLangForCalender() {
-        if (sp.fetch("language") == "Persian") {
+        if (sp.fetch("language") == "fa") {
             persianCalender()
         } else {
             englishCalender()

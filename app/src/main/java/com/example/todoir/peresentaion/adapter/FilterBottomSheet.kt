@@ -10,24 +10,9 @@ import com.example.todoir.data.model.Language
 import com.google.android.material.textview.MaterialTextView
 
 class FilterBottomSheet (
+     val mList: MutableList<Filter>
 ) : RecyclerView.Adapter<FilterBottomSheet.ViewHolder>() {
-    private val mList: MutableList<Filter>  = ArrayList()
 
-    init {
-        val filterAll = Filter(1,"All")
-        val filter1 = Filter(2,"Done")
-        val filter2 = Filter(3,"Undone")
-        val filter3 = Filter(4,"Date")
-        val filter4 = Filter(5,"Priority")
-        val filter5 = Filter(6,"Category")
-        mList.add(filterAll)
-        mList.add(filter1)
-        mList.add(filter2)
-        mList.add(filter3)
-        mList.add(filter4)
-        mList.add(filter5)
-
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =

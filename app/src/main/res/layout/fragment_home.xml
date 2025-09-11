@@ -6,7 +6,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="68dp"
+    android:layout_marginBottom="78dp"
     android:background="@color/gray_dark">
 
     <androidx.constraintlayout.widget.ConstraintLayout

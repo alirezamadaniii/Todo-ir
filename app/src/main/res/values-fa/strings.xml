@@ -17,8 +17,8 @@
     <string name="lorem">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</string>
     <string name="chose_image">انتخاب عکس</string>
     <string name="name_login">نام کاربری</string>
-    <string name="what_do_you_want_to_do_today">امروز می خواهی چیکار کنی؟</string>
-    <string name="tap_to_add_your_tasks">برای افزودن وظایف خود روی + ضربه بزنید</string>
+    <string name="what_do_you_want_to_do_today">امروز چه برنامه‌ای داری؟</string>
+    <string name="tap_to_add_your_tasks">برای افزودن تسک خود روی + ضربه بزنید</string>
     <string name="add_task">اضافه کردن تسک</string>
     <string name="task_title">عنوان تسک</string>
     <string name="description">توضیحات</string>
@@ -49,8 +49,8 @@
     <string name="uptodo">Uptodo</string>
     <string name="about_us">درباره ما</string>
     <string name="log_out">خروج</string>
-    <string name="_0_task_left">0 تسک انجام نشده</string>
-    <string name="_0_task_done">0 تسک انجام شده</string>
+    <string name="_0_task_left"> تسک انجام نشده</string>
+    <string name="_0_task_done"> تسک انجام شده</string>
     <string name="create_new_category">ساخت دسته بندی جدید</string>
     <string name="category_name">نام دسته بندی :</string>
     <string name="category_name2">نام دسته بندی</string>
@@ -77,5 +77,34 @@
     <string name="none">خالی</string>
     <string name="default1">پیش فرض</string>
     <string name="all">همه</string>
+    <string name="done">انجام شده</string>
+    <string name="undone">انجام نشده</string>
+    <string name="date">تاریخ</string>
+    <string name="priority">الویت</string>
+    <string name="category">دسته بندی</string>
+    <string name="create_task">ساخت تسک</string>
+    <string name="edit_task">ویرایش تسک</string>
+
+    <string name="make_your_time_valuable">وقت طلاست، حواست بهش باشه.</string>
+    <string name="first_description_page">کاراتو اولویت‌بندی کن و سر وقت انجامشون بده.</string>
+    <string name="every_task_is_a_step_closer_to_success">یه یادداشت بردار از کارات، دیگه هیچ چیزی از قلم نمیفته!</string>
+    <string name="secound_des_page">کاراتو اولویت‌بندی کن و یکی یکی تمومشون کن.</string>
+    <string name="are_you_sure_you_want_to_exit">آیا مطمعن هستیذ که میخواهید خارج شوید?</string>
+
+    <string name="about_us_page">درباره ما</string>
+    <string name="contact_us">ارتباط با ما</string>
+    <string name="setting2">تنظیمات</string>
+    <string name="get_a_complete_view_of_your_work_by_adding_tasks">کاراتو لیست کن تا هیچ چیزی یادت نره.</string>
+    <string name="about_us_para">در دنیای پرمشغله امروز، مدیریت زمان و برنامه‌ریزی کارهای روزانه یک چالش بزرگ است. ما در اپلیکیشن فوکوس فلو به این چالش پاسخ داده‌ایم. هدف ما کمک به شما در سامان‌دهی کارها، دستیابی به اهداف و بهبود بهره‌وری است.
+
+فوکوس فلو با طراحی ساده و امکانات کارآمد، به شما کمک می‌کند تا با تمرکز بیشتری به فعالیت‌هایتان بپردازید و از زمان خود بهترین استفاده را ببرید.
+
+تیم ما با اشتیاق و تعهد به خلق راه‌حل‌هایی کاربردی، تلاش می‌کند تجربه‌ای دلپذیر و مؤثر برای شما فراهم کند. ما باور داریم که برنامه‌ریزی بهتر، گام نخست برای زندگی بهتر است.</string>
+
+
+    <string name="change">تغییر</string>
+
+    <string name="am">ق.ظ</string>
+    <string name="pm">ب.ظ</string>
 
 </resources>

@@ -28,6 +28,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import com.aminography.primecalendar.PrimeCalendar
 import com.aminography.primecalendar.civil.CivilCalendar
 import com.aminography.primecalendar.persian.PersianCalendar
 import com.aminography.primedatepicker.picker.PrimeDatePicker
@@ -74,6 +75,7 @@ class AddTaskFragment : Fragment() {
     private lateinit var ringtone: Ringtone
 
     private var date: String? = "none"
+    private var date2: PrimeCalendar? = null
     private var time: String? = "none"
     private var category: String? = "All"
     private var categoryColor: String? = "#80FFD1"
@@ -107,7 +109,7 @@ class AddTaskFragment : Fragment() {
         alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
 
-        if (sp.fetch("language").equals("Persian")) {
+        if (sp.fetch("language").equals("fa")) {
             category = "همه"
             date = "خالی"
             time = "خالی"
@@ -281,7 +283,7 @@ class AddTaskFragment : Fragment() {
 
 
     private fun chooseLangForCalender() {
-        if (sp.fetch("language") == "Persian") {
+        if (sp.fetch("language") == "fa") {
             persianCalender()
         } else {
             englishCalender()
@@ -292,6 +294,7 @@ class AddTaskFragment : Fragment() {
         val callback = SingleDayPickCallback { day ->
             val month = (day.month + 1)
             date = "${day.year} / $month /  ${day.date}"
+            date2 = day
             Log.i("TAG", "persianCalender: " + day.year + "/" + month + "/" + day.date)
             timePiker()
         }
@@ -313,6 +316,7 @@ class AddTaskFragment : Fragment() {
 
         val calendar = PersianCalendar(TimeZone.getTimeZone("GMT+4:30"))
 
+        Log.i("TAG", "persianCalendercxxvcxcvxxcvcxc: "+calendar)
 
         val callback = SingleDayPickCallback { day ->
             if (day.year < calendar.year) {
@@ -328,6 +332,7 @@ class AddTaskFragment : Fragment() {
             } else {
                 val month = (day.month + 1)
                 date = "${day.year} / $month /  ${day.date}"
+                date2 = day
                 timePiker()
             }
 
@@ -355,7 +360,7 @@ class AddTaskFragment : Fragment() {
 
         picker =
             MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_12H)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setHour(calendar.get(Calendar.HOUR))
                 .setInputMode(INPUT_MODE_KEYBOARD)
                 .setMinute(calendar.get(Calendar.MINUTE))
@@ -373,13 +378,10 @@ class AddTaskFragment : Fragment() {
             if (picker.minute.toString().length == 1) {
                 minute = "0${picker.minute}"
             }
-            if (calendar.get(Calendar.AM_PM) == Calendar.AM) {
-                time = "$hour:$minute AM"
+
+                time = "$hour:$minute "
                 binding.btTimeAdd.text = time.toString()
-            } else if (calendar.get(Calendar.AM_PM) == Calendar.PM) {
-                time = "$hour:$minute PM"
-                binding.btTimeAdd.text = time.toString()
-            }
+
 
         }
     }
@@ -510,15 +512,17 @@ class AddTaskFragment : Fragment() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR, hour)
-        calendar.set(Calendar.MINUTE, min)
-        calendar.set(Calendar.SECOND, 0)
+        val calendar = date2
+        calendar?.set(Calendar.HOUR, hour)
+        calendar?.set(Calendar.MINUTE, min)
+        calendar?.set(Calendar.SECOND, 0)
         // Set the AlarmManager to trigger the alarm at the specified time
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        if (calendar != null) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+        }
 
-        Toast.makeText(requireContext(), "Alarm set for ${calendar.time}", Toast.LENGTH_SHORT)
-            .show()
+//        Toast.makeText(requireContext(), "Alarm set for ${calendar?.dayOfMonth}", Toast.LENGTH_SHORT)
+//            .show()
 
     }
 

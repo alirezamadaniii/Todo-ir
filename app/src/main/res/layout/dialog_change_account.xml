@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:backgroundTint="@color/purple"
-                android:text="@string/login"
+                android:text="@string/change"
                 android:fontFamily="@font/vazir_medium"
                 android:textSize="16sp"
                 android:padding="8dp"

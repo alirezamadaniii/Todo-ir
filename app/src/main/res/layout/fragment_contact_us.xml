@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/gray_dark"
+    android:layoutDirection="ltr"
     tools:context=".peresentaion.ui.contactus.ContactUsFragment">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView5"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/gmail_svgrepo_com"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialTextView11"
+        app:tint="@color/white" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView11"
@@ -22,14 +36,42 @@
 
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_gmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"
-        android:justificationMode="inter_word"
+        android:layout_marginStart="8dp"
         android:fontFamily="@font/vazir_medium"
+        android:justificationMode="inter_word"
+        android:text="FocusFlow1403@gmail.com"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView11" />
+        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView5"
+        app:layout_constraintStart_toEndOf="@+id/shapeableImageView5"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView5" />
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView6"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/telegram_alt_svgrepo_com"
+        app:layout_constraintStart_toStartOf="@+id/shapeableImageView5"
+        app:layout_constraintTop_toBottomOf="@+id/txt_gmail"
+        app:tint="@color/white" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_id"
+        android:layout_width="359dp"
+        android:layout_height="29dp"
+        android:fontFamily="@font/vazir_medium"
+        android:justificationMode="inter_word"
+        android:text="FocusFlow2024"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView6"
+        app:layout_constraintStart_toEndOf="@+id/shapeableImageView6"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

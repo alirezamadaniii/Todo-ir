@@ -201,5 +201,26 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.todoir.peresentaion.ui.setting.SettingFragment"
-        android:label="SettingFragment" />
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment"
+            app:enterAnim="@anim/anim_right_to_left"
+            app:popEnterAnim="@anim/anim_left_to_right" />
+        <action
+            android:id="@+id/action_settingFragment_to_contactUsFragment"
+            app:destination="@id/contactUsFragment"
+            app:enterAnim="@anim/anim_right_to_left"
+            app:popEnterAnim="@anim/anim_left_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.todoir.peresentaion.ui.aboutus.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.example.todoir.peresentaion.ui.contactus.ContactUsFragment"
+        android:label="fragment_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
 </navigation>

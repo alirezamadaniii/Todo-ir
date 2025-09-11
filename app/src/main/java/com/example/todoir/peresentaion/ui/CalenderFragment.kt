@@ -65,9 +65,6 @@ class CalenderFragment : Fragment() {
         chooseLangForCalender()
 
 
-        binding.checkNight.addOnCheckedStateChangedListener { _, state ->
-            if (state==1) binding.timelineLineNight.setBackgroundResource(R.drawable.dotted_line_selected)
-        }
 
         timeLineCalendarAdapter.setOnCheckBoxClick { item, i ->
             if (i == 1) {
@@ -91,6 +88,7 @@ class CalenderFragment : Fragment() {
 
 
     private fun getDateFilter(date: String) {
+        Log.i("TAG", "getDateFilter: "+date)
         viewModel.getTaskAfterFilter(date).observe(viewLifecycleOwner) {
                 binding.recyCalender.adapter = timeLineCalendarAdapter
                 timeLineCalendarAdapter.differ.submitList(it)
@@ -99,7 +97,7 @@ class CalenderFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun chooseLangForCalender() {
-        if (sp.fetch("language") == "Persian") {
+        if (sp.fetch("language") == "fa") {
             setUpPersianCalendar()
         } else {
         currentWeek.displayCurrentWeekInfo()
@@ -158,6 +156,7 @@ class CalenderFragment : Fragment() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpPersianCalendar(){
         val persianDate = PersianDate()
         val monthName="${persianDate.monthName} ${persianDate.shYear}"
@@ -175,6 +174,14 @@ class CalenderFragment : Fragment() {
         persianAdapter.differ.submitList(dayInfoEnglishList)
         binding.recyWeek.layoutManager = GridLayoutManager(requireContext(),7)
         binding.recyWeek.adapter = persianAdapter
+        persianAdapter.setOnItemClick {
+            val today = "${it[0]} / ${it[1]} /  ${it[2]}"
+            getDateFilter(today)
+
+            Log.i("TAG", "displayCurrentWeekInfo:  ${it[0]} / ${it[1]} /  ${it[2]}")
+
+
+        }
     }
 
     private fun persianCalender() {
@@ -184,12 +191,9 @@ class CalenderFragment : Fragment() {
                 Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
             }else if (day.month<calendar.month){
                 Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
-
-            }else if (day.dayOfMonth<calendar.dayOfMonth){
-                Toast.makeText(requireContext(), "لطفا تاریخ درست وارد کنید", Toast.LENGTH_SHORT).show()
             }else{
                 val month = (day.month+1)
-                date = "${day.year} / $month /  ${day.date}"
+                date = "${day.year} / $month / ${day.date}"
                 getDateFilter(date!!)
             }
 

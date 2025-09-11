@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Todo.ir</string>
+    <string name="app_name">Focus Flow</string>
     <string name="home">Home</string>
     <string name="calender">Calender</string>
     <string name="add">Add</string>
@@ -48,8 +48,8 @@
     <string name="uptodo">Uptodo</string>
     <string name="about_us">About US</string>
     <string name="log_out">Log out</string>
-    <string name="_0_task_left">0 Task Left</string>
-    <string name="_0_task_done">0 Task Done</string>
+    <string name="_0_task_left"> Task Left</string>
+    <string name="_0_task_done"> Task Done</string>
     <string name="create_new_category">Create new category</string>
     <string name="category_name">Category name :</string>
     <string name="category_name2">Category name</string>
@@ -79,11 +79,21 @@
     <string name="edit_task">Edit Task</string>
     <string name="make_your_time_valuable">Make your time valuable!</string>
     <string name="first_description_page">Time management means doing the right things at the right time.</string>
-    <string name="every_task_is_a_step_closer_to_success">Every task is a step closer to success.</string>
+    <string name="every_task_is_a_step_closer_to_success">Make a list, everything is under control!</string>
     <string name="secound_des_page">Complete tasks in order of priority and feel the progress.</string>
     <string name="are_you_sure_you_want_to_exit">Are you sure you want to exit?</string>
-    <string name="about_us_page">About Us</string>
-    <string name="contact_us">Contact Us</string>
-    <string name="setting2">Setting</string>
+        <string name="about_us_page">About Us</string>
+        <string name="contact_us">Contact Us</string>
+        <string name="setting2">Setting</string>
+        <string name="get_a_complete_view_of_your_work_by_adding_tasks">Get a complete view of your work by adding tasks.</string>
+    <string name="about_us_para">Life\'s busy, and keeping up with everything can be tough. That\'s why we created Focus Flow. We\'re here to help you stay organized, crush your goals, and get more done. Focus Flow is simple to use and packed with features that help you stay focused and make the most of your time. Our team is passionate about making life easier for you. We believe that planning ahead is the key to a happier, more productive life.</string>
+    <string name="change">Change</string>
+    <string name="done">Done</string>
+    <string name="undone">Undone</string>
+    <string name="date">Date</string>
+    <string name="priority">Priority</string>
+    <string name="category">Category</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
 
 </resources>
