@@ -41,6 +41,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.TimeZone
 import javax.inject.Inject
@@ -370,8 +371,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun showTask() {
+        binding.pbHome.visibility = View.VISIBLE
+        binding.consEmptyList.visibility = View.GONE
         viewModel.getTask().observe(viewLifecycleOwner) {
             CoroutineScope(Dispatchers.Main).launch {
+                delay(500)
+                binding.pbHome.visibility =View.GONE
                 if (it.isNotEmpty()) {
                     filterData = it
                     binding.consEmptyList.visibility = View.GONE

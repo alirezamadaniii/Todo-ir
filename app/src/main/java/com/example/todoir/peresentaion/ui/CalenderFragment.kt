@@ -165,6 +165,7 @@ class CalenderFragment : Fragment() {
             persianCalender()
         }
 
+        getDateFilter("${persianDate.shYear} / ${persianDate.shMonth} /  ${persianDate.shDay}")
 
         currentWeek.getDaysOfCurrentWeek().forEach { day ->
             dayInfoEnglishList.add(day)

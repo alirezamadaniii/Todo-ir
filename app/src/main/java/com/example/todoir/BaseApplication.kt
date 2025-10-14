@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.todoir.data.utils.Constants.ALARM_CHANNEL_NAME
 import dagger.hilt.android.HiltAndroidApp
 
@@ -11,6 +12,8 @@ import dagger.hilt.android.HiltAndroidApp
 class BaseApplication:Application(){
     override fun onCreate() {
         super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.reminder)

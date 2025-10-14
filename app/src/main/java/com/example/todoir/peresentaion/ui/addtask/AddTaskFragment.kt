@@ -361,7 +361,7 @@ class AddTaskFragment : Fragment() {
         picker =
             MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setHour(calendar.get(Calendar.HOUR))
+                .setHour(calendar.get(Calendar.HOUR_OF_DAY))
                 .setInputMode(INPUT_MODE_KEYBOARD)
                 .setMinute(calendar.get(Calendar.MINUTE))
                 .setTitleText("Select Appointment time")

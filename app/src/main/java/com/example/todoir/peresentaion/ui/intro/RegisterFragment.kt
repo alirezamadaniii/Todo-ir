@@ -14,11 +14,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat.recreate
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.todoir.MainActivity
 import com.example.todoir.R
 import com.example.todoir.data.utils.Sp
 import com.example.todoir.databinding.FragmentRegisterBinding
@@ -96,10 +98,18 @@ class RegisterFragment : Fragment() {
     var activityResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { data ->
+
+
         if (data.resultCode == Activity.RESULT_OK) {
             try {
                 val lang :String = sp.fetch("language").toString()
-                if (lang=="Persian") setLocal("fa",1) else setLocal("en",0)
+                if (lang=="fa"){
+                    ViewCompat.setLayoutDirection(binding.root, ViewCompat.LAYOUT_DIRECTION_RTL)
+                    setLocal("fa",1)
+                } else {
+                    ViewCompat.setLayoutDirection(binding.root, ViewCompat.LAYOUT_DIRECTION_LTR)
+                    setLocal("en",0)
+                }
                 val intent = data.data
                 imageUri = intent?.data!!
                 Glide.with(requireContext()).load(imageUri).into(binding.imProfileRegister)

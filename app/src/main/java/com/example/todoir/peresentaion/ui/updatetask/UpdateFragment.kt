@@ -134,7 +134,7 @@ class UpdateFragment : Fragment() {
         }
 
         binding.btnClose.setOnClickListener {
-            findNavController().navigate(R.id.action_updateFragment_to_calenderFragment)
+            findNavController().popBackStack()
         }
     }
 

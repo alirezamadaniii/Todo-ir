@@ -95,5 +95,6 @@
     <string name="category">Category</string>
     <string name="am">AM</string>
     <string name="pm">PM</string>
+    <string name="exit">Exit</string>
 
 </resources>

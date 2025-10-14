@@ -89,7 +89,7 @@
     <string name="first_description_page">کاراتو اولویت‌بندی کن و سر وقت انجامشون بده.</string>
     <string name="every_task_is_a_step_closer_to_success">یه یادداشت بردار از کارات، دیگه هیچ چیزی از قلم نمیفته!</string>
     <string name="secound_des_page">کاراتو اولویت‌بندی کن و یکی یکی تمومشون کن.</string>
-    <string name="are_you_sure_you_want_to_exit">آیا مطمعن هستیذ که میخواهید خارج شوید?</string>
+    <string name="are_you_sure_you_want_to_exit">آیا مطمعن هستید میخواهید خارج شوید؟</string>
 
     <string name="about_us_page">درباره ما</string>
     <string name="contact_us">ارتباط با ما</string>
@@ -106,5 +106,6 @@
 
     <string name="am">ق.ظ</string>
     <string name="pm">ب.ظ</string>
+    <string name="exit">خروج</string>
 
 </resources>

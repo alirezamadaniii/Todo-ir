@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/group_36662__2_">
+    android:drawable="@drawable/frame_121075609">
 
-    <target
-        android:animation="@animator/logo_animator"
-        android:name="anim"/>
 
 </animated-vector>
